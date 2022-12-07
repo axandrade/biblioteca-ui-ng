@@ -11,13 +11,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BooksComponent implements OnInit {
 
-    displayModalCadastro: boolean = false;
+
     book: Book;
     books: Book[] = [];
-    selectedBooks: any[] = [];
-    showLoading: boolean = false;
-    submitted: boolean = false;
     languages: any[] = [];
+    selectedBooks: any[] = [];
+    submitted: boolean = false;
+    autorNomeFiltro: string = "";
+    showLoading: boolean = false;
+    displayModalCadastro: boolean = false;
+    displayModalFiltroAutor: boolean = false;
 
     constructor(
         private booksService: BooksService,
@@ -26,14 +29,14 @@ export class BooksComponent implements OnInit {
     ) {
         this.book = {};
         this.languages = [
-            {id: '1', description: 'Português'},
-            {id: '2', description: 'Inglês'},
-            {id: '3', description: 'Espanhol'},
-            {id: '4', description: 'Alemão'},
-            {id: '5', description: 'Francês'},
-            {id: '6', description: 'Italiano'},
-            {id: '7', description: 'Russo'},
-            {id: '8', description: 'Japonês'}
+            {id: 1, description: 'Português'},
+            {id: 2, description: 'Inglês'},
+            {id: 3, description: 'Espanhol'},
+            {id: 4, description: 'Alemão'},
+            {id: 5, description: 'Francês'},
+            {id: 6, description: 'Italiano'},
+            {id: 7, description: 'Russo'},
+            {id: 8, description: 'Japonês'}
         ];
     }
 
@@ -42,8 +45,10 @@ export class BooksComponent implements OnInit {
     }
 
     buscaBooks() {
+
         this.booksService.buscaTodos().subscribe(
             (dados) => {
+                debugger
                 this.books = dados;
                 this.showLoading = false;
             },
@@ -55,8 +60,7 @@ export class BooksComponent implements OnInit {
     }
 
     onSubmit() {
-        debugger;
-        console.log(this.book);
+
         this.booksService
             .save(this.book)
             .subscribe((result) => {
@@ -97,6 +101,11 @@ export class BooksComponent implements OnInit {
         this.submitted = false;
         this.displayModalCadastro = true;
         this.book = {};
+    }
+
+    showDialogFiltroAutor() {
+        this.displayModalFiltroAutor = true;
+        this.autorNomeFiltro = "";
     }
 
     hideModalAddDialog() {

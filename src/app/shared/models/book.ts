@@ -5,8 +5,8 @@ export interface Book{
      title?:string;
      isbn?:string;
      situation?:string;
-     language?:string;
-     registrationDate?:string;
+     codLanguage?:string;
+     descLanguage?: string;
      datePublication?:string;
      authors?: Author[];
 }

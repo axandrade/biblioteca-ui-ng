@@ -3,7 +3,8 @@
 <div class="card">
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
-            <button pButton pRipple label="Adicionar" icon="pi pi-plus" class="p-button-success mr-2" (click)="showDialogCadastro()"></button>
+            <button pButton pRipple label="Adicionar" icon="pi pi-plus" class="p-button-success mr-2"
+                (click)="showDialogCadastro()"></button>
         </ng-template>
 
     </p-toolbar>
@@ -13,10 +14,11 @@
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
-                <h5 class="p-m-0">Listagem de Books</h5>
+                <h5 class="p-m-0">Listagem de Livros</h5>
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
-                   <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')" placeholder="Search..." />
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')"
+                        placeholder="Search..." />
                 </span>
             </div>
         </ng-template>
@@ -25,13 +27,20 @@
                 <th>
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
-                <th pSortableColumn="nome">Titulo <p-sortIcon field="nome"></p-sortIcon></th>
-                <th pSortableColumn="nome">Isbn <p-sortIcon field="nome"></p-sortIcon></th>
-                <th pSortableColumn="nome">Situação <p-sortIcon field="nome"></p-sortIcon></th>
-                <th pSortableColumn="nome">Idioma <p-sortIcon field="nome"></p-sortIcon></th>
-                <th pSortableColumn="nome">Data do Cadastro <p-sortIcon field="nome"></p-sortIcon></th>
-                <th pSortableColumn="nome">Data da Publicação <p-sortIcon field="nome"></p-sortIcon></th>
+                <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon>
+                </th>
+                <th pSortableColumn="nome">Titulo <p-sortIcon field="nome"></p-sortIcon>
+                </th>
+                <th pSortableColumn="nome">Isbn <p-sortIcon field="nome"></p-sortIcon>
+                </th>
+                <th pSortableColumn="nome">Situação <p-sortIcon field="nome"></p-sortIcon>
+                </th>
+                <th pSortableColumn="nome">Idioma <p-sortIcon field="nome"></p-sortIcon>
+                </th>
+                <th pSortableColumn="nome">Data do Cadastro <p-sortIcon field="nome"></p-sortIcon>
+                </th>
+                <th pSortableColumn="nome">Data da Publicação <p-sortIcon field="nome"></p-sortIcon>
+                </th>
 
                 <th></th>
             </tr>
@@ -45,13 +54,15 @@
                 <td>{{book.title}}</td>
                 <td>{{book.isbn}}</td>
                 <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>
-                    <span [class]="'book-badge situation-' + (book.situation ?book.situation.toLowerCase() : '')">{{book.situation.toUpperCase()}}</span>
+                    <span
+                        [class]="'book-badge situation-' + (book.situation ?book.situation.toLowerCase() : '')">{{book.situation.toUpperCase()}}</span>
                 </td>
-                <td>{{book.language}}</td>
+                <td>{{book.descLanguage}}</td>
                 <td>{{book.registrationDate}}</td>
                 <td>{{book.datePublication}}</td>
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" (click)="onEdit(book)"></button>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success"
+                        (click)="onEdit(book)"></button>
                 </td>
             </tr>
         </ng-template>
@@ -63,7 +74,8 @@
     </p-table>
 </div>
 
-<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '900px', height: '500px'}" header="Cadastrar Livro" *ngIf=true [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '1200px', height: '800px'}" header="Cadastrar Livro"
+    *ngIf=true [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content p-fluid">
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-2">
@@ -74,24 +86,43 @@
                 <label htmlFor="titulo">Titulo</label>
                 <input type="text" pInputText id="title" [(ngModel)]="book.title" required autofocus />
             </div>
-            <div class="field col-12 md:col-4" >
+            <div class="field col-12 md:col-4">
                 <label htmlFor="isbn">ISBN</label>
                 <input type="text" pInputText id="title" [(ngModel)]="book.isbn" required autofocus />
             </div>
             <div class="field col-12 md:col-4">
                 <label htmlFor="language">Idioma</label>
-                <p-dropdown [options]="languages" [(ngModel)]="book.language" optionLabel="description"></p-dropdown>
+                <p-dropdown optionValue="id" [options]="languages" [(ngModel)]="book.codLanguage"
+                    optionLabel="description"></p-dropdown>
             </div>
             <div class="field col-12 md:col-4">
                 <label htmlFor="datePublication">Data da Publicação</label>
                 <p-inputMask mask="99/99/9999" [(ngModel)]="book.datePublication" slotChar="dd/mm/yyyy"></p-inputMask>
             </div>
         </div>
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-3">
+                <button pButton label="Selecionar Autor(res)" icon="pi pi-search" class="p-button-success mt-2"
+                (click)="showDialogFiltroAutor()"></button>
+            </div>
+        </div>
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-danger mr-2" (click)="hideModalAddDialog()"></button>
+        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-danger mr-2"
+            (click)="hideModalAddDialog()"></button>
         <button pButton label="Salvar" icon="pi pi-check" class="p-button-success " (click)="onSubmit()"></button>
     </ng-template>
 </p-dialog>
 
+<p-dialog [(visible)]="displayModalFiltroAutor" [style]="{width: '50vw'}" header="Pesquisa de Autores" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <h5>Parte do nome</h5>
+            <input type="text" pInputText id="parteNome" [(ngModel)]="autorNomeFiltro" />
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-danger mr-2" (click)="hideModalAddDialog()"></button>
+    </ng-template>
+</p-dialog>
