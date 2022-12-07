@@ -7,6 +7,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -27,7 +28,9 @@ import { CadastroRoutingModule } from './cadastros-routing.module';
         ConfirmDialogModule,
         ToolbarModule,
         InputMaskModule,
-        DropdownModule
+        DropdownModule,
+        MultiSelectModule
+
     ],
     providers: [MessageService, ConfirmationService]
 })

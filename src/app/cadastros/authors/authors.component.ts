@@ -27,11 +27,11 @@ export class AuthorsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.buscaAuthors();
+        this.findAllAuthors();
     }
 
-    buscaAuthors() {
-        this.authorsService.buscaTodos().subscribe(
+    findAllAuthors() {
+        this.authorsService.findAll().subscribe(
             (dados) => {
                 this.authors = dados;
                 this.showLoading = false;
@@ -49,7 +49,7 @@ export class AuthorsComponent implements OnInit {
             .save(this.author)
             .subscribe((result) => {
                 if (this.author.id)
-                    this.authors[this.findIndexById(this.author.id!)] = this.author;
+                    this.authors[this.findIndexById(this.author.id)] = this.author;
                 else
                     this.authors.push(result);
 
@@ -61,7 +61,7 @@ export class AuthorsComponent implements OnInit {
 
     }
 
-    findIndexById(id: string): number {
+    findIndexById(id: number): number {
         let index = -1;
         for (let i = 0; i < this.authors.length; i++) {
             if (this.authors[i].id === id) {

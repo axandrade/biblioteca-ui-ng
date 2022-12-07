@@ -1,4 +1,6 @@
-import { BooksService } from './../../shared/services/livros.service';
+import { Author } from './../../shared/models/author';
+import { AuthorsService } from './../../shared/services/authors.service';
+import { BooksService } from '../../shared/services/books.service';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { Book } from '../../shared/models/book';
@@ -15,15 +17,17 @@ export class BooksComponent implements OnInit {
     book: Book;
     books: Book[] = [];
     languages: any[] = [];
+    authors: Author[] = [];
     selectedBooks: any[] = [];
     submitted: boolean = false;
     autorNomeFiltro: string = "";
     showLoading: boolean = false;
     displayModalCadastro: boolean = false;
     displayModalFiltroAutor: boolean = false;
-
+    selectedAuthors: Author[] = [];
     constructor(
         private booksService: BooksService,
+        private authorsService: AuthorsService,
         private router: Router,
         private messageService: MessageService
     ) {
@@ -41,14 +45,13 @@ export class BooksComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.buscaBooks();
+        this.findAllBooks();
     }
 
-    buscaBooks() {
+    findAllBooks() {
 
-        this.booksService.buscaTodos().subscribe(
+        this.booksService.findAll().subscribe(
             (dados) => {
-                debugger
                 this.books = dados;
                 this.showLoading = false;
             },
@@ -58,6 +61,20 @@ export class BooksComponent implements OnInit {
             }
         );
     }
+
+    findAllAuthors() {
+        this.authorsService.findAll().subscribe(
+            (dados) => {
+                this.authors = dados;
+                this.showLoading = false;
+            },
+            (error) => {
+                this.showLoading = false;
+                this.showToast('warn', error.message);
+            }
+        );
+    }
+
 
     onSubmit() {
 
@@ -89,7 +106,6 @@ export class BooksComponent implements OnInit {
         return index;
     }
 
-
     onEdit(book: Book) {
         this.showDialogCadastro();
         this.book = { ...book };
@@ -98,6 +114,7 @@ export class BooksComponent implements OnInit {
     onDelete(book: Book) { }
 
     showDialogCadastro() {
+        this.findAllAuthors();
         this.submitted = false;
         this.displayModalCadastro = true;
         this.book = {};
@@ -117,5 +134,7 @@ export class BooksComponent implements OnInit {
     private showToast(severity: string, detail: any) {
         setTimeout(() => { }, 300);
     }
+
+
 
 }

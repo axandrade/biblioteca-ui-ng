@@ -1,6 +1,9 @@
-export interface Author{
+export class Author{
+    constructor(
+        public id?:number,
+        public name?:string
 
-     id?:string;
-     name?:string;
 
+
+    ){}
 }

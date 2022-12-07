@@ -12,7 +12,7 @@ export class AuthorsService {
 
     constructor(private httpCliente: HttpClient) { }
 
-    buscaTodos(): Observable<any[]> {
+    findAll(): Observable<any[]> {
         const url = `${environment.API}/api/authors`;
 
         return this.httpCliente.get<any[]>(url)
@@ -36,7 +36,7 @@ export class AuthorsService {
     }
 
     save(obj: Author) {
-        debugger
+
         if (obj.id) {
             return this.update(obj);
         } else {

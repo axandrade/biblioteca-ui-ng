@@ -74,7 +74,7 @@
     </p-table>
 </div>
 
-<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '1200px', height: '800px'}" header="Cadastrar Livro"
+<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '1200px', height: '7000px'}" header="Cadastrar Livro"
     *ngIf=true [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content p-fluid">
         <div class="p-fluid p-formgrid grid">
@@ -101,9 +101,9 @@
             </div>
         </div>
         <div class="p-fluid p-formgrid grid">
-            <div class="field col-12 md:col-3">
-                <button pButton label="Selecionar Autor(res)" icon="pi pi-search" class="p-button-success mt-2"
-                (click)="showDialogFiltroAutor()"></button>
+            <div class="field col-12 md:col-6">
+                <label htmlFor="selectAuthorsFilter">Selecione os Autores</label>
+                <p-multiSelect [options]="authors" [(ngModel)]="book.authors" optionLabel="name" selectedItemsLabel="{0} items selected"></p-multiSelect>
             </div>
         </div>
     </ng-template>
@@ -115,14 +115,3 @@
     </ng-template>
 </p-dialog>
 
-<p-dialog [(visible)]="displayModalFiltroAutor" [style]="{width: '50vw'}" header="Pesquisa de Autores" [modal]="true" styleClass="p-fluid">
-    <ng-template pTemplate="content">
-        <div class="p-field">
-            <h5>Parte do nome</h5>
-            <input type="text" pInputText id="parteNome" [(ngModel)]="autorNomeFiltro" />
-        </div>
-    </ng-template>
-    <ng-template pTemplate="footer">
-        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-danger mr-2" (click)="hideModalAddDialog()"></button>
-    </ng-template>
-</p-dialog>

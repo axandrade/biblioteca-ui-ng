@@ -1,4 +1,4 @@
-import { Book } from './../models/book';
+import { Book } from '../models/book';
 
 import { Confirmation } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +13,7 @@ export class BooksService {
 
     constructor(private httpCliente: HttpClient) { }
 
-    buscaTodos(): Observable<any[]> {
+    findAll(): Observable<any[]> {
         const url = `${environment.API}/api/books`;
 
         return this.httpCliente.get<any[]>(url)
@@ -37,7 +37,7 @@ export class BooksService {
     }
 
     save(obj: Book) {
-        debugger
+        console.log(obj);
         if (obj.id) {
             return this.update(obj);
         } else {
