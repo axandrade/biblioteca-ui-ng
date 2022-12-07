@@ -1,0 +1,97 @@
+<p-toast></p-toast>
+
+<div class="card">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Adicionar" icon="pi pi-plus" class="p-button-success mr-2" (click)="showDialogCadastro()"></button>
+        </ng-template>
+
+    </p-toolbar>
+
+    <p-table #dt [value]="books" [rows]="10" [paginator]="true" [globalFilterFields]="['nome']"
+        [(selection)]="selectedBooks" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h5 class="p-m-0">Listagem de Books</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                   <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')" placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="nome">Titulo <p-sortIcon field="nome"></p-sortIcon></th>
+                <th pSortableColumn="nome">Isbn <p-sortIcon field="nome"></p-sortIcon></th>
+                <th pSortableColumn="nome">Situação <p-sortIcon field="nome"></p-sortIcon></th>
+                <th pSortableColumn="nome">Idioma <p-sortIcon field="nome"></p-sortIcon></th>
+                <th pSortableColumn="nome">Data do Cadastro <p-sortIcon field="nome"></p-sortIcon></th>
+                <th pSortableColumn="nome">Data da Publicação <p-sortIcon field="nome"></p-sortIcon></th>
+
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-book>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="book"></p-tableCheckbox>
+                </td>
+                <td>{{book.id}}</td>
+                <td>{{book.title}}</td>
+                <td>{{book.isbn}}</td>
+                <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>
+                    <span [class]="'book-badge situation-' + (book.situation ?book.situation.toLowerCase() : '')">{{book.situation.toUpperCase()}}</span>
+                </td>
+                <td>{{book.language}}</td>
+                <td>{{book.registrationDate}}</td>
+                <td>{{book.datePublication}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" (click)="onEdit(book)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Total de {{books ? books.length : 0 }} books.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '900px', height: '500px'}" header="Cadastrar Livro" *ngIf=true [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content p-fluid">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-2">
+                <label htmlFor="firstname2">Código</label>
+                <input disabled="true" type="text" pInputText id="id" [(ngModel)]="book.id" required autofocus />
+            </div>
+            <div class="field col-12 md:col-10">
+                <label htmlFor="titulo">Titulo</label>
+                <input type="text" pInputText id="title" [(ngModel)]="book.title" required autofocus />
+            </div>
+            <div class="field col-12 md:col-4" >
+                <label htmlFor="isbn">ISBN</label>
+                <input type="text" pInputText id="title" [(ngModel)]="book.isbn" required autofocus />
+            </div>
+            <div class="field col-12 md:col-4">
+                <label htmlFor="language">Idioma</label>
+                <p-dropdown [options]="languages" [(ngModel)]="book.language" optionLabel="description"></p-dropdown>
+            </div>
+            <div class="field col-12 md:col-4">
+                <label htmlFor="datePublication">Data da Publicação</label>
+                <p-inputMask mask="99/99/9999" [(ngModel)]="book.datePublication" slotChar="dd/mm/yyyy"></p-inputMask>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-danger mr-2" (click)="hideModalAddDialog()"></button>
+        <button pButton label="Salvar" icon="pi pi-check" class="p-button-success " (click)="onSubmit()"></button>
+    </ng-template>
+</p-dialog>
+
