@@ -1,1 +1,140 @@
-<p>customers works!</p>
+<div class="card">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Adicionar" icon="pi pi-plus" class="p-button-success mr-2"
+                (click)="showDialogCadastro()"></button>
+        </ng-template>
+    </p-toolbar>
+    <p-table #dt [value]="customers" [rows]="10" [paginator]="true" [globalFilterFields]="['nome']"
+        [(selection)]="selectedCustomers" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h5 class="p-m-0">Listagem de Clientes</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')"
+                        placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="id">ID<p-sortIcon field="id"></p-sortIcon>
+                </th>
+                <th pSortableColumn="nome">Nome<p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="cpf">Cpf<p-sortIcon field="cpf"></p-sortIcon>
+                </th>
+                <th pSortableColumn="birthDate">Data de Nascimento<p-sortIcon field="birthDate"></p-sortIcon>
+                </th>
+                <th pSortableColumn="status">Situação<p-sortIcon field="status"></p-sortIcon>
+                </th>
+
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-customer>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="customer"></p-tableCheckbox>
+                </td>
+                <td>{{customer.id}}</td>
+                <td>{{customer.name}}</td>
+                <td>{{customer.cpfOrCnpj}}</td>
+                <td>{{customer.birthDate}}</td>
+                <td><span
+                        [class]="'customer-badge status-' + (customer.status ?customer.status.toLowerCase() : '')">{{customer.status.toUpperCase()}}</span>
+                </td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                        (click)="onEdit(customer)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Total de {{customers ? customers.length : 0 }} customers.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '60vw'}" header="Cadastrar Cliente" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12">
+                <label htmlFor="name">Nome</label>
+                <input type="text" pInputText id="name" [(ngModel)]="customer.name" required autofocus />
+            </div>
+            <div class="field col-12 md:col-6">
+                <label htmlFor="datePublication">Cpf</label>
+                <p-inputMask mask="999.999.999-99" [(ngModel)]="customer.cpfOrCnpj"></p-inputMask>
+            </div>
+            <div class="field col-12 md:col-6">
+                <label htmlFor="name">Email</label>
+                <input type="text" pInputText id="email" [(ngModel)]="customer.email" required autofocus />
+            </div>
+            <div class="field col-12 md:col-4">
+                <label htmlFor="birthDate">Data de Nascimento</label>
+                <p-inputMask mask="99/99/9999" [(ngModel)]="customer.birthDate" slotChar="dd/mm/yyyy"></p-inputMask>
+            </div>
+            <div class="field col-12 md:col-4">
+                <label htmlFor="name">Contato 1</label>
+                <input type="text" pInputText id="contact1" [(ngModel)]="customer.contact1" required autofocus />
+            </div>
+            <div class="field col-12 md:col-4">
+                <label htmlFor="name">Contato 2</label>
+                <input type="text" pInputText id="contact2" [(ngModel)]="customer.contact2" required autofocus />
+            </div>
+        </div>
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12">
+                <h4>Endereço</h4>
+                <label>______________________________________________________________________________________________________________________________________________________________</label>
+            </div>
+        </div>
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-3">
+                <label htmlFor="zip">CEP</label>
+                <p-inputMask mask="99999-999" (focusout)="consultaCep($event)" id="zip" [(ngModel)]="customer.zip"  ></p-inputMask>
+
+            </div>
+            <div class="field col-12 md:col-9">
+                <label htmlFor="street">Logradouro</label>
+                <input [disabled]="true" type="text" pInputText id="street" [(ngModel)]="customer.street" required autofocus />
+            </div>
+            <div class="field col-12 md:col-2">
+                <label htmlFor="number">Número</label>
+                <input type="text" pInputText id="number" [(ngModel)]="customer.number" required autofocus />
+            </div>
+            <div class="field col-12 md:col-4">
+                <label htmlFor="complement">Complemento</label>
+                <input type="text" pInputText id="complement" [(ngModel)]="customer.complement" required autofocus />
+            </div>
+            <div class="field col-12 md:col-6">
+                <label htmlFor="neighborhood">Bairro</label>
+                <input [disabled]="true" type="text" pInputText id="neighborhood" [(ngModel)]="customer.neighborhood" required autofocus />
+            </div>
+            <div class="field col-12 md:col-6">
+                <label htmlFor="city">Cidade</label>
+                <input [disabled]="true" type="text" pInputText id="city" [(ngModel)]="customer.city" required autofocus />
+            </div>
+            <div class="field col-12 md:col-2">
+                <label htmlFor="state">Estado</label>
+                <input [disabled]="true" type="text" pInputText id="state" [(ngModel)]="customer.state" required autofocus />
+            </div>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-danger mr-2"
+            (click)="hideModalAddDialog()"></button>
+        <button pButton label="Salvar" icon="pi pi-check" class="p-button-success " (click)="onSubmit()"></button>
+    </ng-template>
+</p-dialog>

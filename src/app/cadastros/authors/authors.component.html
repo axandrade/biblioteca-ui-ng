@@ -8,7 +8,7 @@
 
     </p-toolbar>
 
-    <p-table #dt [value]="authors" [rows]="10" [paginator]="true" [globalFilterFields]="['nome']"
+    <p-table #dt [value]="authors" [rows]="10" [paginator]="true" [globalFilterFields]="['name']"
         [(selection)]="selectedAuthors" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -27,7 +27,7 @@
                 </th>
                 <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
 
-                <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
+                <th pSortableColumn="nome">Nome <p-sortIcon field="name"></p-sortIcon></th>
                 <th></th>
             </tr>
         </ng-template>
@@ -51,7 +51,7 @@
     </p-table>
 </div>
 
-<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '50vw'}" header="Cadastrar Author" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '50vw'}" header="Cadastrar Autor" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="p-field">
             <h5>Nome</h5>
@@ -66,4 +66,4 @@
     </ng-template>
 </p-dialog>
 
-<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+

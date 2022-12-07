@@ -1,7 +1,5 @@
 import { AuthorsService } from '../../shared/services/authors.service';
 import { Author } from '../../shared/models/author';
-import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,17 +8,17 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./authors.component.scss'],
 })
 export class AuthorsComponent implements OnInit {
-    displayModalCadastro: boolean = false;
+
     author: Author;
     authors: Author[] = [];
+    submitted: boolean = false;
     selectedAuthors: any[] = [];
     showLoading: boolean = false;
-    submitted: boolean = false;
+    displayModalCadastro: boolean = false;
 
     constructor(
-        private authorsService: AuthorsService,
-        private router: Router,
-        private messageService: MessageService
+        private authorsService: AuthorsService
+
     ) {
         this.author = {};
 
@@ -44,7 +42,7 @@ export class AuthorsComponent implements OnInit {
     }
 
     onSubmit() {
-        debugger;
+
         this.authorsService
             .save(this.author)
             .subscribe((result) => {

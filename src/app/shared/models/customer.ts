@@ -1,31 +1,33 @@
-import { Author } from './author';
-export interface Book {
+export interface Customer {
 
-    id?: number;
+        id?: number;
 
-    name: string;
+        name?: string;
 
-    email: string;
+        email?: string;
 
-    cpfOrCnpj: string;
+        cpfOrCnpj?: string;
 
-    contact1: string;
+        contact1?: string;
 
-    contact2: string;
+        contact2?: string;
 
-    birthDate: string;
+        birthDate?: string;
 
-    street: string;
+        street?: string;
 
-    number: string;
+        number?: string;
 
-    complement: string;
+        complement?: string;
 
-    neighborhood: string;
+        neighborhood?: string;
 
-    zip: string;
+        zip?: string;
 
-    city: string;
+        city?: string;
 
-    state: string;
+        state?: string;
+
+        status?: string
+
 }

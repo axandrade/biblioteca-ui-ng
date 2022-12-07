@@ -12,8 +12,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./books.component.scss']
 })
 export class BooksComponent implements OnInit {
-
-
     book: Book;
     books: Book[] = [];
     languages: any[] = [];
@@ -25,11 +23,10 @@ export class BooksComponent implements OnInit {
     displayModalCadastro: boolean = false;
     displayModalFiltroAutor: boolean = false;
     selectedAuthors: Author[] = [];
+
     constructor(
         private booksService: BooksService,
-        private authorsService: AuthorsService,
-        private router: Router,
-        private messageService: MessageService
+        private authorsService: AuthorsService
     ) {
         this.book = {};
         this.languages = [
@@ -42,6 +39,8 @@ export class BooksComponent implements OnInit {
             {id: 7, description: 'Russo'},
             {id: 8, description: 'Japonês'}
         ];
+
+
     }
 
     ngOnInit(): void {
@@ -52,7 +51,6 @@ export class BooksComponent implements OnInit {
 
         this.booksService.findAll().subscribe(
             (dados) => {
-                console.log(dados)
                 this.books = dados;
                 this.showLoading = false;
             },
