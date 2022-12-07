@@ -52,6 +52,7 @@ export class BooksComponent implements OnInit {
 
         this.booksService.findAll().subscribe(
             (dados) => {
+                console.log(dados)
                 this.books = dados;
                 this.showLoading = false;
             },
@@ -94,7 +95,7 @@ export class BooksComponent implements OnInit {
 
     }
 
-    findIndexById(id: string): number {
+    findIndexById(id: number): number {
         let index = -1;
         for (let i = 0; i < this.books.length; i++) {
             if (this.books[i].id === id) {

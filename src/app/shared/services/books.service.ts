@@ -37,7 +37,6 @@ export class BooksService {
     }
 
     save(obj: Book) {
-        console.log(obj);
         if (obj.id) {
             return this.update(obj);
         } else {
