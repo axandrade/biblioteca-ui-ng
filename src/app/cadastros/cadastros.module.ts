@@ -32,6 +32,8 @@ import { CadastroRoutingModule } from './cadastros-routing.module';
         MultiSelectModule
 
     ],
-    providers: [MessageService, ConfirmationService]
+    providers: [MessageService, ConfirmationService],
+    declarations: [
+    ]
 })
 export class CadastroModule { }
