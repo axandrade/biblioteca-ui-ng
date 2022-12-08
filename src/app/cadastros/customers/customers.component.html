@@ -1,5 +1,5 @@
 <div class="card">
-    <p-toolbar styleClass="p-mb-4">
+    <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
             <button pButton pRipple label="Adicionar" icon="pi pi-plus" class="p-button-success mr-2"
                 (click)="showDialogCadastro()"></button>
@@ -9,12 +9,11 @@
         [(selection)]="selectedCustomers" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                <h5 class="p-m-0">Listagem de Clientes</h5>
-                <span class="p-input-icon-left">
+            <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                <h5 class="m-0">Listagem de Clientes</h5>
+                <span class="block mt-2 mt-0 p-input-icon-left">
                     <i class="pi pi-search"></i>
-                    <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')"
-                        placeholder="Search..." />
+                    <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
                 </span>
             </div>
         </ng-template>

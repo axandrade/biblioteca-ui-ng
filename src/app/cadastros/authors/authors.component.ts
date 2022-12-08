@@ -1,6 +1,8 @@
-import { AuthorsService } from '../../shared/services/authors.service';
-import { Author } from '../../shared/models/author';
 import { Component, OnInit } from '@angular/core';
+import { Table } from 'primeng/table';
+
+import { Author } from '../../shared/models/author';
+import { AuthorsService } from '../../shared/services/authors.service';
 
 @Component({
     selector: 'app-authors',
@@ -93,5 +95,9 @@ export class AuthorsComponent implements OnInit {
 
     private showToast(severity: string, detail: any) {
         setTimeout(() => { }, 300);
+    }
+
+    onGlobalFilter(table: Table, event: Event) {
+        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }
 }

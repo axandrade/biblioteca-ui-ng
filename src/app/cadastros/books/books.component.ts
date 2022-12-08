@@ -1,10 +1,10 @@
+import { Component, OnInit } from '@angular/core';
+import { Table } from 'primeng/table';
+
+import { Book } from '../../shared/models/book';
+import { BooksService } from '../../shared/services/books.service';
 import { Author } from './../../shared/models/author';
 import { AuthorsService } from './../../shared/services/authors.service';
-import { BooksService } from '../../shared/services/books.service';
-import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
-import { Book } from '../../shared/models/book';
-import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-books',
@@ -134,6 +134,9 @@ export class BooksComponent implements OnInit {
         setTimeout(() => { }, 300);
     }
 
+    onGlobalFilter(table: Table, event: Event) {
+        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+    }
 
 
 }

@@ -1,3 +1,4 @@
+import { Table } from 'primeng/table';
 import { ConsultaCepService } from './../../shared/services/consulta-cep.service';
 import { Component, OnInit } from '@angular/core';
 import { Customer } from '../../shared/models/customer';
@@ -115,7 +116,9 @@ export class CustomersComponent implements OnInit {
         }
     }
 
-
+    onGlobalFilter(table: Table, event: Event) {
+        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+    }
 
 
 }
