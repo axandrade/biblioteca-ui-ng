@@ -7,6 +7,11 @@
                 (click)="showDialogCadastro()"></button>
         </ng-template>
 
+        <ng-template pTemplate="right">
+            <button type="button" pButton pRipple icon="pi pi-file-excel" class="p-button-success mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+            <button type="button" pButton pRipple icon="pi pi-file-pdf" class="p-button-danger mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+        </ng-template>
+
     </p-toolbar>
 
     <p-table #dt [value]="books" [rows]="10" [paginator]="true" [globalFilterFields]="['title']"
