@@ -73,7 +73,7 @@
             </div>
             <div class="field col-12 md:col-6">
                 <label htmlFor="datePublication">Cpf</label>
-                <p-inputMask mask="999.999.999-99" [(ngModel)]="customer.cpfOrCnpj"></p-inputMask>
+                <p-inputMask mask="999.999.999-99" [unmask]=true [(ngModel)]="customer.cpfOrCnpj"></p-inputMask>
             </div>
             <div class="field col-12 md:col-6">
                 <label htmlFor="name">Email</label>
@@ -101,7 +101,7 @@
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-3">
                 <label htmlFor="zip">CEP</label>
-                <p-inputMask mask="99999-999" (focusout)="consultaCep($event)" id="zip" [(ngModel)]="customer.zip"  ></p-inputMask>
+                <p-inputMask mask="99999-999" [unmask]=true (focusout)="consultaCep($event)" id="zip" [(ngModel)]="customer.zip"  ></p-inputMask>
 
             </div>
             <div class="field col-12 md:col-9">

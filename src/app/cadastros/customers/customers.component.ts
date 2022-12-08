@@ -100,12 +100,10 @@ export class CustomersComponent implements OnInit {
     }
 
     consultaCep(event: any){
-
         if(this.customer.zip != null && this.customer.zip){
             this.consultaCepService.consultaCEP(this.customer.zip).
             subscribe(retorno =>{
                 this.endereco = retorno;
-                this.customer.zip = this.endereco.cep;
                 this.customer.street = this.endereco.logradouro;
                 this.customer.neighborhood = this.endereco.bairro;
                 this.customer.city = this.endereco.localidade;

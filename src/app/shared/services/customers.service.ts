@@ -37,7 +37,8 @@ export class CustomersService {
     }
 
     save(obj: Customer) {
-        if (true) {
+        debugger
+        if (obj.id) {
             return this.update(obj);
         } else {
             return this.create(obj);
