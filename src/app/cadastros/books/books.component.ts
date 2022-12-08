@@ -5,6 +5,7 @@ import { Book } from '../../shared/models/book';
 import { BooksService } from '../../shared/services/books.service';
 import { Author } from './../../shared/models/author';
 import { AuthorsService } from './../../shared/services/authors.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-books',
@@ -137,6 +138,22 @@ export class BooksComponent implements OnInit {
     onGlobalFilter(table: Table, event: Event) {
         table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }
+
+    exportexcel(): void
+  {
+    debugger;
+    /* pass here the table id */
+    let element = document.getElementById('tablebook');
+    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, 'ExcelSheet.xlsx');
+
+  }
 
 
 
