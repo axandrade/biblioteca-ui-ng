@@ -9,7 +9,7 @@
 
     </p-toolbar>
 
-    <p-table #dt [value]="books" [rows]="10" [paginator]="true" [globalFilterFields]="['nome']"
+    <p-table #dt [value]="books" [rows]="10" [paginator]="true" [globalFilterFields]="['title']"
         [(selection)]="selectedBooks" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -29,17 +29,15 @@
                 </th>
                 <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon>
                 </th>
-                <th pSortableColumn="nome">Titulo <p-sortIcon field="nome"></p-sortIcon>
+                <th pSortableColumn="title">Titulo <p-sortIcon field="title"></p-sortIcon>
                 </th>
-                <th pSortableColumn="nome">Isbn <p-sortIcon field="nome"></p-sortIcon>
+                <th pSortableColumn="isbn">Isbn <p-sortIcon field="isbn"></p-sortIcon>
                 </th>
-                <th pSortableColumn="nome">Situação <p-sortIcon field="nome"></p-sortIcon>
+                <th pSortableColumn="situation">Situação <p-sortIcon field="situation"></p-sortIcon>
                 </th>
-                <th pSortableColumn="nome">Idioma <p-sortIcon field="nome"></p-sortIcon>
+                <th pSortableColumn="language">Idioma <p-sortIcon field="language"></p-sortIcon>
                 </th>
-                <th pSortableColumn="nome">Data do Cadastro <p-sortIcon field="nome"></p-sortIcon>
-                </th>
-                <th pSortableColumn="nome">Data da Publicação <p-sortIcon field="nome"></p-sortIcon>
+                <th pSortableColumn="datePublication">Data da Publicação <p-sortIcon field="datePublication"></p-sortIcon>
                 </th>
 
                 <th></th>
@@ -58,7 +56,6 @@
                         [class]="'book-badge situation-' + (book.situation ?book.situation.toLowerCase() : '')">{{book.situation.toUpperCase()}}</span>
                 </td>
                 <td>{{book.descLanguage}}</td>
-                <td>{{book.registrationDate}}</td>
                 <td>{{book.datePublication}}</td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success"

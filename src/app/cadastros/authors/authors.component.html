@@ -27,7 +27,7 @@
                 </th>
                 <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
 
-                <th pSortableColumn="nome">Nome <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="name">Nome <p-sortIcon field="name"></p-sortIcon></th>
                 <th></th>
             </tr>
         </ng-template>
@@ -55,7 +55,7 @@
     <ng-template pTemplate="content">
         <div class="p-field">
             <h5>Nome</h5>
-            <input type="text" pInputText id="nome" [(ngModel)]="author.name" required autofocus />
+            <input type="text" pInputText id="name" [(ngModel)]="author.name" required autofocus />
             <small class="p-invalid" *ngIf="submitted && !author.name">Nome is required.</small>
         </div>
     </ng-template>

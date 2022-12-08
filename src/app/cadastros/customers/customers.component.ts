@@ -21,7 +21,6 @@ export class CustomersComponent implements OnInit {
     constructor(private customersService: CustomersService,
                 private consultaCepService: ConsultaCepService) {
         this.customer = {};
-
         this.endereco = {
             cep: null,
             logradouro: null,
@@ -50,7 +49,6 @@ export class CustomersComponent implements OnInit {
     }
 
     onSubmit() {
-
         this.customersService
             .save(this.customer)
             .subscribe((result) => {
@@ -84,6 +82,7 @@ export class CustomersComponent implements OnInit {
     }
 
     showDialogCadastro() {
+
         this.submitted = false;
         this.displayModalCadastro = true;
         this.customer = {};

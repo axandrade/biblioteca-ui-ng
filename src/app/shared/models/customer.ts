@@ -28,6 +28,6 @@ export interface Customer {
 
         state?: string;
 
-        status?: string
+        status?: boolean;
 
 }

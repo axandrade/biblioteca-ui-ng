@@ -5,7 +5,7 @@
                 (click)="showDialogCadastro()"></button>
         </ng-template>
     </p-toolbar>
-    <p-table #dt [value]="customers" [rows]="10" [paginator]="true" [globalFilterFields]="['nome']"
+    <p-table #dt [value]="customers" [rows]="10" [paginator]="true" [globalFilterFields]="['name']"
         [(selection)]="selectedCustomers" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -25,13 +25,13 @@
                 </th>
                 <th pSortableColumn="id">ID<p-sortIcon field="id"></p-sortIcon>
                 </th>
-                <th pSortableColumn="nome">Nome<p-sortIcon field="name"></p-sortIcon>
+                <th pSortableColumn="name">Nome<p-sortIcon field="name"></p-sortIcon>
                 </th>
                 <th pSortableColumn="cpf">Cpf<p-sortIcon field="cpf"></p-sortIcon>
                 </th>
                 <th pSortableColumn="birthDate">Data de Nascimento<p-sortIcon field="birthDate"></p-sortIcon>
                 </th>
-                <th pSortableColumn="status">Situação<p-sortIcon field="status"></p-sortIcon>
+                <th style="width: 8rem" class="text-center" pSortableColumn="status">Situação<p-sortIcon field="status"></p-sortIcon>
                 </th>
 
                 <th></th>
@@ -46,8 +46,8 @@
                 <td>{{customer.name}}</td>
                 <td>{{customer.cpfOrCnpj}}</td>
                 <td>{{customer.birthDate}}</td>
-                <td><span
-                        [class]="'customer-badge status-' + (customer.status ?customer.status.toLowerCase() : '')">{{customer.status.toUpperCase()}}</span>
+                <td class="text-center"> <span *ngIf="!customer.status"><i class="pi pi-circle-fill icon-sucess"></i></span>
+                     <span *ngIf="customer.status"><i class="pi pi-circle-fill icon-danger"></i></span>
                 </td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
@@ -68,28 +68,32 @@
     <ng-template pTemplate="content">
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-12">
-                <label htmlFor="name">Nome</label>
+                <h5>Nome</h5>
                 <input type="text" pInputText id="name" [(ngModel)]="customer.name" required autofocus />
             </div>
             <div class="field col-12 md:col-6">
-                <label htmlFor="datePublication">Cpf</label>
+                <h5>Cpf</h5>
                 <p-inputMask mask="999.999.999-99" [unmask]=true [(ngModel)]="customer.cpfOrCnpj"></p-inputMask>
             </div>
             <div class="field col-12 md:col-6">
-                <label htmlFor="name">Email</label>
+                <h5>Email</h5>
                 <input type="text" pInputText id="email" [(ngModel)]="customer.email" required autofocus />
             </div>
             <div class="field col-12 md:col-4">
-                <label htmlFor="birthDate">Data de Nascimento</label>
+                <h5>Data de Nascimento</h5>
                 <p-inputMask mask="99/99/9999" [(ngModel)]="customer.birthDate" slotChar="dd/mm/yyyy"></p-inputMask>
             </div>
             <div class="field col-12 md:col-4">
-                <label htmlFor="name">Contato 1</label>
+                <h5>Contato 1</h5>
                 <input type="text" pInputText id="contact1" [(ngModel)]="customer.contact1" required autofocus />
             </div>
             <div class="field col-12 md:col-4">
-                <label htmlFor="name">Contato 2</label>
+                <h5>Contato 2</h5>
                 <input type="text" pInputText id="contact2" [(ngModel)]="customer.contact2" required autofocus />
+            </div>
+            <div class="field col-12 md:col-4">
+                <h5>Situação</h5>
+                <p-inputSwitch [(ngModel)]="customer.status"></p-inputSwitch>
             </div>
         </div>
         <div class="p-fluid p-formgrid grid">
@@ -100,32 +104,32 @@
         </div>
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-3">
-                <label htmlFor="zip">CEP</label>
+                <h5>CEP</h5>
                 <p-inputMask mask="99999-999" [unmask]=true (focusout)="consultaCep($event)" id="zip" [(ngModel)]="customer.zip"  ></p-inputMask>
 
             </div>
             <div class="field col-12 md:col-9">
-                <label htmlFor="street">Logradouro</label>
+                <h5>Logradouro</h5>
                 <input [disabled]="true" type="text" pInputText id="street" [(ngModel)]="customer.street" required autofocus />
             </div>
             <div class="field col-12 md:col-2">
-                <label htmlFor="number">Número</label>
+                <h5>Número</h5>
                 <input type="text" pInputText id="number" [(ngModel)]="customer.number" required autofocus />
             </div>
             <div class="field col-12 md:col-4">
-                <label htmlFor="complement">Complemento</label>
+                <h5>Complemento</h5>
                 <input type="text" pInputText id="complement" [(ngModel)]="customer.complement" required autofocus />
             </div>
             <div class="field col-12 md:col-6">
-                <label htmlFor="neighborhood">Bairro</label>
+                <h5>Bairro</h5>
                 <input [disabled]="true" type="text" pInputText id="neighborhood" [(ngModel)]="customer.neighborhood" required autofocus />
             </div>
             <div class="field col-12 md:col-6">
-                <label htmlFor="city">Cidade</label>
+                <h5>Cidade</h5>
                 <input [disabled]="true" type="text" pInputText id="city" [(ngModel)]="customer.city" required autofocus />
             </div>
             <div class="field col-12 md:col-2">
-                <label htmlFor="state">Estado</label>
+                <h5>Estado</h5>
                 <input [disabled]="true" type="text" pInputText id="state" [(ngModel)]="customer.state" required autofocus />
             </div>
         </div>
