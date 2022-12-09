@@ -93,6 +93,7 @@ export class CrudComponent implements OnInit {
         this.submitted = true;
 
         if (this.product.name?.trim()) {
+            debugger
             if (this.product.id) {
                 // @ts-ignore
                 this.product.inventoryStatus = this.product.inventoryStatus.value ? this.product.inventoryStatus.value : this.product.inventoryStatus;

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
@@ -31,7 +32,8 @@ import { CadastroRoutingModule } from './cadastros-routing.module';
         InputMaskModule,
         DropdownModule,
         MultiSelectModule,
-        InputSwitchModule
+        InputSwitchModule,
+        BadgeModule
 
     ],
     providers: [MessageService, ConfirmationService],

@@ -63,6 +63,7 @@ export class CustomersComponent implements OnInit {
         this.submitted = true;
         this.customers = [...this.customers];
         this.displayModalCadastro = false;
+        this.customer = {};
 
     }
 
@@ -83,7 +84,6 @@ export class CustomersComponent implements OnInit {
     }
 
     showDialogCadastro() {
-
         this.submitted = false;
         this.displayModalCadastro = true;
         this.customer = {};

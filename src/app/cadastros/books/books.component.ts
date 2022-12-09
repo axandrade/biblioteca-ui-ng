@@ -8,9 +8,9 @@ import { AuthorsService } from './../../shared/services/authors.service';
 import * as XLSX from 'xlsx';
 
 @Component({
-  selector: 'app-books',
-  templateUrl: './books.component.html',
-  styleUrls: ['./books.component.scss']
+    selector: 'app-books',
+    templateUrl: './books.component.html',
+    styleUrls: ['./books.component.scss']
 })
 export class BooksComponent implements OnInit {
     book: Book;
@@ -18,7 +18,6 @@ export class BooksComponent implements OnInit {
     languages: any[] = [];
     authors: Author[] = [];
     selectedBooks: any[] = [];
-    submitted: boolean = false;
     autorNomeFiltro: string = "";
     showLoading: boolean = false;
     displayModalCadastro: boolean = false;
@@ -31,14 +30,14 @@ export class BooksComponent implements OnInit {
     ) {
         this.book = {};
         this.languages = [
-            {id: 1, description: 'Português'},
-            {id: 2, description: 'Inglês'},
-            {id: 3, description: 'Espanhol'},
-            {id: 4, description: 'Alemão'},
-            {id: 5, description: 'Francês'},
-            {id: 6, description: 'Italiano'},
-            {id: 7, description: 'Russo'},
-            {id: 8, description: 'Japonês'}
+            { id: 1, description: 'Português' },
+            { id: 2, description: 'Inglês' },
+            { id: 3, description: 'Espanhol' },
+            { id: 4, description: 'Alemão' },
+            { id: 5, description: 'Francês' },
+            { id: 6, description: 'Italiano' },
+            { id: 7, description: 'Russo' },
+            { id: 8, description: 'Japonês' }
         ];
 
 
@@ -54,6 +53,7 @@ export class BooksComponent implements OnInit {
             (dados) => {
                 this.books = dados;
                 this.showLoading = false;
+                console.log(dados);
             },
             (error) => {
                 this.showLoading = false;
@@ -75,23 +75,19 @@ export class BooksComponent implements OnInit {
         );
     }
 
-
     onSubmit() {
-
         this.booksService
             .save(this.book)
-            .subscribe((result) => {
-                if (this.book.id)
-                    this.books[this.findIndexById(this.book.id!)] = this.book;
-                else
-                    this.books.push(result);
+            .subscribe((result) => {console.log(result)});
 
-            });
+        if (this.book.id)
+            this.books[this.findIndexById(this.book.id)] = this.book;
+        else
+            this.books.push(this.book);
 
-        this.submitted = true;
         this.books = [...this.books];
         this.displayModalCadastro = false;
-
+        this.book = {};
     }
 
     findIndexById(id: number): number {
@@ -115,7 +111,6 @@ export class BooksComponent implements OnInit {
 
     showDialogCadastro() {
         this.findAllAuthors();
-        this.submitted = false;
         this.displayModalCadastro = true;
         this.book = {};
     }
@@ -127,7 +122,6 @@ export class BooksComponent implements OnInit {
 
     hideModalAddDialog() {
         this.displayModalCadastro = false;
-        this.submitted = false;
         this.book = {};
     }
 
@@ -139,21 +133,20 @@ export class BooksComponent implements OnInit {
         table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }
 
-    exportexcel(): void
-  {
-    debugger;
-    /* pass here the table id */
-    let element = document.getElementById('tablebook');
-    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+    exportexcel(): void {
 
-    /* generate workbook and add the worksheet */
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        /* pass here the table id */
+        let element = document.getElementById('table-book');
+        const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
-    /* save to file */
-    XLSX.writeFile(wb, 'ExcelSheet.xlsx');
+        /* generate workbook and add the worksheet */
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-  }
+        /* save to file */
+        XLSX.writeFile(wb, 'livros.xlsx');
+
+    }
 
 
 

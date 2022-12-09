@@ -13,7 +13,6 @@ export class AuthorsComponent implements OnInit {
 
     author: Author;
     authors: Author[] = [];
-    submitted: boolean = false;
     selectedAuthors: any[] = [];
     showLoading: boolean = false;
     displayModalCadastro: boolean = false;
@@ -47,21 +46,20 @@ export class AuthorsComponent implements OnInit {
 
         this.authorsService
             .save(this.author)
-            .subscribe((result) => {
-                if (this.author.id)
-                    this.authors[this.findIndexById(this.author.id)] = this.author;
-                else
-                    this.authors.push(result);
+            .subscribe((result) => { });
 
-            });
+        if (this.author.id)
+            this.authors[this.findIndexById(this.author.id)] = this.author;
+        else
+            this.authors.push(this.author);
 
-        this.submitted = true;
         this.authors = [...this.authors];
         this.displayModalCadastro = false;
-
+        this.author = {};
     }
 
     findIndexById(id: number): number {
+
         let index = -1;
         for (let i = 0; i < this.authors.length; i++) {
             if (this.authors[i].id === id) {
@@ -82,14 +80,12 @@ export class AuthorsComponent implements OnInit {
     onDelete(author: Author) { }
 
     showDialogCadastro() {
-        this.submitted = false;
         this.displayModalCadastro = true;
         this.author = {};
     }
 
     hideModalAddDialog() {
         this.displayModalCadastro = false;
-        this.submitted = false;
         this.author = {};
     }
 

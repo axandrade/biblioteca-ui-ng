@@ -7,9 +7,9 @@
         </ng-template>
     </p-toolbar>
 
-    <p-table #dt [value]="authors" [rows]="10" [paginator]="true" [globalFilterFields]="['name']"
+    <p-table #dt id="table-author" [value]="authors" [rows]="10" [paginator]="true" [globalFilterFields]="['name']"
         [(selection)]="selectedAuthors" [rowHover]="true" dataKey="id"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        currentPageReportTemplate="Exibindo de {first} a {last} de um total de {totalRecords}" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                 <h5 class="m-0">Listagem de Autores</h5>
@@ -55,8 +55,7 @@
         <div class="p-field">
             <h5>Nome</h5>
             <input type="text" pInputText id="name" [(ngModel)]="author.name" required autofocus />
-            <small class="p-invalid" *ngIf="submitted && !author.name">Nome is required.</small>
-        </div>
+         </div>
     </ng-template>
 
     <ng-template pTemplate="footer">
