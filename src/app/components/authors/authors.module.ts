@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { CadastroModule } from '../cadastros.module';
+import { ComponentModule } from '../components.module';
 import { AuthorsRoutingModule } from './authors-routing.module';
 import { AuthorsComponent } from './authors.component';
 
@@ -12,7 +12,7 @@ import { AuthorsComponent } from './authors.component';
 		CommonModule,
 		FormsModule,
 		AuthorsRoutingModule,
-        CadastroModule
+        ComponentModule
 	],
 	declarations: [AuthorsComponent]
 })

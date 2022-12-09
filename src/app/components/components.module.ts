@@ -14,12 +14,12 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 
-import { CadastroRoutingModule } from './cadastros-routing.module';
+import { ComponentRoutingModule } from './components-routing.module';
 
 @NgModule({
     imports: [
         CommonModule,
-        CadastroRoutingModule
+        ComponentRoutingModule
     ],
     exports: [
         ToastModule,
@@ -40,4 +40,4 @@ import { CadastroRoutingModule } from './cadastros-routing.module';
     declarations: [
     ]
 })
-export class CadastroModule { }
+export class ComponentModule { }

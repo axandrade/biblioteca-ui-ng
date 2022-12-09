@@ -21,4 +21,4 @@ import { RouterModule } from '@angular/router';
     ])],
     exports: [RouterModule]
 })
-export class CadastroRoutingModule { }
+export class ComponentRoutingModule { }

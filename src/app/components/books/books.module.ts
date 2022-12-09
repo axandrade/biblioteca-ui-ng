@@ -1,5 +1,5 @@
 import { FormsModule } from '@angular/forms';
-import { CadastroModule } from '../cadastros.module';
+import { ComponentModule } from '../components.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -13,7 +13,7 @@ import { BooksComponent } from './books.component';
     CommonModule,
     FormsModule,
     BooksRoutingModule,
-    CadastroModule
+    ComponentModule
   ],
   declarations: [
     BooksComponent
