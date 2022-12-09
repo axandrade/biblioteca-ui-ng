@@ -17,12 +17,14 @@ export class BooksComponent implements OnInit {
     books: Book[] = [];
     languages: any[] = [];
     authors: Author[] = [];
+    statusBook: any[] = [];
     selectedBooks: any[] = [];
     autorNomeFiltro: string = "";
     showLoading: boolean = false;
     displayModalCadastro: boolean = false;
     displayModalFiltroAutor: boolean = false;
     selectedAuthors: Author[] = [];
+
 
     constructor(
         private booksService: BooksService,
@@ -39,8 +41,11 @@ export class BooksComponent implements OnInit {
             { id: 7, description: 'Russo' },
             { id: 8, description: 'Japonês' }
         ];
-
-
+        this.statusBook = [
+            { cod: 1, description: 'Ativo' },
+            { cod: 2, description: 'Avariado' },
+            { cod: 3, description: 'Perdido' }
+        ];
     }
 
     ngOnInit(): void {
