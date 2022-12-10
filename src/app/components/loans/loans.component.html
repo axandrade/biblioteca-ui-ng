@@ -59,7 +59,7 @@
     </ng-template>
 </p-table>
 </div>
-<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '50vw'}" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '50vw', height: '80vw'}" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="header">
             <h5>Criar Novo Empréstimo</h5>
     </ng-template>
@@ -72,14 +72,13 @@
                         <!-- <input type="text"  pInputText [(ngModel)]="matricula"> -->
                         <p-autoComplete [(ngModel)]="customerSelecionado"
                             [suggestions]="customers" placeholder="Digite o nome ou cpf do cliente"
-                            field="descricao" (keydown)=changeDocente($event)
-                            (completeMethod)="findCustomerByNameAndCpf($event)" [delay]="400" [minLength]="4">
+                            field="name" (keydown)=changeDocente($event)
+                            (completeMethod)="findCustomerByNameOrCpf($event)" [delay]="400" [minLength]="4">
                         </p-autoComplete>
                     </div>
 
                 </div>
             </div>
-
     </div>
     <ng-template pTemplate="footer">
         <button pButton label="Cancelar" icon="pi pi-times" class="p-button-danger mr-2" (click)="hideModalAddDialog()"></button>

@@ -32,9 +32,9 @@ export class CustomersService {
 
     }
 
-    findCustomerByNameAndCpf(nomeCpf: string){
+    findCustomerByNameOrCpf(nomeCpf: string){
 
-        const url = `${environment.API}/api/customers/${nomeCpf}`;
+        const url = `${environment.API}/api/customers/name/${nomeCpf}`;
 
         return this.httpCliente.get<any[]>(url)
         .pipe(

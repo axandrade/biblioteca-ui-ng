@@ -45,11 +45,12 @@ export class LoansComponent implements OnInit {
     );
   }
 
-  findCustomerByNameAndCpf(evento: any) {
+  findCustomerByNameOrCpf(evento: any) {
 
-    this.customerService.findCustomerByNameAndCpf(evento.query)
+    this.customerService.findCustomerByNameOrCpf(evento.query)
     .subscribe(
       (dados) => {
+        console.log(dados);
         this.customers = dados;
         this.showLoading = false;
       },
