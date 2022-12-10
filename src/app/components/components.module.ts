@@ -15,6 +15,7 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 
 import { ComponentRoutingModule } from './components-routing.module';
+import { LoansComponent } from './loans/loans.component';
 
 @NgModule({
     imports: [
@@ -34,10 +35,8 @@ import { ComponentRoutingModule } from './components-routing.module';
         MultiSelectModule,
         InputSwitchModule,
         BadgeModule
-
     ],
-    providers: [MessageService, ConfirmationService],
-    declarations: [
-    ]
+    providers: [MessageService, ConfirmationService]
+
 })
 export class ComponentModule { }

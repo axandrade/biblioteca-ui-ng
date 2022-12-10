@@ -17,6 +17,11 @@ import { RouterModule } from '@angular/router';
             path: 'customers', loadChildren: () =>
                 import('./customers/customers.module').then((m) => m.CustomersModule)
 
+        },
+        {
+            path: 'loans', loadChildren: () =>
+                import('./loans/loans.module').then((m) => m.LoansModule)
+
         }
     ])],
     exports: [RouterModule]
