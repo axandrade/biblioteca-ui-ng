@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -15,7 +16,6 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 
 import { ComponentRoutingModule } from './components-routing.module';
-import { LoansComponent } from './loans/loans.component';
 
 @NgModule({
     imports: [
@@ -34,7 +34,9 @@ import { LoansComponent } from './loans/loans.component';
         DropdownModule,
         MultiSelectModule,
         InputSwitchModule,
-        BadgeModule
+        BadgeModule,
+        AutoCompleteModule
+
     ],
     providers: [MessageService, ConfirmationService]
 

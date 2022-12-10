@@ -1,1 +1,88 @@
-<p>loans works!</p>
+<p-toast></p-toast>
+
+<div class="card">
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Adicionar" icon="pi pi-plus" class="p-button-success mr-2" (click)="showDialogCadastro()"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt id="table-loan" [value]="loans" [rows]="10" [paginator]="true" [globalFilterFields]="['name']"
+    [(selection)]="selectedLoans" [rowHover]="true" dataKey="id"
+    currentPageReportTemplate="Exibindo de {first} a {last} de um total de {totalRecords} empréstimos" [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+        <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <h5 class="m-0">Listagem de Emprestimos</h5>
+            <span class="block mt-2 mt-0 p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="id">Código<p-sortIcon field="id"></p-sortIcon></th>
+            <th pSortableColumn="name">Nome<p-sortIcon field="name"></p-sortIcon></th>
+            <th pSortableColumn="dateLoan">Data do Empréstimo<p-sortIcon field="dateLoan"></p-sortIcon></th>
+            <th class="text-center" pSortableColumn="status">Situação<p-sortIcon field="status"></p-sortIcon></th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-loan>
+        <tr>
+            <td>
+                <p-tableCheckbox [value]="loan"></p-tableCheckbox>
+            </td>
+            <td>{{loan.id}}</td>
+            <td>{{loan.customerName}}</td>
+            <td>{{loan.dateLoan}}</td>
+            <td class="text-center">
+                <span *ngIf="loan.status">
+                    <p-badge value="Ativo" severity="success"></p-badge>
+               </span>
+                <span *ngIf="!loan.status">
+                    <p-badge value="Encerrado" severity="danger"></p-badge>
+                </span>
+            </td>
+            <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="onEdit(loan)"></button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+            Total de {{loans ? loans.length : 0 }} emprestimos.
+        </div>
+    </ng-template>
+</p-table>
+</div>
+<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '50vw'}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="header">
+            <h5>Criar Novo Empréstimo</h5>
+    </ng-template>
+    <div class="card p-4">
+
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-md-5">
+                    <small class="label-form" title='Busca ("Matricula - Nome" do docente)'>Docente:</small> <br>
+                    <div class="ui-inputgroup">
+                        <!-- <input type="text"  pInputText [(ngModel)]="matricula"> -->
+                        <p-autoComplete [(ngModel)]="customerSelecionado"
+                            [suggestions]="customers" placeholder="Digite o nome ou cpf do cliente"
+                            field="descricao" (keydown)=changeDocente($event)
+                            (completeMethod)="findCustomerByNameAndCpf($event)" [delay]="400" [minLength]="4">
+                        </p-autoComplete>
+                    </div>
+
+                </div>
+            </div>
+
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-danger mr-2" (click)="hideModalAddDialog()"></button>
+        <button pButton label="Salvar" icon="pi pi-check" class="p-button-success " (click)="onSubmit()"></button>
+    </ng-template>
+</p-dialog>

@@ -45,8 +45,13 @@
                 <td>{{customer.name}}</td>
                 <td>{{customer.cpfOrCnpj}}</td>
                 <td>{{customer.birthDate}}</td>
-                <td class="text-center"> <span *ngIf="!customer.status"><i class="pi pi-circle-fill icon-sucess"></i></span>
-                     <span *ngIf="customer.status"><i class="pi pi-circle-fill icon-danger"></i></span>
+                <td class="text-center">
+                    <span *ngIf="customer.status">
+                        <p-badge value="Ativo" severity="success"></p-badge>
+                   </span>
+                    <span *ngIf="!customer.status">
+                        <p-badge value="Inativo" severity="danger"></p-badge>
+                    </span>
                 </td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"

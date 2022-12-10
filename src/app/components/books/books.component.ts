@@ -58,7 +58,6 @@ export class BooksComponent implements OnInit {
             (dados) => {
                 this.books = dados;
                 this.showLoading = false;
-                console.log(dados);
             },
             (error) => {
                 this.showLoading = false;
@@ -83,7 +82,7 @@ export class BooksComponent implements OnInit {
     onSubmit() {
         this.booksService
             .save(this.book)
-            .subscribe((result) => {console.log(result)});
+            .subscribe((result) => {});
 
         if (this.book.id)
             this.books[this.findIndexById(this.book.id)] = this.book;

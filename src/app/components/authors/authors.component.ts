@@ -77,8 +77,6 @@ export class AuthorsComponent implements OnInit {
         this.author = { ...author };
     }
 
-    onDelete(author: Author) { }
-
     showDialogCadastro() {
         this.displayModalCadastro = true;
         this.author = {};

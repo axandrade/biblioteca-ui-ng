@@ -32,9 +32,20 @@ export class CustomersService {
 
     }
 
-    confirm(confirmation: Confirmation) {
+    findCustomerByNameAndCpf(nomeCpf: string){
 
+        const url = `${environment.API}/api/customers/${nomeCpf}`;
+
+        return this.httpCliente.get<any[]>(url)
+        .pipe(
+            retry(1),
+            catchError(error => {
+                return throwError(error.error);
+            })
+        )
     }
+
+
 
     save(obj: Customer) {
         if (obj.id) {
