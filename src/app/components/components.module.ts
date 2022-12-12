@@ -14,6 +14,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 import { ComponentRoutingModule } from './components-routing.module';
 
@@ -35,7 +36,8 @@ import { ComponentRoutingModule } from './components-routing.module';
         MultiSelectModule,
         InputSwitchModule,
         BadgeModule,
-        AutoCompleteModule
+        AutoCompleteModule,
+        InputTextareaModule
 
     ],
     providers: [MessageService, ConfirmationService]

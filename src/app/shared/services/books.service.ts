@@ -25,6 +25,18 @@ export class BooksService {
             )
     }
 
+    findBooksByStatus(): Observable<any[]> {
+        const url = `${environment.API}/api/books/disponiveis`;
+
+        return this.httpCliente.get<any[]>(url)
+            .pipe(
+                retry(1),
+                catchError(error => {
+                    return throwError(error.error);
+                })
+            )
+    }
+
     findById(obj: Book) {
         const url = `${environment.API}/api/books`;
 

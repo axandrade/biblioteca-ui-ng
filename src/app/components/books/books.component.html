@@ -57,12 +57,15 @@
                 <td>{{book.isbn}}</td>
                 <td class="text-center">
                     <span *ngIf="book.statusBook === 1">
-                        <p-badge value="Ativo" severity="success"></p-badge>
+                        <p-badge value="Disponivel" severity="success"></p-badge>
                    </span>
-                    <span *ngIf="book.statusBook === 2">
-                        <p-badge value="Avariado" severity="warning"></p-badge>
+                   <span *ngIf="book.statusBook === 2">
+                    <p-badge value="Emprestado" severity="info"></p-badge>
                     </span>
                     <span *ngIf="book.statusBook === 3">
+                        <p-badge value="Avariado" severity="warning"></p-badge>
+                    </span>
+                    <span *ngIf="book.statusBook === 4">
                         <p-badge value="Perdido" severity="danger"></p-badge>
                     </span>
                 </td>

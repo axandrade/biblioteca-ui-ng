@@ -51,8 +51,8 @@
                     </span>
                 </td>
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary mr-2"
-                        (click)="onEdit(loan)"></button>
+                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded" (click)="onEdit(loan)" ></button>
+
                 </td>
             </tr>
         </ng-template>
@@ -102,6 +102,14 @@
                 <p-multiSelect [selectionLimit]=2 [options]="books" [(ngModel)]="loan.books" optionLabel="title" selectedItemsLabel="{0} items selected"></p-multiSelect>
             </div>
 
+        </div>
+    </div>
+    <div class="card p-4">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12">
+                <h5>Observação</h5>
+                <textarea id="description" [autoResize]="true" pInputTextarea [(ngModel)]="loan.observation"></textarea>
+            </div>
         </div>
     </div>
     <ng-template pTemplate="footer">

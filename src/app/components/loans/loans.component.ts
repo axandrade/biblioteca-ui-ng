@@ -54,8 +54,8 @@ export class LoansComponent implements OnInit {
     );
   }
 
-  findAllBooks() {
-    this.booksService.findAll().subscribe(
+  findBooksByStatus() {
+    this.booksService.findBooksByStatus().subscribe(
       (dados) => {
         this.books = dados;
         this.showLoading = false;
@@ -115,8 +115,9 @@ export class LoansComponent implements OnInit {
   }
 
   showDialogCadastro() {
-    this.findAllBooks();
+    this.findBooksByStatus();
     this.displayModalCadastro = true;
+    this.loan = {};
 
   }
 
