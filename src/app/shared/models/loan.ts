@@ -1,11 +1,14 @@
+import { Book } from './book';
 import { Customer } from './customer';
-export class Loan{
-    constructor(
-        public id?:number,
-        public dateLoan?:string,
-        public returnDate?:string,
-        public customerName?: string,
-        public observation?:string,
-        public status?:boolean
-    ){}
+
+export interface Loan{
+        id?:number;
+        dateLoan?:string;
+        returnDate?:string;
+        customerName?: string;
+        customer?: Customer
+        observation?:string;
+        status?:boolean;
+        books?: Book[];
+
 }

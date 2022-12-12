@@ -3,7 +3,7 @@
 <div class="card">
     <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
-            <button pButton pRipple label="Adicionar" icon="pi pi-plus" class="p-button-success mr-2" (click)="showDialogCadastro()"></button>
+            <button pButton pRipple label="Adicionar" icon="pi pi-plus" class="p-button-primary mr-2" (click)="showDialogCadastro()"></button>
         </ng-template>
     </p-toolbar>
 
@@ -38,7 +38,7 @@
                 <td>{{author.id}}</td>
                 <td>{{author.name}}</td>
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="onEdit(author)"></button>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary mr-2" (click)="onEdit(author)"></button>
                 </td>
             </tr>
         </ng-template>
@@ -59,8 +59,8 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-danger mr-2" (click)="hideModalAddDialog()"></button>
-        <button pButton label="Salvar" icon="pi pi-check" class="p-button-success " (click)="onSubmit()"></button>
+        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-secondary mr-2" (click)="hideModalAddDialog()"></button>
+        <button pButton label="Salvar" icon="pi pi-check" class="p-button-primary " (click)="onSubmit()"></button>
     </ng-template>
 </p-dialog>
 

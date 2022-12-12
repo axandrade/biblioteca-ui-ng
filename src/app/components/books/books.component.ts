@@ -53,7 +53,6 @@ export class BooksComponent implements OnInit {
     }
 
     findAllBooks() {
-
         this.booksService.findAll().subscribe(
             (dados) => {
                 this.books = dados;

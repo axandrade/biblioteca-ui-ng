@@ -52,7 +52,6 @@ export class AuthorsService {
 
     private update(obj: Author) {
         const url = `${environment.API}/api/authors`;
-
         return this.httpCliente.put<any>(`${url}/${obj.id}`, obj).pipe(first());
     }
 

@@ -3,7 +3,7 @@
 <div class="card">
     <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
-            <button pButton pRipple label="Adicionar" icon="pi pi-plus" class="p-button-success mr-2"
+            <button pButton pRipple label="Adicionar" icon="pi pi-plus" class="p-button-primary mr-2"
                 (click)="showDialogCadastro()"></button>
         </ng-template>
 
@@ -69,7 +69,7 @@
                 <td>{{book.descLanguage}}</td>
                 <td>{{book.datePublication}}</td>
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success"
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary"
                         (click)="onEdit(book)"></button>
                 </td>
             </tr>
@@ -125,9 +125,9 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-danger mr-2"
+        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-secondary mr-2"
             (click)="hideModalAddDialog()"></button>
-        <button pButton label="Salvar" icon="pi pi-check" class="p-button-success " (click)="onSubmit()"></button>
+        <button pButton label="Salvar" icon="pi pi-check" class="p-button-primary " (click)="onSubmit()"></button>
     </ng-template>
 </p-dialog>
 

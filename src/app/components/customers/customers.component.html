@@ -1,7 +1,7 @@
 <div class="card">
     <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
-            <button pButton pRipple label="Adicionar" icon="pi pi-plus" class="p-button-success mr-2"
+            <button pButton pRipple label="Adicionar" icon="pi pi-plus" class="p-button-primary mr-2"
                 (click)="showDialogCadastro()"></button>
         </ng-template>
     </p-toolbar>
@@ -10,7 +10,7 @@
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                <h5 class="m-0">Listagem de Clientes</h5>
+                <h5 class="m-0">Listagem de Usuários</h5>
                 <span class="block mt-2 mt-0 p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
@@ -54,7 +54,7 @@
                     </span>
                 </td>
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary mr-2"
                         (click)="onEdit(customer)"></button>
                 </td>
             </tr>
@@ -141,8 +141,8 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-danger mr-2"
+        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-secondary mr-2"
             (click)="hideModalAddDialog()"></button>
-        <button pButton label="Salvar" icon="pi pi-check" class="p-button-success " (click)="onSubmit()"></button>
+        <button pButton label="Salvar" icon="pi pi-check" class="p-button-primary " (click)="onSubmit()"></button>
     </ng-template>
 </p-dialog>

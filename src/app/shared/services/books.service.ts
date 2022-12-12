@@ -32,8 +32,17 @@ export class BooksService {
 
     }
 
-    confirm(confirmation: Confirmation) {
+    findBookByTitle(title: string){
 
+        const url = `${environment.API}/api/customers/title/${title}`;
+
+        return this.httpCliente.get<any[]>(url)
+        .pipe(
+            retry(1),
+            catchError(error => {
+                return throwError(error.error);
+            })
+        )
     }
 
     save(obj: Book) {
