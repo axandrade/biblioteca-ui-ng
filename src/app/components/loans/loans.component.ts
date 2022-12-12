@@ -29,10 +29,6 @@ export class LoansComponent implements OnInit {
     private booksService: BooksService) {
 
     this.loan = {};
-    this.loan = {
-      dateLoan: new Date().toLocaleString(),
-      returnDate: new Date(new Date().setMonth(0)).toLocaleDateString()
-    };
   }
 
   ngOnInit(): void {
@@ -117,7 +113,10 @@ export class LoansComponent implements OnInit {
   showDialogCadastro() {
     this.findBooksByStatus();
     this.displayModalCadastro = true;
-    this.loan = {};
+    this.loan = {
+      dateLoan: new Date().toLocaleString(),
+      returnDate: new Date(new Date().setMonth(0)).toLocaleDateString()
+    };
 
   }
 
