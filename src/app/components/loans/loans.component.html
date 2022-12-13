@@ -43,10 +43,10 @@
                 <td>{{loan.customer.name}}</td>
                 <td>{{loan.dateLoan}}</td>
                 <td class="text-center">
-                    <span *ngIf="loan.status">
+                    <span *ngIf="loan.status === true">
                         <p-badge value="Ativo" severity="success"></p-badge>
                     </span>
-                    <span *ngIf="!loan.status">
+                    <span *ngIf="loan.status === false">
                         <p-badge value="Encerrado" severity="danger"></p-badge>
                     </span>
                 </td>
@@ -76,7 +76,7 @@
                     <!-- <input type="text"  pInputText [(ngModel)]="matricula"> -->
                     <p-autoComplete [disabled]="!!loan.id" [(ngModel)]="loan.customer" [suggestions]="customers"
                         placeholder="Digite o nome ou cpf do usuário" field="name" (keydown)=changeDocente($event)
-                        (completeMethod)="findCustomerByNameOrCpf($event)" [delay]="400" [minLength]="4">
+                        (completeMethod)="findCustomerByNameOrCpf($event)" (focusout)="findLoansByCustomer()" [delay]="400" [minLength]="4">
                     </p-autoComplete>
                 </div>
 
@@ -99,7 +99,7 @@
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-12">
                 <h5>Selecione os Livros</h5>
-                <p-multiSelect [selectionLimit]=2 [options]="books" [(ngModel)]="loan.books" optionLabel="title" selectedItemsLabel="{0} items selected"></p-multiSelect>
+                <p-multiSelect [disabled]="qtdBooksDisponiveis === 0" [selectionLimit]=qtdBooksDisponiveis [options]="books" [(ngModel)]="loan.books" optionLabel="title" selectedItemsLabel="{0} items selected"></p-multiSelect>
             </div>
 
         </div>

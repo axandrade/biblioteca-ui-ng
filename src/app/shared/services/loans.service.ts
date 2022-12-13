@@ -10,7 +10,7 @@ import { catchError, retry, first } from 'rxjs/operators';
 })
 export class LoansService {
 
-    constructor(private httpCliente: HttpClient) {}
+    constructor(private httpCliente: HttpClient) { }
 
     findAll(): Observable<any[]> {
         const url = `${environment.API}/api/loans`;
@@ -24,9 +24,16 @@ export class LoansService {
             )
     }
 
-    findById(loan: Loan) {
+    findLoansByCustomer(id: number): Observable<any> {
         const url = `${environment.API}/api/loans`;
-        return this.httpCliente.get<Loan>(`${url}/${loan.id}`);
+
+        return this.httpCliente.get<any[]>(`${url}/${id}`)
+            .pipe(
+                retry(1),
+                catchError(error => {
+                    return throwError(error.error);
+                })
+            )
     }
 
     confirm(confirmation: Confirmation) {

@@ -25,10 +25,10 @@ export class CustomersService {
             )
     }
 
-    findById(obj: Customer) {
+    findById(costumerId: number) {
         const url = `${environment.API}/api/customers`;
-
-        return this.httpCliente.get<Customer>(`${url}/${1}`);
+        debugger
+        return this.httpCliente.get<Customer>(`${url}/${costumerId}`);
 
     }
 

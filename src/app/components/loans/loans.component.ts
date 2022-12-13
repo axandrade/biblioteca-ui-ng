@@ -23,12 +23,14 @@ export class LoansComponent implements OnInit {
   displayModalCadastro: boolean = false;
   title: string = '';
   customerMsn = undefined;
+  qtdBooksDisponiveis: number;
 
   constructor(private loanService: LoansService,
     private customerService: CustomersService,
     private booksService: BooksService) {
 
     this.loan = {};
+    this.qtdBooksDisponiveis = 0;
   }
 
   ngOnInit(): void {
@@ -39,7 +41,6 @@ export class LoansComponent implements OnInit {
   findAllLoans() {
     this.loanService.findAll().subscribe(
       (dados) => {
-        console.log(dados);
         this.loans = dados;
         this.showLoading = false;
       },
@@ -78,9 +79,10 @@ export class LoansComponent implements OnInit {
   }
 
   onSubmit() {
+
     this.loanService
       .save(this.loan)
-      .subscribe((result) => { });
+      .subscribe((result) => { debugger; console.log(result) });
 
     if (this.loan.id)
       this.loans[this.findIndexById(this.loan.id)] = this.loan;
@@ -135,6 +137,34 @@ export class LoansComponent implements OnInit {
 
   public changeDocente(event: any) {
     this.customerMsn = undefined;
+  }
+
+  findLoansByCustomer() {
+    let loansCostumer: Loan;
+    let x: number;
+
+    if (this.loan?.customer?.id) {
+      this.loanService.findLoansByCustomer(this.loan.customer.id)
+        .subscribe(
+          (resultado) => {
+            debugger
+            loansCostumer = resultado;
+            console.log(loansCostumer.books!.length);
+            if (loansCostumer.books!.length === 0) {
+              this.qtdBooksDisponiveis = 2;
+            }
+            if (loansCostumer.books!.length === 1) {
+              this.qtdBooksDisponiveis = 1;
+            }
+            if (loansCostumer.books!.length === 2) {
+              this.qtdBooksDisponiveis = 0;
+            }
+
+            console.log(this.qtdBooksDisponiveis);
+          }
+        );
+
+    }
   }
 
 }

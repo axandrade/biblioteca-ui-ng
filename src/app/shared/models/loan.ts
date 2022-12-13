@@ -5,7 +5,6 @@ export interface Loan{
         id?:number;
         dateLoan?:string;
         returnDate?:string;
-        customerName?: string;
         customer?: Customer
         observation?:string;
         status?:boolean;
