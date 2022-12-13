@@ -5,6 +5,6 @@ export interface ItensLoan {
     id?: number;
     dateLoanItem?: string;
     returnDateItem?: string;
-    loan?: Loan;
-    book?: Book;
+    loanId?: number;
+    bookId?: number;
 }

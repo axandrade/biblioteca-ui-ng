@@ -1,3 +1,4 @@
+import { ItensLoan } from './itensloan';
 import { Book } from './book';
 import { Customer } from './customer';
 
@@ -8,6 +9,6 @@ export interface Loan{
         customer?: Customer
         observation?:string;
         status?:boolean;
-        books?: Book[];
+        itensLoan?: ItensLoan[];
 
 }

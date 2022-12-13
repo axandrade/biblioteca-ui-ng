@@ -99,7 +99,7 @@
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-12">
                 <h5>Selecione os Livros</h5>
-                <p-multiSelect [disabled]="qtdBooksDisponiveis === 0" [selectionLimit]=qtdBooksDisponiveis [options]="books" [(ngModel)]="loan.books" optionLabel="title" selectedItemsLabel="{0} items selected"></p-multiSelect>
+                <p-multiSelect [disabled]="qtdBooksDisponiveis === 0" [selectionLimit]=qtdBooksDisponiveis [options]="books" [(ngModel)]="booksSelected" optionLabel="title" selectedItemsLabel="{0} items selected"></p-multiSelect>
             </div>
 
         </div>

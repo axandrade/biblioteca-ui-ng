@@ -1,3 +1,4 @@
+import { ItensLoan } from './../../shared/models/itensloan';
 import { BooksService } from './../../shared/services/books.service';
 import { Table } from 'primeng/table';
 import { LoansService } from './../../shared/services/loans.service';
@@ -16,6 +17,7 @@ export class LoansComponent implements OnInit {
 
   loan: Loan;
   books: Book[] = [];
+  booksSelected: Book[] = [];
   loans: Loan[] = [];
   selectedLoans: any[] = [];
   customers: Customer[] = [];
@@ -80,6 +82,11 @@ export class LoansComponent implements OnInit {
 
   onSubmit() {
 
+    var itensLoan: ItensLoan[] = [];
+
+    itensLoan = this.prepareLoanForSave(this.loan);
+    this.loan.itensLoan = itensLoan;
+
     this.loanService
       .save(this.loan)
       .subscribe((result) => { debugger; console.log(result) });
@@ -92,6 +99,20 @@ export class LoansComponent implements OnInit {
     this.loans = [...this.loans];
     this.displayModalCadastro = false;
     this.loan = {};
+
+  }
+
+  prepareLoanForSave(loan: Loan) {
+
+    var itemLoan: ItensLoan;
+    var itensLoan: ItensLoan[] = [];
+
+    for( var b of this.booksSelected){
+      itemLoan = {};
+      itemLoan.bookId = b.id;
+      itensLoan.push(itemLoan);
+    }
+    return itensLoan;
   }
 
   findIndexById(id: number): number {
@@ -147,20 +168,16 @@ export class LoansComponent implements OnInit {
       this.loanService.findLoansByCustomer(this.loan.customer.id)
         .subscribe(
           (resultado) => {
-            debugger
             loansCostumer = resultado;
-            console.log(loansCostumer.books!.length);
-            if (loansCostumer.books!.length === 0) {
+            if (loansCostumer.itensLoan!.length === 0) {
               this.qtdBooksDisponiveis = 2;
             }
-            if (loansCostumer.books!.length === 1) {
+            if (loansCostumer.itensLoan!.length === 1) {
               this.qtdBooksDisponiveis = 1;
             }
-            if (loansCostumer.books!.length === 2) {
+            if (loansCostumer.itensLoan!.length === 2) {
               this.qtdBooksDisponiveis = 0;
             }
-
-            console.log(this.qtdBooksDisponiveis);
           }
         );
 
