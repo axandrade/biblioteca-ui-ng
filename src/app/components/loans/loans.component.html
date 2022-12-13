@@ -17,7 +17,7 @@
                 <h5 class="m-0">Listagem de Emprestimos</h5>
                 <span class="block mt-2 mt-0 p-input-icon-left">
                     <i class="pi pi-search"></i>
-                    <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."
+                    <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Pesquisar..."
                         class="w-full sm:w-auto" />
                 </span>
             </div>
@@ -31,7 +31,7 @@
                 <th pSortableColumn="name">Nome<p-sortIcon field="name"></p-sortIcon></th>
                 <th pSortableColumn="dateLoan">Data do Empréstimo<p-sortIcon field="dateLoan"></p-sortIcon></th>
                 <th class="text-center" pSortableColumn="status">Situação<p-sortIcon field="status"></p-sortIcon></th>
-                <th></th>
+                <th class="text-center">Devolução</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-loan>
@@ -50,9 +50,8 @@
                         <p-badge value="Encerrado" severity="danger"></p-badge>
                     </span>
                 </td>
-                <td>
-                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded" (click)="onEdit(loan)" ></button>
-
+                <td class="text-center">
+                    <button pButton pRipple type="button" icon="pi pi-arrow-down" class="p-button-rounded" (click)="onEdit(loan)" ></button>
                 </td>
             </tr>
         </ng-template>
@@ -90,7 +89,7 @@
                 <input [disabled]="true" type="text" pInputText id="dateLoan" [(ngModel)]="loan.dateLoan" />
             </div>
             <div class="field col-12 md:col-6">
-                <h5>Data do Devolução</h5>
+                <h5>Data limite para Devolução</h5>
                 <input [disabled]="true" type="text" pInputText id="dateLoan" [(ngModel)]="loan.returnDate" />
             </div>
         </div>
