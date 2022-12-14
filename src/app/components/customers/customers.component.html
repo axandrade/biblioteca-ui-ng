@@ -67,7 +67,7 @@
     </p-table>
 </div>
 
-<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '60vw'}" header="Cadastrar Cliente" [modal]="true"
+<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '60vw'}" header="Cadastrar Cliente" [modal]="true" [closeOnEscape]="false" [closable]="false"
     styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="p-fluid p-formgrid grid">

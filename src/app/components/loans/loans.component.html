@@ -9,7 +9,7 @@
     </p-toolbar>
 
     <p-table #dt id="table-loan" [value]="loans" [rows]="10" [paginator]="true" [globalFilterFields]="['name']"
-        [(selection)]="selectedLoans" [rowHover]="true" dataKey="id"
+        [(selection)]="loansSelected" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Exibindo de {first} a {last} de um total de {totalRecords} empréstimos"
         [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -51,7 +51,8 @@
                     </span>
                 </td>
                 <td class="text-center">
-                    <button pButton pRipple type="button" icon="pi pi-arrow-down" class="p-button-rounded" (click)="onEdit(loan)" ></button>
+                    <button pButton pRipple type="button" icon="pi pi-arrow-down" class="p-button-rounded"
+                        (click)="showDialogDevolucoes(loan)"></button>
                 </td>
             </tr>
         </ng-template>
@@ -62,8 +63,9 @@
         </ng-template>
     </p-table>
 </div>
+
 <p-dialog [(visible)]="displayModalCadastro" [style]="{width: '70vw', height: '120vw'}" [modal]="true"
-    styleClass="p-fluid">
+     styleClass="p-fluid">
     <ng-template pTemplate="header">
         <h5>Criar Novo Empréstimo</h5>
     </ng-template>
@@ -73,9 +75,10 @@
                 <h5>Usuário:</h5>
                 <div class="ui-inputgroup">
                     <!-- <input type="text"  pInputText [(ngModel)]="matricula"> -->
-                    <p-autoComplete [disabled]="!!loan.id" [(ngModel)]="loan.customer" [suggestions]="customers"
+                    <p-autoComplete [(ngModel)]="loan.customer" [suggestions]="customers"
                         placeholder="Digite o nome ou cpf do usuário" field="name" (keydown)=changeDocente($event)
-                        (completeMethod)="findCustomerByNameOrCpf($event)" (focusout)="findLoansByCustomer()" [delay]="400" [minLength]="4">
+                        (completeMethod)="findCustomerByNameOrCpf($event)" (focusout)="findLoansByCustomer()"
+                        [delay]="400" [minLength]="4">
                     </p-autoComplete>
                 </div>
 
@@ -90,7 +93,7 @@
             </div>
             <div class="field col-12 md:col-6">
                 <h5>Data limite para Devolução</h5>
-                <input [disabled]="true" type="text" pInputText id="dateLoan" [(ngModel)]="loan.returnDate" />
+                <input [disabled]="true" type="text" pInputText id="dateLoan" [(ngModel)]="loan.returnLimitDate" />
             </div>
         </div>
     </div>
@@ -98,9 +101,10 @@
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-12">
                 <h5>Selecione os Livros</h5>
-                <p-multiSelect [disabled]="qtdBooksDisponiveis === 0" [selectionLimit]=qtdBooksDisponiveis [options]="books" [(ngModel)]="booksSelected" optionLabel="title" selectedItemsLabel="{0} items selected"></p-multiSelect>
+                <p-multiSelect [disabled]="qtdBooksDisponiveis === 0" [selectionLimit]=qtdBooksDisponiveis
+                    [options]="books" [(ngModel)]="booksSelected" optionLabel="title"
+                    selectedItemsLabel="{0} items selected"></p-multiSelect>
             </div>
-
         </div>
     </div>
     <div class="card p-4">
@@ -108,6 +112,43 @@
             <div class="field col-12 md:col-12">
                 <h5>Observação</h5>
                 <textarea id="description" [autoResize]="true" pInputTextarea [(ngModel)]="loan.observation"></textarea>
+            </div>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-secondary mr-2"
+            (click)="hideModalAddDialog()"></button>
+        <button pButton label="Salvar" icon="pi pi-check" class="p-button-primary " (click)="onSubmit()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="displayModalDevolucoes"  [style]="{width: '40vw'}">
+    <ng-template pTemplate="header">
+        <h5>Devolução de Livros</h5>
+    </ng-template>
+    <div class="card">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-5">
+                <p-table #dtdev id="table-dev" [value]="loan.itensLoan!"  [rows]="2" [(selection)]="itensLoanSelected" [rowHover]="true" dataKey="itemLoanId">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Titulo</th>
+                            <th>Data da Devolução</th>
+                            <th style="width: 3rem">
+                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-itensLoan>
+                        <tr>
+                            <td>{{itensLoan.book.title}}</td>
+                            <td>{{itensLoan.returnDateItem}}</td>
+                            <td>
+                                <p-tableCheckbox [value]="itensLoan" *ngIf="!itensLoan.returnDateItem"></p-tableCheckbox>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </div>
         </div>
     </div>

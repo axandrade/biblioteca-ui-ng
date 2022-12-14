@@ -40,7 +40,7 @@ export class LoansService {
     }
 
     save(obj: Loan) {
-        if (obj.id) {
+        if (obj.loanId) {
             return this.update(obj);
         } else {
             return this.create(obj);
@@ -56,12 +56,12 @@ export class LoansService {
     private update(obj: Loan) {
         const url = `${environment.API}/api/loans`;
 
-        return this.httpCliente.put<any>(`${url}/${obj.id}`, obj).pipe(first());
+        return this.httpCliente.put<any>(`${url}/${obj.loanId}`, obj).pipe(first());
     }
 
     private delete(obj: Loan) {
         const url = `${environment.API}/api/loans`;
 
-        return this.httpCliente.delete<any>(`${url}/${obj.id}`).pipe(first());
+        return this.httpCliente.delete<any>(`${url}/${obj.loanId}`).pipe(first());
     }
 }

@@ -18,12 +18,13 @@ export class LoansComponent implements OnInit {
   loan: Loan;
   books: Book[] = [];
   booksSelected: Book[] = [];
+  itensLoanSelected: ItensLoan[] = [];
   loans: Loan[] = [];
-  selectedLoans: any[] = [];
+  loansSelected: any[] = [];
   customers: Customer[] = [];
   showLoading: boolean = false;
   displayModalCadastro: boolean = false;
-  title: string = '';
+  displayModalDevolucoes: boolean = false;
   customerMsn = undefined;
   qtdBooksDisponiveis: number;
 
@@ -82,44 +83,43 @@ export class LoansComponent implements OnInit {
 
   onSubmit() {
 
-    var itensLoan: ItensLoan[] = [];
-
-    itensLoan = this.prepareLoanForSave(this.loan);
-    this.loan.itensLoan = itensLoan;
+    if (!this.loan.loanId)
+      this.loan.itensLoan = this.prepareLoanForSave(this.loan);
 
     this.loanService
       .save(this.loan)
-      .subscribe((result) => { debugger; console.log(result) });
+      .subscribe();
 
-    if (this.loan.id)
-      this.loans[this.findIndexById(this.loan.id)] = this.loan;
+    if (this.loan.loanId)
+      this.loans[this.findIndexById(this.loan.loanId)] = this.loan;
     else
       this.loans.push(this.loan);
 
     this.loans = [...this.loans];
     this.displayModalCadastro = false;
+    this.displayModalDevolucoes = false;
     this.loan = {};
-
   }
 
   prepareLoanForSave(loan: Loan) {
-
-    var itemLoan: ItensLoan;
-    var itensLoan: ItensLoan[] = [];
-
-    for( var b of this.booksSelected){
+    let itemLoan: ItensLoan;
+    let itensLoan: ItensLoan[] = [];
+    loan.status = true;
+    for (var b of this.booksSelected) {
       itemLoan = {};
-      itemLoan.bookId = b.id;
+      itemLoan.itemLoanId = null || undefined,
+        itemLoan.book = b;
       itensLoan.push(itemLoan);
+      if (loan.loanId)
+        itemLoan.returnDateItem = new Date().toLocaleString();
     }
     return itensLoan;
   }
 
   findIndexById(id: number): number {
-
     let index = -1;
     for (let i = 0; i < this.loans.length; i++) {
-      if (this.loans[i].id === id) {
+      if (this.loans[i].loanId === id) {
         index = i;
         break;
       }
@@ -128,24 +128,26 @@ export class LoansComponent implements OnInit {
     return index;
   }
 
-  onEdit(loan: Loan) {
-    this.showDialogCadastro();
-    this.loan = { ...loan };
-  }
-
   showDialogCadastro() {
-    this.findBooksByStatus();
     this.displayModalCadastro = true;
+    this.loan = {};
+    this.findBooksByStatus();
     this.loan = {
       dateLoan: new Date().toLocaleString(),
-      returnDate: new Date(new Date().setMonth(0)).toLocaleDateString()
+      returnLimitDate: new Date(new Date().setMonth(0)).toLocaleDateString()
     };
+  }
 
+  showDialogDevolucoes(loan: Loan) {
+    this.loan = { ...loan };
+    this.displayModalDevolucoes = true;
+    this.findLoansByCustomer();
+    console.log(this.qtdBooksDisponiveis);
   }
 
   hideModalAddDialog() {
     this.displayModalCadastro = false;
-    this.loan = {};
+    this.displayModalDevolucoes = false;
   }
 
   private showToast(severity: string, detail: any) {

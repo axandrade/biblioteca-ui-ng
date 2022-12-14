@@ -86,7 +86,7 @@
 </div>
 
 <p-dialog [(visible)]="displayModalCadastro" [style]="{width: '1200px', height: '7000px'}"
-    *ngIf=true [modal]="true" styleClass="p-fluid">
+    [modal]="true" styleClass="p-fluid" [closeOnEscape]="false" [closable]="false">
     <ng-template pTemplate="header">
         <h5>Cadastrar Livro</h5>
     </ng-template>
