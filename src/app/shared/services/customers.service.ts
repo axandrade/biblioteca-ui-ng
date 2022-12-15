@@ -27,7 +27,6 @@ export class CustomersService {
 
     findById(costumerId: number) {
         const url = `${environment.API}/api/customers`;
-        debugger
         return this.httpCliente.get<Customer>(`${url}/${costumerId}`);
 
     }

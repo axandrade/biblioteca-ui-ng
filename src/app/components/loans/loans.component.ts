@@ -88,7 +88,6 @@ export class LoansComponent implements OnInit {
         this.loanService
             .save(this.loan)
             .subscribe((retorno : Loan) => {
-                console.log(retorno);
                 if (this.loan.loanId)
                     this.loans[this.findIndexById(this.loan.loanId)] = this.loan;
                 else
@@ -137,7 +136,6 @@ export class LoansComponent implements OnInit {
     }
 
     showDialogDevolucoes(loan: Loan) {
-        debugger
         console.log(loan);
         this.loan = { ...loan };
         this.displayModalDevolucoes = true;
