@@ -52,7 +52,7 @@
                 <td>
                     <p-tableCheckbox [value]="book"></p-tableCheckbox>
                 </td>
-                <td>{{book.id}}</td>
+                <td>{{book.bookId}}</td>
                 <td>{{book.title}}</td>
                 <td>{{book.isbn}}</td>
                 <td class="text-center">
@@ -94,7 +94,7 @@
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-2">
                 <h5>Código</h5>
-                <input disabled="true" type="text" pInputText id="id" [(ngModel)]="book.id" required autofocus />
+                <input disabled="true" type="text" pInputText id="id" [(ngModel)]="book.bookId" required autofocus />
             </div>
             <div class="field col-12 md:col-10">
                 <h5>Titulo</h5>

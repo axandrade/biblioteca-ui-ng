@@ -48,7 +48,7 @@ export class CustomersService {
 
 
     save(obj: Customer) {
-        if (obj.id) {
+        if (obj.customerId) {
             return this.update(obj);
         } else {
             return this.create(obj);

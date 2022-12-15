@@ -9,7 +9,7 @@
     </p-toolbar>
 
     <p-table #dt id="table-loan" [value]="loans" [rows]="10" [paginator]="true" [globalFilterFields]="['name']"
-        [(selection)]="loansSelected" [rowHover]="true" dataKey="id"
+        [(selection)]="loansSelected" [rowHover]="true" dataKey="loanId"
         currentPageReportTemplate="Exibindo de {first} a {last} de um total de {totalRecords} empréstimos"
         [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -27,7 +27,7 @@
                 <th style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th pSortableColumn="id">Código<p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="loanId">Código<p-sortIcon field="loanId"></p-sortIcon></th>
                 <th pSortableColumn="name">Nome<p-sortIcon field="name"></p-sortIcon></th>
                 <th pSortableColumn="dateLoan">Data do Empréstimo<p-sortIcon field="dateLoan"></p-sortIcon></th>
                 <th class="text-center" pSortableColumn="status">Situação<p-sortIcon field="status"></p-sortIcon></th>
@@ -39,7 +39,7 @@
                 <td>
                     <p-tableCheckbox [value]="loan"></p-tableCheckbox>
                 </td>
-                <td>{{loan.id}}</td>
+                <td>{{loan.loanId}}</td>
                 <td>{{loan.customer.name}}</td>
                 <td>{{loan.dateLoan}}</td>
                 <td class="text-center">
@@ -64,7 +64,7 @@
     </p-table>
 </div>
 
-<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '70vw', height: '120vw'}" [modal]="true"
+<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '70vw', height: '120vw'}" [modal]="true"  [closeOnEscape]="false" [closable]="false"
      styleClass="p-fluid">
     <ng-template pTemplate="header">
         <h5>Criar Novo Empréstimo</h5>
@@ -93,7 +93,7 @@
             </div>
             <div class="field col-12 md:col-6">
                 <h5>Data limite para Devolução</h5>
-                <input [disabled]="true" type="text" pInputText id="dateLoan" [(ngModel)]="loan.returnLimitDate" />
+                <input [disabled]="true" type="text" pInputText id="returnLimitDate" [(ngModel)]="loan.returnLimitDate" />
             </div>
         </div>
     </div>
@@ -111,7 +111,7 @@
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-12">
                 <h5>Observação</h5>
-                <textarea id="description" [autoResize]="true" pInputTextarea [(ngModel)]="loan.observation"></textarea>
+                <textarea id="observation" [autoResize]="true" pInputTextarea [(ngModel)]="loan.observation"></textarea>
             </div>
         </div>
     </div>
@@ -132,6 +132,7 @@
                 <p-table #dtdev id="table-dev" [value]="loan.itensLoan!"  [rows]="2" [(selection)]="itensLoanSelected" [rowHover]="true" dataKey="itemLoanId">
                     <ng-template pTemplate="header">
                         <tr>
+                            <th>Código</th>
                             <th>Titulo</th>
                             <th>Data da Devolução</th>
                             <th style="width: 3rem">
@@ -141,6 +142,7 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-itensLoan>
                         <tr>
+                            <td>{{itensLoan.itemLoanId}}</td>
                             <td>{{itensLoan.book.title}}</td>
                             <td>{{itensLoan.returnDateItem}}</td>
                             <td>

@@ -46,16 +46,23 @@ export class AuthorsComponent implements OnInit {
 
         this.authorsService
             .save(this.author)
-            .subscribe((result) => { });
+            .subscribe((result: Author) => {
 
-        if (this.author.id)
-            this.authors[this.findIndexById(this.author.id)] = this.author;
-        else
-            this.authors.push(this.author);
+                if (this.author.id)
+                    //update
+                    this.authors[this.findIndexById(this.author.id)] = this.author;
+                else
+                    //create
+                    this.authors.push(result);
+
+            });
+
+
 
         this.authors = [...this.authors];
         this.displayModalCadastro = false;
-        this.author = {};
+        console.log(this.authors);
+
     }
 
     findIndexById(id: number): number {

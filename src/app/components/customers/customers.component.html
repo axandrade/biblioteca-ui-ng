@@ -6,7 +6,7 @@
         </ng-template>
     </p-toolbar>
     <p-table #dt [value]="customers" [rows]="10" [paginator]="true" [globalFilterFields]="['name']"
-        [(selection)]="selectedCustomers" [rowHover]="true" dataKey="id"
+        [(selection)]="selectedCustomers" [rowHover]="true" dataKey="customerId"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
@@ -41,7 +41,7 @@
                 <td>
                     <p-tableCheckbox [value]="customer"></p-tableCheckbox>
                 </td>
-                <td>{{customer.id}}</td>
+                <td>{{customer.customerId}}</td>
                 <td>{{customer.name}}</td>
                 <td>{{customer.cpfOrCnpj}}</td>
                 <td>{{customer.birthDate}}</td>

@@ -40,7 +40,7 @@ export class BooksService {
     findById(obj: Book) {
         const url = `${environment.API}/api/books`;
 
-        return this.httpCliente.get<Book>(`${url}/${obj.id}`);
+        return this.httpCliente.get<Book>(`${url}/${obj.bookId}`);
 
     }
 
@@ -58,7 +58,7 @@ export class BooksService {
     }
 
     save(obj: Book) {
-        if (obj.id) {
+        if (obj.bookId) {
             return this.update(obj);
         } else {
             return this.create(obj);
@@ -74,12 +74,12 @@ export class BooksService {
     private update(obj: Book) {
         const url = `${environment.API}/api/books`;
 
-        return this.httpCliente.put<any>(`${url}/${obj.id}`, obj).pipe(first());
+        return this.httpCliente.put<any>(`${url}/${obj.bookId}`, obj).pipe(first());
     }
 
     private delete(obj: Book) {
         const url = `${environment.API}/api/books`;
 
-        return this.httpCliente.delete<any>(`${url}/${obj.id}`).pipe(first());
+        return this.httpCliente.delete<any>(`${url}/${obj.bookId}`).pipe(first());
     }
 }

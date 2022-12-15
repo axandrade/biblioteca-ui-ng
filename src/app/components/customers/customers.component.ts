@@ -53,8 +53,8 @@ export class CustomersComponent implements OnInit {
         this.customersService
             .save(this.customer)
             .subscribe((result) => {
-                if (this.customer.id)
-                    this.customers[this.findIndexById(this.customer.id)] = this.customer;
+                if (this.customer.customerId)
+                    this.customers[this.findIndexById(this.customer.customerId)] = this.customer;
                 else
                     this.customers.push(result);
 
@@ -67,10 +67,10 @@ export class CustomersComponent implements OnInit {
 
     }
 
-    findIndexById(id: number): number {
+    findIndexById(customerId: number): number {
         let index = -1;
         for (let i = 0; i < this.customers.length; i++) {
-            if (this.customers[i].id === id) {
+            if (this.customers[i].customerId === customerId) {
                 index = i;
                 break;
             }

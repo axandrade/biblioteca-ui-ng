@@ -83,8 +83,8 @@ export class BooksComponent implements OnInit {
             .save(this.book)
             .subscribe((result) => {});
 
-        if (this.book.id)
-            this.books[this.findIndexById(this.book.id)] = this.book;
+        if (this.book.bookId)
+            this.books[this.findIndexById(this.book.bookId)] = this.book;
         else
             this.books.push(this.book);
 
@@ -93,10 +93,10 @@ export class BooksComponent implements OnInit {
         this.book = {};
     }
 
-    findIndexById(id: number): number {
+    findIndexById(bookId: number): number {
         let index = -1;
         for (let i = 0; i < this.books.length; i++) {
-            if (this.books[i].id === id) {
+            if (this.books[i].bookId === bookId) {
                 index = i;
                 break;
             }
