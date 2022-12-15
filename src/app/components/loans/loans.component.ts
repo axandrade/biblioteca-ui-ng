@@ -87,16 +87,23 @@ export class LoansComponent implements OnInit {
 
         this.loanService
             .save(this.loan)
-            .subscribe((retorno : Loan) => {
-                if (this.loan.loanId)
-                    this.loans[this.findIndexById(this.loan.loanId)] = this.loan;
-                else
+            .subscribe((retorno: Loan) => {
+                if (this.loan.loanId) {
+                    //update
+                    debugger
+                    this.loans[this.findIndexById(this.loan.loanId)] = retorno;
+                }
+                else {
+                    //create
                     this.loans.push(retorno);
+                }
+
             });
 
         this.loans = [...this.loans];
         this.displayModalCadastro = false;
         this.displayModalDevolucoes = false;
+        console.log(this.loans);
     }
 
     prepareLoanForSave(loan: Loan) {
@@ -136,7 +143,6 @@ export class LoansComponent implements OnInit {
     }
 
     showDialogDevolucoes(loan: Loan) {
-        console.log(loan);
         this.loan = { ...loan };
         this.displayModalDevolucoes = true;
     }
@@ -144,6 +150,7 @@ export class LoansComponent implements OnInit {
     hideModalAddDialog() {
         this.displayModalCadastro = false;
         this.displayModalDevolucoes = false;
+        this.itensLoanSelected = [];
     }
 
     private showToast(severity: string, detail: any) {

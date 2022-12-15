@@ -122,7 +122,7 @@
     </ng-template>
 </p-dialog>
 
-<p-dialog [(visible)]="displayModalDevolucoes"  [style]="{width: '40vw'}">
+<p-dialog [(visible)]="displayModalDevolucoes"  [style]="{width: '40vw'}" [closeOnEscape]="false" [closable]="false">
     <ng-template pTemplate="header">
         <h5>Devolução de Livros</h5>
     </ng-template>
