@@ -82,15 +82,14 @@ export class LoansComponent implements OnInit {
     }
 
     onSubmit() {
-        if (!this.loan.loanId)
-            this.loan.itensLoan = this.prepareLoanForSave(this.loan);
+
+        this.loan.itensLoan = this.prepareLoan(this.loan);
 
         this.loanService
             .save(this.loan)
             .subscribe((retorno: Loan) => {
                 if (this.loan.loanId) {
                     //update
-                    debugger
                     this.loans[this.findIndexById(this.loan.loanId)] = retorno;
                 }
                 else {
@@ -106,18 +105,23 @@ export class LoansComponent implements OnInit {
         console.log(this.loans);
     }
 
-    prepareLoanForSave(loan: Loan) {
-        let itemLoan: ItensLoan;
-        let itensLoan: ItensLoan[] = [];
-        loan.status = true;
-        for (var b of this.booksSelected) {
-            itemLoan = {};
-            itemLoan.book = b;
-            itensLoan.push(itemLoan);
-            if (loan.loanId)
-                itemLoan.returnDateItem = new Date().toLocaleString();
+    prepareLoan(loan: Loan) {
+        if (this.loan.loanId) {
+            return this.itensLoanSelected;
         }
-        return itensLoan;
+        else {
+            //create
+            let itemLoan: ItensLoan;
+            let itensLoan: ItensLoan[] = [];
+
+            loan.status = true;
+            for (var b of this.booksSelected) {
+                itemLoan = {};
+                itemLoan.book = b;
+                itensLoan.push(itemLoan);
+            }
+            return itensLoan;
+        }
     }
 
     findIndexById(id: number): number {
