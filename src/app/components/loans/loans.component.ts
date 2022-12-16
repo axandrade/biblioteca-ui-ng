@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { ItensLoan } from './../../shared/models/itensloan';
 import { BooksService } from './../../shared/services/books.service';
 import { Table } from 'primeng/table';
@@ -29,7 +30,8 @@ export class LoansComponent implements OnInit {
 
     constructor(private loanService: LoansService,
         private customerService: CustomersService,
-        private booksService: BooksService) {
+        private booksService: BooksService,
+        private messageService: MessageService) {
 
         this.loan = {};
         this.qtdBooksDisponiveis = 0;
@@ -81,27 +83,29 @@ export class LoansComponent implements OnInit {
     }
 
     onSubmit() {
+        try {
+            this.loan.itensLoan = this.prepareLoan(this.loan);
+            this.validationForm();
+            this.loanService
+                .save(this.loan)
+                .subscribe((retorno: Loan) => {
+                    if (this.loan.loanId) {
+                        //update
+                        this.loans[this.findIndexById(this.loan.loanId)] = retorno;
+                    }
+                    else {
+                        //create
+                        this.loans.push(retorno);
+                    }
 
-        this.loan.itensLoan = this.prepareLoan(this.loan);
+                });
 
-        this.loanService
-            .save(this.loan)
-            .subscribe((retorno: Loan) => {
-                if (this.loan.loanId) {
-                    //update
-                    this.loans[this.findIndexById(this.loan.loanId)] = retorno;
-                }
-                else {
-                    //create
-                    this.loans.push(retorno);
-                }
-
-            });
-
-        this.loans = [...this.loans];
-        this.displayModalCadastro = false;
-        this.displayModalDevolucoes = false;
-        console.log(this.loans);
+            this.loans = [...this.loans];
+            this.displayModalCadastro = false;
+            this.displayModalDevolucoes = false;
+        } catch (error) {
+            this.showToast('warn', error);
+        }
     }
 
     prepareLoan(loan: Loan) {
@@ -121,6 +125,31 @@ export class LoansComponent implements OnInit {
             }
             return itensLoan;
         }
+    }
+
+    validationForm() {
+        debugger
+        if (!this.loan.customer)
+            throw new Error('Você deve selecionar um usuário cadastrado!');
+        if (this.loan.itensLoan?.length! === undefined || this.loan.itensLoan?.length! === 0 ){
+            throw new Error('Você deve selecionar no minimo um livro');
+        }else{
+            for (var il of this.loan.itensLoan!) {
+                if(il.book?.authors?.length === 0){
+                    throw new Error('O livro '+ il.book.title + ' nao possui nenhum autor cadastrado, vá ate a tela de cadastros de livros e inclua um autor na obra');
+                }
+            }
+        }
+
+
+    }
+
+
+    private showToast(severity: string, detail: any) {
+
+        this.messageService.clear();
+        this.messageService.add({ severity: severity, detail: detail, life: 5000 });
+
     }
 
     findIndexById(id: number): number {
@@ -157,10 +186,6 @@ export class LoansComponent implements OnInit {
         this.displayModalCadastro = false;
         this.displayModalDevolucoes = false;
         this.itensLoanSelected = [];
-    }
-
-    private showToast(severity: string, detail: any) {
-        setTimeout(() => { }, 300);
     }
 
     onGlobalFilter(table: Table, event: Event) {

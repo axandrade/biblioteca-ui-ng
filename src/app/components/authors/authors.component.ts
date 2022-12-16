@@ -60,7 +60,7 @@ export class AuthorsComponent implements OnInit {
                 },
                     error => {
                         this.showLoading = false;
-                        this.showToast('error', error.message);
+                        this.showToast('warn', error.message);
                         this.authors = [];
                     });
 
