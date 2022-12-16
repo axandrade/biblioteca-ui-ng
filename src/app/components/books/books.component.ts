@@ -42,9 +42,10 @@ export class BooksComponent implements OnInit {
             { id: 8, description: 'Japonês' }
         ];
         this.statusBook = [
-            { cod: 1, description: 'Ativo' },
-            { cod: 2, description: 'Avariado' },
-            { cod: 3, description: 'Perdido' }
+            { cod: 1, description: 'Disponivel' },
+            { cod: 2, description: 'Emprestado' },
+            { cod: 3, description: 'Avariado' },
+            { cod: 4, description: 'Perdido' }
         ];
     }
 

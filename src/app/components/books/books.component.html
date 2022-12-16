@@ -113,9 +113,9 @@
                 <h5>Data da Publicação</h5>
                 <p-inputMask mask="99/99/9999" [(ngModel)]="book.datePublication" slotChar="dd/mm/yyyy"></p-inputMask>
             </div>
-            <div class="field col-12 md:col-4">
+            <div  class="field col-12 md:col-4">
                 <h5>Situação</h5>
-                <p-dropdown optionValue="cod" [options]="statusBook" [(ngModel)]="book.statusBook"
+                <p-dropdown [disabled]="!book.bookId || book.statusBook === 2" optionValue="cod" [options]="statusBook" [(ngModel)]="book.statusBook"
                     optionLabel="description"></p-dropdown>
             </div>
         </div>
