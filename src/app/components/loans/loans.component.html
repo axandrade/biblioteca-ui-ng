@@ -9,7 +9,7 @@
     </p-toolbar>
 
     <p-table #dt id="table-loan" [value]="loans" [rows]="10" [paginator]="true" [globalFilterFields]="['name']"
-        [(selection)]="loansSelected" [rowHover]="true" dataKey="loanId"
+        [rowHover]="true" dataKey="loanId"
         currentPageReportTemplate="Exibindo de {first} a {last} de um total de {totalRecords} empréstimos"
         [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -24,10 +24,6 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th style="width: 3rem">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
-                <th pSortableColumn="loanId">Código<p-sortIcon field="loanId"></p-sortIcon></th>
                 <th pSortableColumn="name">Nome<p-sortIcon field="name"></p-sortIcon></th>
                 <th pSortableColumn="dateLoan">Data do Empréstimo<p-sortIcon field="dateLoan"></p-sortIcon></th>
                 <th class="text-center" pSortableColumn="status">Situação<p-sortIcon field="status"></p-sortIcon></th>
@@ -36,10 +32,6 @@
         </ng-template>
         <ng-template pTemplate="body" let-loan>
             <tr>
-                <td>
-                    <p-tableCheckbox [value]="loan"></p-tableCheckbox>
-                </td>
-                <td>{{loan.loanId}}</td>
                 <td>{{loan.customer.name}}</td>
                 <td>{{loan.dateLoan}}</td>
                 <td class="text-center">
@@ -132,7 +124,6 @@
                 <p-table #dtdev id="table-dev" [value]="loan.itensLoan!"  [rows]="2" [(selection)]="itensLoanSelected" [rowHover]="true" dataKey="itemLoanId">
                     <ng-template pTemplate="header">
                         <tr>
-                            <th>Código</th>
                             <th>Titulo</th>
                             <th>Data da Devolução</th>
                             <th style="width: 3rem">
@@ -142,7 +133,6 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-itensLoan>
                         <tr>
-                            <td>{{itensLoan.itemLoanId}}</td>
                             <td>{{itensLoan.book.title}}</td>
                             <td>{{itensLoan.returnDateItem}}</td>
                             <td>

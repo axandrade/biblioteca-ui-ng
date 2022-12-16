@@ -20,7 +20,6 @@ export class LoansComponent implements OnInit {
     booksSelected: Book[] = [];
     itensLoanSelected: ItensLoan[] = [];
     loans: Loan[] = [];
-    loansSelected: any[] = [];
     customers: Customer[] = [];
     showLoading: boolean = false;
     displayModalCadastro: boolean = false;
