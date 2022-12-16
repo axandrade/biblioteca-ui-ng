@@ -10,11 +10,12 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
-import {InputTextareaModule} from 'primeng/inputtextarea';
 
 import { ComponentRoutingModule } from './components-routing.module';
 
@@ -37,7 +38,8 @@ import { ComponentRoutingModule } from './components-routing.module';
         InputSwitchModule,
         BadgeModule,
         AutoCompleteModule,
-        InputTextareaModule
+        InputTextareaModule,
+        ProgressBarModule
 
     ],
     providers: [MessageService, ConfirmationService]

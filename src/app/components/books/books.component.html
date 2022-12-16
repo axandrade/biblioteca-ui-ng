@@ -97,15 +97,15 @@
                 <input disabled="true" type="text" pInputText id="id" [(ngModel)]="book.bookId" required autofocus />
             </div>
             <div class="field col-12 md:col-10">
-                <h5>Titulo</h5>
+                <h5 class="asterisk">Titulo</h5>
                 <input type="text" pInputText id="title" [(ngModel)]="book.title" required autofocus />
             </div>
             <div class="field col-12 md:col-4">
-                <h5>ISBN</h5>
+                <h5 class="asterisk">ISBN</h5>
                 <input type="text" pInputText id="title" [(ngModel)]="book.isbn" required autofocus />
             </div>
             <div class="field col-12 md:col-4">
-                <h5>Idioma</h5>
+                <h5 class="asterisk">Idioma</h5>
                 <p-dropdown optionValue="id" [options]="languages" [(ngModel)]="book.codLanguage"
                     optionLabel="description"></p-dropdown>
             </div>
@@ -121,7 +121,7 @@
         </div>
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-6">
-                <h5>Selecione os Autores</h5>
+                <h5 class="asterisk">Selecione os Autores</h5>
                 <p-multiSelect [options]="authors" [(ngModel)]="book.authors" optionLabel="name" selectedItemsLabel="{0} items selected"></p-multiSelect>
             </div>
         </div>

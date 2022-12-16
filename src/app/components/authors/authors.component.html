@@ -1,6 +1,6 @@
-<p-toast></p-toast>
 
 <div class="card">
+    <p-toast position="bottom-center" [baseZIndex]="99999999999" ></p-toast>
     <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
             <button pButton pRipple label="Adicionar" icon="pi pi-plus" class="p-button-primary mr-2" (click)="showDialogCadastro()"></button>
@@ -53,8 +53,8 @@
 <p-dialog [(visible)]="displayModalCadastro" [style]="{width: '50vw'}" header="Cadastrar Autor" [modal]="true" styleClass="p-fluid" [closeOnEscape]="false" [closable]="false">
     <ng-template pTemplate="content">
         <div class="p-field">
-            <h5>Nome</h5>
-            <input type="text" pInputText id="name" [(ngModel)]="author.name" required autofocus />
+            <h5 class="asterisk">Nome</h5>
+            <input pInputText id="name" [(ngModel)]="author.name"/>
          </div>
     </ng-template>
 

@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
 
@@ -18,7 +19,8 @@ export class AuthorsComponent implements OnInit {
     displayModalCadastro: boolean = false;
 
     constructor(
-        private authorsService: AuthorsService
+        private authorsService: AuthorsService,
+        private messageService: MessageService
 
     ) {
         this.author = {};
@@ -33,30 +35,54 @@ export class AuthorsComponent implements OnInit {
         this.authorsService.findAll().subscribe(
             (dados) => {
                 this.authors = dados;
-                this.showLoading = false;
+                this.showLoading = true;
             },
             (error) => {
                 this.showLoading = false;
-                this.showToast('warn', error.message);
+                this.showToast('danger', error.message);
             }
         );
     }
 
     onSubmit() {
+        try {
+            this.validationForm();
 
-        this.authorsService
-            .save(this.author)
-            .subscribe((result: Author) => {
-                if (this.author.id)
-                    //update
-                    this.authors[this.findIndexById(this.author.id)] = this.author;
-                else
-                    //create
-                    this.authors.push(result);
+            this.authorsService
+                .save(this.author)
+                .subscribe((result: Author) => {
+                    if (this.author.id)
+                        //update
+                        this.authors[this.findIndexById(this.author.id)] = this.author;
+                    else
+                        //create
+                        this.authors.push(result);
+                },
+                    error => {
+                        this.showLoading = false;
+                        this.showToast('error', error.message);
+                        this.authors = [];
+                    });
 
-            });
-        this.authors = [...this.authors];
-        this.displayModalCadastro = false;
+            this.authors = [...this.authors];
+            this.displayModalCadastro = false;
+
+        } catch (error) {
+            this.showToast('warn', 'O campo nome é obrigatório!');
+        }
+
+    }
+
+    validationForm() {
+        if (!this.author.name)
+            throw new Error('O campo nome é obrigatório!');
+    }
+
+
+    private showToast(severity: string, detail: any) {
+
+        this.messageService.clear();
+        this.messageService.add({ severity: severity, detail: detail, life: 3000 });
 
     }
 
@@ -87,10 +113,6 @@ export class AuthorsComponent implements OnInit {
     hideModalAddDialog() {
         this.displayModalCadastro = false;
         this.author = {};
-    }
-
-    private showToast(severity: string, detail: any) {
-        setTimeout(() => { }, 300);
     }
 
     onGlobalFilter(table: Table, event: Event) {

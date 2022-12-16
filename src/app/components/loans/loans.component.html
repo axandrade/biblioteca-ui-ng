@@ -64,7 +64,7 @@
     <div class="card">
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-md-5">
-                <h5>Usuário:</h5>
+                <h5 class="asterisk">Usuário</h5>
                 <div class="ui-inputgroup">
                     <!-- <input type="text"  pInputText [(ngModel)]="matricula"> -->
                     <p-autoComplete [(ngModel)]="loan.customer" [suggestions]="customers"
@@ -92,7 +92,7 @@
     <div class="card p-4">
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-12">
-                <h5>Selecione os Livros</h5>
+                <h5 class="asterisk">Selecione os Livros</h5>
                 <p-multiSelect [disabled]="qtdBooksDisponiveis === 0" [selectionLimit]=qtdBooksDisponiveis
                     [options]="books" [(ngModel)]="booksSelected" optionLabel="title"
                     selectedItemsLabel="{0} items selected"></p-multiSelect>
