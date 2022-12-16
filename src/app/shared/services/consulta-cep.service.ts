@@ -13,10 +13,14 @@ export class ConsultaCepService {
     constructor(private httpCliente: HttpClient) { }
 
     consultaCEP(cep: string){
-
+        debugger
         cep = cep.replace(/\D/g, '');
 
-        return  this.httpCliente.get(`//viacep.com.br/ws/${cep}/json/`);
+        return  this.httpCliente.get(`//viacep.com.br/ws/${cep}/json/`).pipe(
+            catchError(error => {
+                throw(error.message);
+            })
+        );
     }
 
 

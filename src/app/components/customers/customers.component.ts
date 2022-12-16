@@ -44,8 +44,9 @@ export class CustomersComponent implements OnInit {
                 this.showLoading = false;
             },
             (error) => {
+                console.log(error)
                 this.showLoading = false;
-                this.showToast('warn', error.message);
+                this.showToast('error', error.message);
             }
         );
     }
@@ -127,7 +128,8 @@ export class CustomersComponent implements OnInit {
     }
 
     consultaCep(event: any) {
-        if (this.customer.zip != null && this.customer.zip) {
+
+        if (this.customer.zip) {
             this.consultaCepService.consultaCEP(this.customer.zip).
                 subscribe(retorno => {
                     this.endereco = retorno;
@@ -137,8 +139,7 @@ export class CustomersComponent implements OnInit {
                     this.customer.state = this.endereco.uf;
                 }),
                 (error: any) => {
-                    this.showLoading = false;
-                    this.showToast('warn', error.message);
+                    this.showToast('error', error.message);
                 };
         }
     }

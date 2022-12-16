@@ -136,12 +136,15 @@ export class LoansComponent implements OnInit {
     }
 
     showDialogCadastro() {
+        let date = new Date();
+        date.setMonth(date.getMonth() + 1);
+
         this.displayModalCadastro = true;
         this.loan = {};
         this.findBooksByStatus();
         this.loan = {
             dateLoan: new Date().toLocaleString(),
-            returnLimitDate: new Date(new Date().setMonth(0)).toLocaleDateString()
+            returnLimitDate: date.toLocaleDateString(),
         };
     }
 

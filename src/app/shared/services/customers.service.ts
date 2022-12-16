@@ -20,7 +20,7 @@ export class CustomersService {
             .pipe(
                 retry(1),
                 catchError(error => {
-                    return throwError(error.error);
+                    return throwError(error);
                 })
             )
     }

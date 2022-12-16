@@ -26,6 +26,7 @@
             <tr>
                 <th pSortableColumn="name">Nome<p-sortIcon field="name"></p-sortIcon></th>
                 <th pSortableColumn="dateLoan">Data do Empréstimo<p-sortIcon field="dateLoan"></p-sortIcon></th>
+                <th pSortableColumn="dateLoan">Data limite para Devolução<p-sortIcon field="dateLoan"></p-sortIcon></th>
                 <th class="text-center" pSortableColumn="status">Situação<p-sortIcon field="status"></p-sortIcon></th>
                 <th class="text-center">Devolução</th>
             </tr>
@@ -34,6 +35,7 @@
             <tr>
                 <td>{{loan.customer.name}}</td>
                 <td>{{loan.dateLoan}}</td>
+                <td>{{loan.returnLimitDate}}</td>
                 <td class="text-center">
                     <span *ngIf="loan.status === true">
                         <p-badge value="Ativo" severity="success"></p-badge>
