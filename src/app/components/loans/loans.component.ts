@@ -140,16 +140,11 @@ export class LoansComponent implements OnInit {
                 }
             }
         }
-
-
     }
 
-
     private showToast(severity: string, detail: any) {
-
         this.messageService.clear();
         this.messageService.add({ severity: severity, detail: detail, life: 5000 });
-
     }
 
     findIndexById(id: number): number {
