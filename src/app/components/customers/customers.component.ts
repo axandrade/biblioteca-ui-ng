@@ -14,7 +14,6 @@ export class CustomersComponent implements OnInit {
 
     endereco: any = {};
     customer: Customer;
-    submitted: boolean = false;
     customers: Customer[] = [];
     showLoading: boolean = false;
     selectedCustomers: any[] = [];
@@ -55,21 +54,19 @@ export class CustomersComponent implements OnInit {
 
         try {
             this.validationForm();
-
+            console.log(this.customer);
             this.customersService
                 .save(this.customer)
-                .subscribe((result) => {
+                .subscribe((result : Customer) => {
                     if (this.customer.customerId)
+
                         this.customers[this.findIndexById(this.customer.customerId)] = this.customer;
                     else
                         this.customers.push(result);
-
                 });
 
-            this.submitted = true;
             this.customers = [...this.customers];
             this.displayModalCadastro = false;
-            this.customer = {};
 
         } catch (error) {
             this.showToast('warn', error);
@@ -120,14 +117,12 @@ export class CustomersComponent implements OnInit {
     }
 
     showDialogCadastro() {
-        this.submitted = false;
         this.displayModalCadastro = true;
         this.customer = {};
     }
 
     hideModalAddDialog() {
         this.displayModalCadastro = false;
-        this.submitted = false;
         this.customer = {};
     }
 

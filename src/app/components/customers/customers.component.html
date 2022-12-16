@@ -96,7 +96,7 @@
                 <h5>Contato 2</h5>
                 <input type="text" pInputText id="contact2" [(ngModel)]="customer.contact2" required autofocus />
             </div>
-            <div class="field col-12 md:col-4">
+            <div *ngIf="customer.customerId" class="field col-12 md:col-4">
                 <h5>Situação</h5>
                 <p-inputSwitch [(ngModel)]="customer.status"></p-inputSwitch>
             </div>
