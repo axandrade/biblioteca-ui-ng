@@ -68,9 +68,8 @@ export class AuthorsComponent implements OnInit {
             this.displayModalCadastro = false;
 
         } catch (error) {
-            this.showToast('warn', 'O campo nome é obrigatório!');
+            this.showToast('warn', error);
         }
-
     }
 
     validationForm() {

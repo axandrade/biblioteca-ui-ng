@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
 
@@ -28,7 +29,8 @@ export class BooksComponent implements OnInit {
 
     constructor(
         private booksService: BooksService,
-        private authorsService: AuthorsService
+        private authorsService: AuthorsService,
+        private messageService: MessageService
     ) {
         this.book = {};
         this.languages = [
@@ -61,7 +63,7 @@ export class BooksComponent implements OnInit {
             },
             (error) => {
                 this.showLoading = false;
-                this.showToast('warn', error.message);
+                this.showToast('error', error.message);
             }
         );
     }
@@ -74,24 +76,48 @@ export class BooksComponent implements OnInit {
             },
             (error) => {
                 this.showLoading = false;
-                this.showToast('warn', error.message);
+                this.showToast('error', error.message);
             }
         );
     }
 
     onSubmit() {
-        this.booksService
-            .save(this.book)
-            .subscribe((result) => {});
 
-        if (this.book.bookId)
-            this.books[this.findIndexById(this.book.bookId)] = this.book;
-        else
-            this.books.push(this.book);
+        try {
+            this.validationForm();
 
-        this.books = [...this.books];
-        this.displayModalCadastro = false;
-        this.book = {};
+            this.booksService
+                .save(this.book)
+                .subscribe((result) => { });
+
+            if (this.book.bookId)
+                this.books[this.findIndexById(this.book.bookId)] = this.book;
+            else
+                this.books.push(this.book);
+
+            this.books = [...this.books];
+            this.displayModalCadastro = false;
+            this.book = {};
+
+        } catch (error) {
+            this.showToast('warn', error);
+        }
+    }
+
+    validationForm() {
+        if (!this.book.title)
+            throw new Error('O campo titulo é obrigatório!');
+        if (!this.book.isbn)
+            throw new Error('O campo ISBN é obrigatório!');
+        if (!this.book.authors)
+            throw new Error('O campo Autor é obrigatório!');
+    }
+
+
+    private showToast(severity: string, detail: any) {
+        this.messageService.clear();
+        this.messageService.add({ severity: severity, detail: detail, life: 3000 });
+
     }
 
     findIndexById(bookId: number): number {
@@ -127,10 +153,6 @@ export class BooksComponent implements OnInit {
     hideModalAddDialog() {
         this.displayModalCadastro = false;
         this.book = {};
-    }
-
-    private showToast(severity: string, detail: any) {
-        setTimeout(() => { }, 300);
     }
 
     onGlobalFilter(table: Table, event: Event) {

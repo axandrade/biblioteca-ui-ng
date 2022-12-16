@@ -3,6 +3,7 @@ import { ConsultaCepService } from './../../shared/services/consulta-cep.service
 import { Component, OnInit } from '@angular/core';
 import { Customer } from '../../shared/models/customer';
 import { CustomersService } from 'src/app/shared/services/customers.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-customers',
@@ -20,7 +21,8 @@ export class CustomersComponent implements OnInit {
     displayModalCadastro: boolean = false;
 
     constructor(private customersService: CustomersService,
-                private consultaCepService: ConsultaCepService) {
+        private consultaCepService: ConsultaCepService,
+        private messageService: MessageService) {
         this.customer = {};
         this.endereco = {
             cep: null,
@@ -50,21 +52,55 @@ export class CustomersComponent implements OnInit {
     }
 
     onSubmit() {
-        this.customersService
-            .save(this.customer)
-            .subscribe((result) => {
-                if (this.customer.customerId)
-                    this.customers[this.findIndexById(this.customer.customerId)] = this.customer;
-                else
-                    this.customers.push(result);
 
-            });
+        try {
+            this.validationForm();
 
-        this.submitted = true;
-        this.customers = [...this.customers];
-        this.displayModalCadastro = false;
-        this.customer = {};
+            this.customersService
+                .save(this.customer)
+                .subscribe((result) => {
+                    if (this.customer.customerId)
+                        this.customers[this.findIndexById(this.customer.customerId)] = this.customer;
+                    else
+                        this.customers.push(result);
 
+                });
+
+            this.submitted = true;
+            this.customers = [...this.customers];
+            this.displayModalCadastro = false;
+            this.customer = {};
+
+        } catch (error) {
+            this.showToast('warn', error);
+        }
+    }
+
+    validationForm() {
+        if (!this.customer.name)
+            throw new Error('O campo nome é obrigatório!');
+        if (!this.customer.email)
+            throw new Error('O campo email é obrigatório!');
+        if (!this.customer.cpfOrCnpj)
+            throw new Error('O campo CPF é obrigatório!');
+        if (!this.customer.contact1)
+            throw new Error('O campo contato 1 é obrigatório!');
+
+        if (!this.customer.street)
+            throw new Error('O campo logradouro é obrigatório!');
+        if (!this.customer.neighborhood)
+            throw new Error('O campo bairro é obrigatório!');
+        if (!this.customer.zip)
+            throw new Error('O campo CEP é obrigatório!');
+        if (!this.customer.city)
+            throw new Error('O campo cidade é obrigatório!');
+        if (!this.customer.state)
+            throw new Error('O campo estado é obrigatório!');
+    }
+
+    private showToast(severity: string, detail: any) {
+        this.messageService.clear();
+        this.messageService.add({ severity: severity, detail: detail, life: 3000 });
     }
 
     findIndexById(customerId: number): number {
@@ -95,24 +131,20 @@ export class CustomersComponent implements OnInit {
         this.customer = {};
     }
 
-    private showToast(severity: string, detail: any) {
-        setTimeout(() => { }, 300);
-    }
-
-    consultaCep(event: any){
-        if(this.customer.zip != null && this.customer.zip){
+    consultaCep(event: any) {
+        if (this.customer.zip != null && this.customer.zip) {
             this.consultaCepService.consultaCEP(this.customer.zip).
-            subscribe(retorno =>{
-                this.endereco = retorno;
-                this.customer.street = this.endereco.logradouro;
-                this.customer.neighborhood = this.endereco.bairro;
-                this.customer.city = this.endereco.localidade;
-                this.customer.state = this.endereco.uf;
-            }),
-            (error: any) => {
-                this.showLoading = false;
-                this.showToast('warn', error.message);
-            };
+                subscribe(retorno => {
+                    this.endereco = retorno;
+                    this.customer.street = this.endereco.logradouro;
+                    this.customer.neighborhood = this.endereco.bairro;
+                    this.customer.city = this.endereco.localidade;
+                    this.customer.state = this.endereco.uf;
+                }),
+                (error: any) => {
+                    this.showLoading = false;
+                    this.showToast('warn', error.message);
+                };
         }
     }
 
