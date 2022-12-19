@@ -1,3 +1,4 @@
+import { Category } from './category';
 import { Author } from './author';
 export interface Book {
 
@@ -8,5 +9,6 @@ export interface Book {
     codLanguage?: string;
     descLanguage?: string;
     datePublication?: string;
+    categories?: Category[];
     authors?: Author[];
 }

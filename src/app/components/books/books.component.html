@@ -30,7 +30,7 @@
                 <th>
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th pSortableColumn="id">Código<p-sortIcon field="id"></p-sortIcon>
+                <th pSortableColumn="bookId">Código<p-sortIcon field="bookId"></p-sortIcon>
                 </th>
                 <th pSortableColumn="title">Titulo <p-sortIcon field="title"></p-sortIcon>
                 </th>
@@ -117,11 +117,15 @@
                 <p-dropdown [disabled]="!book.bookId || book.statusBook === 2" optionValue="cod" [options]="statusBook" [(ngModel)]="book.statusBook"
                     optionLabel="description"></p-dropdown>
             </div>
+            <div class="field col-12 md:col-6">
+                <h5 class="asterisk">Categoria</h5>
+                <p-multiSelect [disabled]="!!book.bookId" [options]="categories" [(ngModel)]="book.categories" optionLabel="description" selectedItemsLabel="{0} items selected"></p-multiSelect>
+            </div>
         </div>
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-6">
                 <h5 class="asterisk">Selecione os Autores</h5>
-                <p-multiSelect [options]="authors" [(ngModel)]="book.authors" optionLabel="name" selectedItemsLabel="{0} items selected"></p-multiSelect>
+                <p-multiSelect [disabled]="!!book.bookId" [options]="authors" [(ngModel)]="book.authors" optionLabel="name" selectedItemsLabel="{0} items selected"></p-multiSelect>
             </div>
         </div>
     </ng-template>

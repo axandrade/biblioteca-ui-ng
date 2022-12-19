@@ -1,39 +1,39 @@
+import { Category } from './../../shared/models/category';
 import { MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
+import { CategoriesService } from 'src/app/shared/services/categories.service';
 
-import { Author } from '../../shared/models/author';
-import { AuthorsService } from '../../shared/services/authors.service';
 
 @Component({
-    selector: 'app-authors',
-    templateUrl: './authors.component.html',
-    styleUrls: ['./authors.component.scss'],
+    selector: 'app-categories',
+    templateUrl: './categories.component.html',
+    styleUrls: ['./categories.component.scss'],
 })
-export class AuthorsComponent implements OnInit {
+export class CategoriesComponent implements OnInit {
 
-    author: Author;
-    authors: Author[] = [];
+    category: Category;
+    categories: Category[] = [];
     showLoading: boolean = false;
     displayModalCadastro: boolean = false;
 
     constructor(
-        private authorsService: AuthorsService,
+        private categoriesService: CategoriesService,
         private messageService: MessageService
 
     ) {
-        this.author = {};
+        this.category = {};
 
     }
 
     ngOnInit(): void {
-        this.findAllAuthors();
+        this.findAllCategories();
     }
 
-    findAllAuthors() {
-        this.authorsService.findAll().subscribe(
+    findAllCategories() {
+        this.categoriesService.findAll().subscribe(
             (dados) => {
-                this.authors = dados;
+                this.categories = dados;
                 this.showLoading = true;
             },
             (error) => {
@@ -47,23 +47,23 @@ export class AuthorsComponent implements OnInit {
         try {
             this.validationForm();
 
-            this.authorsService
-                .save(this.author)
-                .subscribe((result: Author) => {
-                    if (this.author.authorId)
+            this.categoriesService
+                .save(this.category)
+                .subscribe((result: Category) => {
+                    if (this.category.categoryId)
                         //update
-                        this.authors[this.findIndexById(this.author.authorId)] = this.author;
+                        this.categories[this.findIndexById(this.category.categoryId)] = this.category;
                     else
                         //create
-                        this.authors.push(result);
+                        this.categories.push(result);
                 },
                     error => {
                         this.showLoading = false;
                         this.showToast('warn', error.message);
-                        this.authors = [];
+                        this.categories = [];
                     });
 
-            this.authors = [...this.authors];
+            this.categories = [...this.categories];
             this.displayModalCadastro = false;
 
         } catch (error) {
@@ -72,8 +72,8 @@ export class AuthorsComponent implements OnInit {
     }
 
     validationForm() {
-        if (!this.author.name)
-            throw new Error('O campo nome é obrigatório!');
+        if (!this.category.description)
+            throw new Error('O campo descrição é obrigatório!');
     }
 
 
@@ -84,11 +84,11 @@ export class AuthorsComponent implements OnInit {
 
     }
 
-    findIndexById(authorId: number): number {
+    findIndexById(id: number): number {
 
         let index = -1;
-        for (let i = 0; i < this.authors.length; i++) {
-            if (this.authors[i].authorId === authorId) {
+        for (let i = 0; i < this.categories.length; i++) {
+            if (this.categories[i].categoryId === id) {
                 index = i;
                 break;
             }
@@ -98,19 +98,19 @@ export class AuthorsComponent implements OnInit {
     }
 
 
-    onEdit(author: Author) {
+    onEdit(category: Category) {
         this.showDialogCadastro();
-        this.author = { ...author };
+        this.category = { ...category };
     }
 
     showDialogCadastro() {
         this.displayModalCadastro = true;
-        this.author = {};
+        this.category = {};
     }
 
     hideModalAddDialog() {
         this.displayModalCadastro = false;
-        this.author = {};
+        this.category = {};
     }
 
     onGlobalFilter(table: Table, event: Event) {

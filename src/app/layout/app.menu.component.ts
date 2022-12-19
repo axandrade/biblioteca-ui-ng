@@ -24,6 +24,7 @@ export class AppMenuComponent implements OnInit {
                 label: 'Cadastros',
                 items: [
                     { label: 'Autores', icon: 'pi pi-user-edit', routerLink: ['/cadastros/authors'] },
+                    { label: 'Categorias', icon: 'pi pi-table', routerLink: ['/cadastros/categories'] },
                     { label: 'Livros', icon: 'pi pi-book', routerLink: ['/cadastros/books'] },
                     { label: 'Usuários', icon: 'pi pi-user-plus', routerLink: ['/cadastros/customers'] }
                 ]

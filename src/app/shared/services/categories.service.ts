@@ -1,4 +1,5 @@
-import { Author } from '../models/author';
+import { Category } from './../models/category';
+
 import { Confirmation } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -8,12 +9,12 @@ import { catchError, retry, first } from 'rxjs/operators';
 @Injectable({
     providedIn: 'root'
 })
-export class AuthorsService {
+export class CategoriesService {
 
     constructor(private httpCliente: HttpClient) { }
 
     findAll(): Observable<any[]> {
-        const url = `${environment.API}/api/authors`;
+        const url = `${environment.API}/api/categories`;
 
         return this.httpCliente.get<any[]>(url)
             .pipe(
@@ -24,10 +25,10 @@ export class AuthorsService {
             )
     }
 
-    findById(author: Author) {
-        const url = `${environment.API}/api/authors`;
+    findById(category: Category) {
+        const url = `${environment.API}/api/categories`;
 
-        return this.httpCliente.get<Author>(`${url}/${author.authorId}`);
+        return this.httpCliente.get<Category>(`${url}/${category.categoryId}`);
 
     }
 
@@ -35,29 +36,29 @@ export class AuthorsService {
 
     }
 
-    save(obj: Author) {
+    save(obj: Category) {
 
-        if (obj.authorId) {
+        if (obj.categoryId) {
             return this.update(obj);
         } else {
             return this.create(obj);
         }
     }
 
-    private create(obj: Author) {
+    private create(obj: Category) {
 
-        const url = `${environment.API}/api/authors`;
+        const url = `${environment.API}/api/categories`;
         return this.httpCliente.post<any>(url, obj).pipe(first());
     }
 
-    private update(obj: Author) {
-        const url = `${environment.API}/api/authors`;
-        return this.httpCliente.put<any>(`${url}/${obj.authorId}`, obj).pipe(first());
+    private update(obj: Category) {
+        const url = `${environment.API}/api/categories`;
+        return this.httpCliente.put<any>(`${url}/${obj.categoryId}`, obj).pipe(first());
     }
 
-    private delete(obj: Author) {
-        const url = `${environment.API}/api/authors`;
+    private delete(obj: Category) {
+        const url = `${environment.API}/api/categories`;
 
-        return this.httpCliente.delete<any>(`${url}/${obj.authorId}`).pipe(first());
+        return this.httpCliente.delete<any>(`${url}/${obj.categoryId}`).pipe(first());
     }
 }

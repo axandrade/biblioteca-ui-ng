@@ -7,12 +7,12 @@
         </ng-template>
     </p-toolbar>
 
-    <p-table #dt id="table-author" [value]="authors" [rows]="10" [paginator]="true" [globalFilterFields]="['name']"
+    <p-table #dt id="table-author" [value]="categories" [rows]="10" [paginator]="true" [globalFilterFields]="['description']"
        [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Exibindo de {first} a {last} de um total de {totalRecords}" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                <h5 class="m-0">Listagem de Autores</h5>
+                <h5 class="m-0">Listagem de Categorias</h5>
                 <span class="block mt-2 mt-0 p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Pesquisar..."  class="w-full sm:w-auto"/>
@@ -22,33 +22,46 @@
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="id">Código<p-sortIcon field="id"></p-sortIcon></th>
-                <th pSortableColumn="name">Nome<p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="description">Descrição<p-sortIcon field="description"></p-sortIcon></th>
+                <th class="text-center" pSortableColumn="status">Status<p-sortIcon field="status"></p-sortIcon></th>
                 <th></th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-author>
+        <ng-template pTemplate="body" let-category>
             <tr>
-                <td>{{author.authorId}}</td>
-                <td>{{author.name}}</td>
+                <td>{{category.categoryId}}</td>
+                <td>{{category.description}}</td>
+                <td class="text-center">
+                    <span *ngIf="category.status">
+                        <p-badge value="Ativo" severity="success"></p-badge>
+                   </span>
+                    <span *ngIf="!category.status">
+                        <p-badge value="Inativo" severity="danger"></p-badge>
+                    </span>
+                </td>
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary mr-2" (click)="onEdit(author)"></button>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary mr-2" (click)="onEdit(category)"></button>
                 </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
-                Total de {{authors ? authors.length : 0 }} authors.
+                Total de {{categories ? categories.length : 0 }} categories.
             </div>
         </ng-template>
     </p-table>
 </div>
 
-<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '50vw'}" header="Cadastrar Autor" [modal]="true" styleClass="p-fluid" [closeOnEscape]="false" [closable]="false">
+<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '50vw'}" header="Cadastrar Categoria" [modal]="true" styleClass="p-fluid" [closeOnEscape]="false" [closable]="false">
     <ng-template pTemplate="content">
         <div class="p-field">
-            <h5 class="asterisk">Nome</h5>
-            <input pInputText id="name" [(ngModel)]="author.name"/>
+            <h5 class="asterisk">Descrição</h5>
+            <input pInputText id="description" [(ngModel)]="category.description"/>
          </div>
+         <div *ngIf="category.categoryId" class="field col-12 md:col-4">
+            <h5>Status</h5>
+            <p-inputSwitch [(ngModel)]="category.status"></p-inputSwitch>
+        </div>
     </ng-template>
 
     <ng-template pTemplate="footer">

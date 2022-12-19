@@ -1,3 +1,5 @@
+import { CategoriesService } from './../../shared/services/categories.service';
+import { Category } from './../../shared/models/category';
 import { MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
@@ -20,17 +22,20 @@ export class BooksComponent implements OnInit {
     authors: Author[] = [];
     statusBook: any[] = [];
     selectedBooks: any[] = [];
+    categories: Category[] = [];
     autorNomeFiltro: string = "";
     showLoading: boolean = false;
+    selectedAuthors: Author[] = [];
     displayModalCadastro: boolean = false;
     displayModalFiltroAutor: boolean = false;
-    selectedAuthors: Author[] = [];
+
 
 
     constructor(
         private booksService: BooksService,
         private authorsService: AuthorsService,
-        private messageService: MessageService
+        private messageService: MessageService,
+        private categoriesService: CategoriesService
     ) {
         this.book = {};
         this.languages = [
@@ -72,6 +77,19 @@ export class BooksComponent implements OnInit {
         this.authorsService.findAll().subscribe(
             (dados) => {
                 this.authors = dados;
+                this.showLoading = false;
+            },
+            (error) => {
+                this.showLoading = false;
+                this.showToast('error', error.message);
+            }
+        );
+    }
+
+    findAllCategories() {
+        this.categoriesService.findAll().subscribe(
+            (dados) => {
+                this.categories = dados;
                 this.showLoading = false;
             },
             (error) => {
@@ -141,6 +159,7 @@ export class BooksComponent implements OnInit {
 
     showDialogCadastro() {
         this.findAllAuthors();
+        this.findAllCategories();
         this.displayModalCadastro = true;
         this.book = {};
     }
