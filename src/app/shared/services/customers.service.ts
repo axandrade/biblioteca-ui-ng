@@ -13,8 +13,10 @@ export class CustomersService {
 
     constructor(private httpCliente: HttpClient) { }
 
+    urlBase : string = 'http://ec2-54-173-235-200.compute-1.amazonaws.com:8080';
+
     findAll(): Observable<any[]> {
-        const url = `${environment.API}/api/customers`;
+        const url = `${this.urlBase}/api/customers`;
 
         return this.httpCliente.get<any[]>(url)
             .pipe(
@@ -26,14 +28,14 @@ export class CustomersService {
     }
 
     findById(costumerId: number) {
-        const url = `${environment.API}/api/customers`;
+        const url = `${this.urlBase}/api/customers`;
         return this.httpCliente.get<Customer>(`${url}/${costumerId}`);
 
     }
 
     findCustomerByNameOrCpf(nomeCpf: string){
 
-        const url = `${environment.API}/api/customers/name/${nomeCpf}`;
+        const url = `${this.urlBase}/api/customers/name/${nomeCpf}`;
 
         return this.httpCliente.get<any[]>(url)
         .pipe(
@@ -56,18 +58,18 @@ export class CustomersService {
 
     private create(obj: Customer) {
 
-        const url = `${environment.API}/api/customers`;
+        const url = `${this.urlBase}/api/customers`;
         return this.httpCliente.post<any>(url, obj).pipe(first());
     }
 
     private update(obj: Customer) {
-        const url = `${environment.API}/api/customers`;
+        const url = `${this.urlBase}/api/customers`;
 
         return this.httpCliente.put<any>(`${url}/${1}`, obj).pipe(first());
     }
 
     private delete(obj: Customer) {
-        const url = `${environment.API}/api/customers`;
+        const url = `${this.urlBase}/api/customers`;
 
         return this.httpCliente.delete<any>(`${url}/${1}`).pipe(first());
     }

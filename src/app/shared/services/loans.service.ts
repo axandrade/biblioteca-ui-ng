@@ -12,8 +12,11 @@ export class LoansService {
 
     constructor(private httpCliente: HttpClient) { }
 
+    urlBase : string = 'http://localhost:8080';
+
+
     findAll(): Observable<any[]> {
-        const url = `${environment.API}/api/loans`;
+        const url = `${this.urlBase}/api/loans`;
 
         return this.httpCliente.get<any[]>(url)
             .pipe(
@@ -25,7 +28,7 @@ export class LoansService {
     }
 
     findLoansByCustomer(id: number): Observable<any> {
-        const url = `${environment.API}/api/loans`;
+        const url = `${this.urlBase}/api/loans`;
 
         return this.httpCliente.get<any[]>(`${url}/${id}`)
             .pipe(
@@ -34,9 +37,6 @@ export class LoansService {
                     return throwError(error.error);
                 })
             )
-    }
-
-    confirm(confirmation: Confirmation) {
     }
 
     save(obj: Loan) {
@@ -49,18 +49,18 @@ export class LoansService {
 
     private create(obj: Loan) {
 
-        const url = `${environment.API}/api/loans`;
+        const url = `${this.urlBase}/api/loans`;
         return this.httpCliente.post<any>(url, obj).pipe(first());
     }
 
     private update(obj: Loan) {
-        const url = `${environment.API}/api/loans`;
+        const url = `${this.urlBase}/api/loans`;
 
         return this.httpCliente.put<any>(`${url}/${obj.loanId}`, obj).pipe(first());
     }
 
     private delete(obj: Loan) {
-        const url = `${environment.API}/api/loans`;
+        const url = `${this.urlBase}/api/loans`;
 
         return this.httpCliente.delete<any>(`${url}/${obj.loanId}`).pipe(first());
     }
