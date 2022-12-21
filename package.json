@@ -1,5 +1,5 @@
 {
-  "name": "biblioteca-ui-ng",
+  "name": "biblioteca-ui",
   "version": "14.0.5-SNAPSHOT",
   "scripts": {
     "ng": "ng",
