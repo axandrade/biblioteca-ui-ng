@@ -13,10 +13,8 @@ export class BooksService {
 
     constructor(private httpCliente: HttpClient) { }
 
-    urlBase : string = 'http://ec2-54-173-235-200.compute-1.amazonaws.com:8080';
-
     findAll(): Observable<any[]> {
-        const url = `${this.urlBase}/api/books`;
+        const url = `${environment.API}/api/books`;
 
         return this.httpCliente.get<any[]>(url)
             .pipe(
@@ -28,7 +26,7 @@ export class BooksService {
     }
 
     findBooksByStatus(): Observable<any[]> {
-        const url = `${this.urlBase}/api/books/disponiveis`;
+        const url = `${environment.API}/api/books/disponiveis`;
 
         return this.httpCliente.get<any[]>(url)
             .pipe(
@@ -40,7 +38,7 @@ export class BooksService {
     }
 
     findById(obj: Book) {
-        const url = `${this.urlBase}/api/books`;
+        const url = `${environment.API}/api/books`;
 
         return this.httpCliente.get<Book>(`${url}/${obj.bookId}`);
 
@@ -48,7 +46,7 @@ export class BooksService {
 
     findBookByTitle(title: string){
 
-        const url = `${this.urlBase}/api/customers/title/${title}`;
+        const url = `${environment.API}/api/customers/title/${title}`;
 
         return this.httpCliente.get<any[]>(url)
         .pipe(
@@ -69,18 +67,18 @@ export class BooksService {
 
     private create(obj: Book) {
 
-        const url = `${this.urlBase}/api/books`;
+        const url = `${environment.API}/api/books`;
         return this.httpCliente.post<any>(url, obj).pipe(first());
     }
 
     private update(obj: Book) {
-        const url = `${this.urlBase}/api/books`;
+        const url = `${environment.API}/api/books`;
 
         return this.httpCliente.put<any>(`${url}/${obj.bookId}`, obj).pipe(first());
     }
 
     private delete(obj: Book) {
-        const url = `${this.urlBase}/api/books`;
+        const url = `${environment.API}/api/books`;
 
         return this.httpCliente.delete<any>(`${url}/${obj.bookId}`).pipe(first());
     }

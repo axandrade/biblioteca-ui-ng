@@ -1,13 +1,13 @@
 {
   "name": "biblioteca-ui",
-  "version": "14.0.5-SNAPSHOT",
+  "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.js",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {

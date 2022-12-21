@@ -1,10 +1,10 @@
-import { Customer } from '../models/customer';
-import { Confirmation } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
+import { catchError, first, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { catchError, retry, first } from 'rxjs/operators';
+
+import { Customer } from '../models/customer';
 
 @Injectable({
     providedIn: 'root'
@@ -13,10 +13,8 @@ export class CustomersService {
 
     constructor(private httpCliente: HttpClient) { }
 
-    urlBase : string = 'http://ec2-54-173-235-200.compute-1.amazonaws.com:8080';
-
     findAll(): Observable<any[]> {
-        const url = `${this.urlBase}/api/customers`;
+        const url = `${environment.API}/api/customers`;
 
         return this.httpCliente.get<any[]>(url)
             .pipe(
@@ -28,14 +26,14 @@ export class CustomersService {
     }
 
     findById(costumerId: number) {
-        const url = `${this.urlBase}/api/customers`;
+        const url = `${environment.API}/api/customers`;
         return this.httpCliente.get<Customer>(`${url}/${costumerId}`);
 
     }
 
     findCustomerByNameOrCpf(nomeCpf: string){
 
-        const url = `${this.urlBase}/api/customers/name/${nomeCpf}`;
+        const url = `${environment.API}/api/customers/name/${nomeCpf}`;
 
         return this.httpCliente.get<any[]>(url)
         .pipe(
@@ -45,8 +43,6 @@ export class CustomersService {
             })
         )
     }
-
-
 
     save(obj: Customer) {
         if (obj.customerId) {
@@ -58,19 +54,13 @@ export class CustomersService {
 
     private create(obj: Customer) {
 
-        const url = `${this.urlBase}/api/customers`;
+        const url = `${environment.API}/api/customers`;
         return this.httpCliente.post<any>(url, obj).pipe(first());
     }
 
     private update(obj: Customer) {
-        const url = `${this.urlBase}/api/customers`;
+        const url = `${environment.API}/api/customers`;
 
         return this.httpCliente.put<any>(`${url}/${1}`, obj).pipe(first());
-    }
-
-    private delete(obj: Customer) {
-        const url = `${this.urlBase}/api/customers`;
-
-        return this.httpCliente.delete<any>(`${url}/${1}`).pipe(first());
     }
 }

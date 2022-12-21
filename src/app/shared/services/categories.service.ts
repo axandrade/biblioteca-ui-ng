@@ -13,11 +13,9 @@ export class CategoriesService {
 
     constructor(private httpCliente: HttpClient) { }
 
-    urlBase : string = 'http://ec2-54-173-235-200.compute-1.amazonaws.com:8080';
-
 
     findAll(): Observable<any[]> {
-        const url = `${this.urlBase}/api/categories`;
+        const url = `${environment.API}/api/categories`;
 
         return this.httpCliente.get<any[]>(url)
             .pipe(
@@ -29,7 +27,7 @@ export class CategoriesService {
     }
 
     findById(category: Category) {
-        const url = `${this.urlBase}/api/categories`;
+        const url = `${environment.API}/api/categories`;
 
         return this.httpCliente.get<Category>(`${url}/${category.categoryId}`);
 
@@ -50,17 +48,17 @@ export class CategoriesService {
 
     private create(obj: Category) {
 
-        const url = `${this.urlBase}/api/categories`;
+        const url = `${environment.API}/api/categories`;
         return this.httpCliente.post<any>(url, obj).pipe(first());
     }
 
     private update(obj: Category) {
-        const url = `${this.urlBase}/api/categories`;
+        const url = `${environment.API}/api/categories`;
         return this.httpCliente.put<any>(`${url}/${obj.categoryId}`, obj).pipe(first());
     }
 
     private delete(obj: Category) {
-        const url = `${this.urlBase}/api/categories`;
+        const url = `${environment.API}/api/categories`;
 
         return this.httpCliente.delete<any>(`${url}/${obj.categoryId}`).pipe(first());
     }
