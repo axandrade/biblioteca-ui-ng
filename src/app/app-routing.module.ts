@@ -9,6 +9,7 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
             {
                 path: '', component: AppLayoutComponent,
                 children: [
+                    { path: 'home', loadChildren: () => import('./components/components.module').then(m => m.ComponentModule)},
                     { path: 'cadastros', loadChildren: () => import('./components/components.module').then(m => m.ComponentModule)},
                     { path: 'process', loadChildren: () => import('./components/components.module').then(m => m.ComponentModule)}
                 ]
