@@ -17,16 +17,16 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Home',
                 items: [
-                    { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }
+                    { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/home'] }
                 ]
             },
             {
                 label: 'Cadastros',
                 items: [
-                    { label: 'Autores', icon: 'pi pi-user-edit', routerLink: ['/cadastros/authors'] },
-                    { label: 'Categorias', icon: 'pi pi-table', routerLink: ['/cadastros/categories'] },
-                    { label: 'Livros', icon: 'pi pi-book', routerLink: ['/cadastros/books'] },
-                    { label: 'Usuários', icon: 'pi pi-user-plus', routerLink: ['/cadastros/customers'] }
+                    { label: 'Autores', icon: 'pi pi-user-edit', routerLink: ['/home/cadastros/authors'] },
+                    { label: 'Categorias', icon: 'pi pi-table', routerLink: ['/home/cadastros/categories'] },
+                    { label: 'Livros', icon: 'pi pi-book', routerLink: ['/home/cadastros/books'] },
+                    { label: 'Usuários', icon: 'pi pi-user-plus', routerLink: ['/home/cadastros/customers'] }
                 ]
             },
             {

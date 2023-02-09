@@ -5,6 +5,8 @@ import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 @NgModule({
 	imports: [
         CommonModule,
@@ -14,8 +16,10 @@ import { CheckboxModule } from 'primeng/checkbox';
         ButtonModule,
         CheckboxModule,
         InputTextModule,
-        PasswordModule
+        PasswordModule,
+        ToastModule
     ]
+
 
 })
 export class AuthenticationModule { }
