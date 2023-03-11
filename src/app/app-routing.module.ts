@@ -1,3 +1,4 @@
+import { AuthGuard } from './shared/auth/auth.guard';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { AuthenticationModule } from './components/authentication/authentication.module';
 import { RouterModule } from '@angular/router';
@@ -13,7 +14,8 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
                 children: [
                     { path: 'cadastros', loadChildren: () => import('./components/components.module').then(m => m.ComponentModule) },
                     { path: 'process', loadChildren: () => import('./components/components.module').then(m => m.ComponentModule) }
-                ]
+                ],
+                canActivate: [AuthGuard]
             }
         ])
     ],

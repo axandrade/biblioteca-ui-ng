@@ -22,6 +22,7 @@ export class AuthService {
         const token = result!.headers.get('Authorization');
 
         if (token) {
+            debugger
             window.localStorage.setItem('token', token);
             return result;
         }

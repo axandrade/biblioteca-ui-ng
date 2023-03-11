@@ -128,7 +128,6 @@ export class LoansComponent implements OnInit {
     }
 
     validationForm() {
-        debugger
         if (!this.loan.customer)
             throw new Error('Você deve selecionar um usuário cadastrado!');
         if (this.loan.itensLoan?.length! === undefined || this.loan.itensLoan?.length! === 0 ){

@@ -61,10 +61,10 @@ export class LoginComponent {
             if (result)
                 this.router.navigate(['/home']);
 
-            return true
+
         } catch (error) {
             this.showToast('warn', error);
-            return throwError(error);
+
         }
     }
 
