@@ -32,7 +32,7 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Processos',
                 items: [
-                    { label: 'Emprestimos', icon: 'pi pi-cart-plus', routerLink: ['/process/loans'] },
+                    { label: 'Emprestimos', icon: 'pi pi-cart-plus', routerLink: ['/home/process/loans'] },
                 ]
             }
 

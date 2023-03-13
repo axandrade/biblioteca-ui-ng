@@ -22,7 +22,6 @@ export class AuthService {
         const token = result!.headers.get('Authorization');
 
         if (token) {
-            debugger
             window.localStorage.setItem('token', token);
             return result;
         }
@@ -34,5 +33,44 @@ export class AuthService {
         return window.localStorage.getItem('token');
     }
 
+    isTokenExpired(token?: string): boolean {
+        if (!token) {
+          return true;
+        }
+
+        const date = this.getTokenExpirationDate(token);
+        if (date === undefined) {
+          return false;
+        }
+
+        return !(date.valueOf() > new Date().valueOf());
+      }
+
+      getTokenExpirationDate(token: string): Date {
+        try {
+
+          const decoded: any = jwtDecode(token);
+
+          if (decoded.exp === undefined) {
+            return null as any
+          }
+
+          const date = new Date(0);
+          date.setUTCSeconds(decoded.exp);
+          return date;
+
+        } catch (error) {
+          console.error(error);
+          window.localStorage.removeItem('token');
+          this.router.navigate(['']);
+        }
+
+        return null as any;
+      }
+
 
 }
+function jwtDecode(token: string): any {
+    throw new Error('Function not implemented.');
+}
+
