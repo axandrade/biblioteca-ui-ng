@@ -125,7 +125,7 @@
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-6">
                 <h5 class="asterisk">Selecione os Autores</h5>
-                <p-multiSelect [disabled]="!!book.bookId" [options]="authors" [(ngModel)]="book.authors" optionLabel="name" selectedItemsLabel="{0} items selected"></p-multiSelect>
+                <p-multiSelect [options]="authors" [(ngModel)]="book.authors" optionLabel="name" selectedItemsLabel="{0} items selected"></p-multiSelect>
             </div>
         </div>
     </ng-template>
