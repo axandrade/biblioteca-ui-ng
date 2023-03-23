@@ -6,7 +6,7 @@ export interface Customer {
 
         email?: string;
 
-        cpfOrCnpj?: string;
+        cpf?: string;
 
         contact1?: string;
 

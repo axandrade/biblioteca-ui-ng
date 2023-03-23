@@ -79,7 +79,7 @@ export class CustomersComponent implements OnInit {
             throw new Error('O campo nome é obrigatório!');
         if (!this.customer.email)
             throw new Error('O campo email é obrigatório!');
-        if (!this.customer.cpfOrCnpj)
+        if (!this.customer.cpf)
             throw new Error('O campo CPF é obrigatório!');
         if (!this.customer.contact1)
             throw new Error('O campo contato 1 é obrigatório!');

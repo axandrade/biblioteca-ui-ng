@@ -44,7 +44,7 @@
                 </td>
                 <td>{{customer.customerId}}</td>
                 <td>{{customer.name}}</td>
-                <td>{{customer.cpfOrCnpj}}</td>
+                <td>{{customer.cpf}}</td>
                 <td>{{customer.birthDate}}</td>
                 <td class="text-center">
                     <span *ngIf="customer.status">
@@ -78,7 +78,7 @@
             </div>
             <div class="field col-12 md:col-6">
                 <h5 class="asterisk">Cpf</h5>
-                <p-inputMask mask="999.999.999-99" [unmask]=true [(ngModel)]="customer.cpfOrCnpj"></p-inputMask>
+                <p-inputMask mask="999.999.999-99" [unmask]=true [(ngModel)]="customer.cpf"></p-inputMask>
             </div>
             <div class="field col-12 md:col-6">
                 <h5 class="asterisk">Email</h5>
