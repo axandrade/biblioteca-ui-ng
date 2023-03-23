@@ -127,6 +127,8 @@ export class BooksComponent implements OnInit {
             throw new Error('O campo titulo é obrigatório!');
         if (!this.book.isbn)
             throw new Error('O campo ISBN é obrigatório!');
+        if (!this.book.categories)
+            throw new Error('O campo Categoria é obrigatório!');
         if (!this.book.authors)
             throw new Error('O campo Autor é obrigatório!');
     }
