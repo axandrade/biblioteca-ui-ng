@@ -20,9 +20,6 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th style="width: 3rem">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
                 <th pSortableColumn="id">Código<p-sortIcon field="id"></p-sortIcon>
                 </th>
                 <th pSortableColumn="name">Nome<p-sortIcon field="name"></p-sortIcon>
@@ -39,9 +36,6 @@
         </ng-template>
         <ng-template pTemplate="body" let-customer>
             <tr>
-                <td>
-                    <p-tableCheckbox [value]="customer"></p-tableCheckbox>
-                </td>
                 <td>{{customer.customerId}}</td>
                 <td>{{customer.name}}</td>
                 <td>{{customer.cpf}}</td>

@@ -123,13 +123,14 @@ export class BooksComponent implements OnInit {
     }
 
     validationForm() {
+        debugger
         if (!this.book.title)
             throw new Error('O campo titulo é obrigatório!');
         if (!this.book.isbn)
             throw new Error('O campo ISBN é obrigatório!');
-        if (!this.book.categories)
+        if (this.book.categories?.length === 0)
             throw new Error('O campo Categoria é obrigatório!');
-        if (!this.book.authors)
+        if (this.book.authors?.length === 0)
             throw new Error('O campo Autor é obrigatório!');
     }
 

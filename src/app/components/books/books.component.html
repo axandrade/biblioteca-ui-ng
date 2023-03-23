@@ -27,9 +27,6 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th>
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
                 <th pSortableColumn="bookId">Código<p-sortIcon field="bookId"></p-sortIcon>
                 </th>
                 <th pSortableColumn="title">Titulo <p-sortIcon field="title"></p-sortIcon>
@@ -48,9 +45,6 @@
         </ng-template>
         <ng-template pTemplate="body" let-book>
             <tr>
-                <td>
-                    <p-tableCheckbox [value]="book"></p-tableCheckbox>
-                </td>
                 <td>{{book.bookId}}</td>
                 <td>{{book.title}}</td>
                 <td>{{book.isbn}}</td>
@@ -119,7 +113,7 @@
             </div>
             <div class="field col-12 md:col-6">
                 <h5 class="asterisk">Categoria</h5>
-                <p-multiSelect [disabled]="!!book.bookId" [options]="categories" [(ngModel)]="book.categories" optionLabel="description" selectedItemsLabel="{0} items selected"></p-multiSelect>
+                <p-multiSelect [options]="categories" [(ngModel)]="book.categories" optionLabel="description" selectedItemsLabel="{0} items selected"></p-multiSelect>
             </div>
         </div>
         <div class="p-fluid p-formgrid grid">
