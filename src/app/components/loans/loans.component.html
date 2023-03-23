@@ -1,9 +1,16 @@
 <div class="card">
-    <p-toast position="bottom-center" [baseZIndex]="99999999999" ></p-toast>
+    <p-toast position="bottom-center" [baseZIndex]="99999999999"></p-toast>
     <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
             <button pButton pRipple label="Novo Empréstimo" icon="pi pi-plus" class="p-button-primary mr-2"
                 (click)="showDialogCadastro()"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+                <p-checkbox [(ngModel)]="isFindLateLoans" [binary]="true" inputId="binary" (ngModelChange)="findAllLoans()"></p-checkbox>
+                <label class="ml-2">Buscar por Empréstimos Atrasados</label>
         </ng-template>
     </p-toolbar>
 
@@ -24,8 +31,10 @@
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="name">Nome<p-sortIcon field="name"></p-sortIcon></th>
-                <th pSortableColumn="dateLoan">Data do Empréstimo<p-sortIcon field="dateLoan"></p-sortIcon></th>
-                <th pSortableColumn="dateLoan">Data limite para Devolução<p-sortIcon field="dateLoan"></p-sortIcon></th>
+                <th pSortableColumn="contato1">Contato<p-sortIcon field="contato1"></p-sortIcon></th>
+                <th class="text-center" pSortableColumn="dateLoan">Data do Empréstimo<p-sortIcon field="dateLoan"></p-sortIcon></th>
+                <th class="text-center" pSortableColumn="returnLimitDate">Data limite para Devolução<p-sortIcon
+                        field="returnLimitDate"></p-sortIcon></th>
                 <th class="text-center" pSortableColumn="status">Situação<p-sortIcon field="status"></p-sortIcon></th>
                 <th class="text-center">Devolução</th>
             </tr>
@@ -33,8 +42,9 @@
         <ng-template pTemplate="body" let-loan>
             <tr>
                 <td>{{loan.customer.name}}</td>
-                <td>{{loan.dateLoan}}</td>
-                <td>{{loan.returnLimitDate}}</td>
+                <td><a href="https://wa.me/55{{loan.customer.contact1}}?text=Tenho%20interesse%20em%20comprar%20seu%20carro" target="_blank">{{loan.customer.contact1}}</a></td>
+                <td class="text-center">{{loan.dateLoan}}</td>
+                <td class="text-center">{{loan.returnLimitDate}}</td>
                 <td class="text-center">
                     <span *ngIf="loan.status === true">
                         <p-badge value="Ativo" severity="success"></p-badge>
@@ -57,8 +67,8 @@
     </p-table>
 </div>
 
-<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '70vw', height: '120vw'}" [modal]="true"  [closeOnEscape]="false" [closable]="false"
-     styleClass="p-fluid">
+<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '70vw', height: '120vw'}" [modal]="true"
+    [closeOnEscape]="false" [closable]="false" styleClass="p-fluid">
     <ng-template pTemplate="header">
         <h5>Criar Novo Empréstimo</h5>
     </ng-template>
@@ -86,7 +96,8 @@
             </div>
             <div class="field col-12 md:col-6">
                 <h5>Data limite para Devolução</h5>
-                <input [disabled]="true" type="text" pInputText id="returnLimitDate" [(ngModel)]="loan.returnLimitDate" />
+                <input [disabled]="true" type="text" pInputText id="returnLimitDate"
+                    [(ngModel)]="loan.returnLimitDate" />
             </div>
         </div>
     </div>
@@ -115,14 +126,15 @@
     </ng-template>
 </p-dialog>
 
-<p-dialog [(visible)]="displayModalDevolucoes"  [style]="{width: '40vw'}" [closeOnEscape]="false" [closable]="false">
+<p-dialog [(visible)]="displayModalDevolucoes" [style]="{width: '40vw'}" [closeOnEscape]="false" [closable]="false">
     <ng-template pTemplate="header">
         <h5>Devolução de Livros</h5>
     </ng-template>
     <div class="card">
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-md-5">
-                <p-table #dtdev id="table-dev" [value]="loan.itensLoan!"  [rows]="2" [(selection)]="itensLoanSelected" [rowHover]="true" dataKey="itemLoanId">
+                <p-table #dtdev id="table-dev" [value]="loan.itensLoan!" [rows]="2" [(selection)]="itensLoanSelected"
+                    [rowHover]="true" dataKey="itemLoanId">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Titulo</th>
@@ -137,7 +149,8 @@
                             <td>{{itensLoan.book.title}}</td>
                             <td>{{itensLoan.returnDateItem}}</td>
                             <td>
-                                <p-tableCheckbox [value]="itensLoan" *ngIf="!itensLoan.returnDateItem"></p-tableCheckbox>
+                                <p-tableCheckbox [value]="itensLoan"
+                                    *ngIf="!itensLoan.returnDateItem"></p-tableCheckbox>
                             </td>
                         </tr>
                     </ng-template>
@@ -148,6 +161,7 @@
     <ng-template pTemplate="footer">
         <button pButton label="Cancelar" icon="pi pi-times" class="p-button-secondary mr-2"
             (click)="hideModalAddDialog()"></button>
-        <button [disabled]="!loan.status" pButton label="Salvar" icon="pi pi-check" class="p-button-primary " (click)="onSubmit()"></button>
+        <button [disabled]="!loan.status" pButton label="Salvar" icon="pi pi-check" class="p-button-primary "
+            (click)="onSubmit()"></button>
     </ng-template>
 </p-dialog>

@@ -1,3 +1,4 @@
+import { CheckboxModule } from 'primeng/checkbox';
 import { LoansComponent } from './loans.component';
 import { LoansRoutingModule } from './loans-routing.module';
 import { ComponentModule } from '../components.module';
@@ -15,6 +16,7 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     LoansRoutingModule,
     ComponentModule
+
   ],
   declarations: [LoansComponent]
 })

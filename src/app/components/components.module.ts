@@ -16,6 +16,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { CheckboxModule } from 'primeng/checkbox';
 
 import { ComponentRoutingModule } from './components-routing.module';
 
@@ -39,7 +40,8 @@ import { ComponentRoutingModule } from './components-routing.module';
         BadgeModule,
         AutoCompleteModule,
         InputTextareaModule,
-        ProgressBarModule
+        ProgressBarModule,
+        CheckboxModule
 
     ],
     providers: [MessageService, ConfirmationService]

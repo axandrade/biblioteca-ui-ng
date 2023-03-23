@@ -27,6 +27,7 @@ export class LoansComponent implements OnInit {
     displayModalDevolucoes: boolean = false;
     customerMsn = undefined;
     qtdBooksDisponiveis: number;
+    isFindLateLoans: boolean = false;
 
     constructor(private loanService: LoansService,
         private customerService: CustomersService,
@@ -43,7 +44,8 @@ export class LoansComponent implements OnInit {
     }
 
     findAllLoans() {
-        this.loanService.findAll().subscribe(
+
+        this.loanService.findAll(this.isFindLateLoans).subscribe(
             (dados) => {
                 this.loans = dados;
                 this.showLoading = false;

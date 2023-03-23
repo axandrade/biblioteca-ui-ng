@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, first, retry } from 'rxjs/operators';
@@ -14,10 +14,13 @@ export class LoansService {
     constructor(private httpCliente: HttpClient) { }
 
 
-    findAll(): Observable<any[]> {
+    findAll(isFindLateLoans: boolean): Observable<any[]> {
         const url = `${environment.API}/api/loans`;
 
-        return this.httpCliente.get<any[]>(url)
+        const params = new HttpParams().set('isFindLateLoans', isFindLateLoans.toString());
+
+
+        return this.httpCliente.get<any[]>(url, { params })
             .pipe(
                 retry(1),
                 catchError(error => {
