@@ -63,4 +63,9 @@ export class CustomersService {
 
         return this.httpCliente.put<any>(`${url}/${1}`, obj).pipe(first());
     }
+
+    findAddressByCep(cep: string): Observable<Customer> {
+        const url = `${environment.API}/api/customers/cep/${cep}`;
+        return this.httpCliente.get<Customer>(url);
+    }
 }

@@ -12,7 +12,7 @@ import { MessageService } from 'primeng/api';
 })
 export class CustomersComponent implements OnInit {
 
-    endereco: any = {};
+
     customer: Customer;
     customers: Customer[] = [];
     showLoading: boolean = false;
@@ -23,14 +23,7 @@ export class CustomersComponent implements OnInit {
         private consultaCepService: ConsultaCepService,
         private messageService: MessageService) {
         this.customer = {};
-        this.endereco = {
-            cep: null,
-            logradouro: null,
-            complemento: null,
-            bairro: null,
-            localidade: null,
-            uf: null
-        }
+
     }
 
     ngOnInit(): void {
@@ -127,16 +120,16 @@ export class CustomersComponent implements OnInit {
         this.customer = {};
     }
 
-    consultaCep(event: any) {
+    findAddressByCep(event: any) {
 
         if (this.customer.zip) {
-            this.consultaCepService.consultaCEP(this.customer.zip).
+            this.customersService.findAddressByCep(this.customer.zip).
                 subscribe(retorno => {
-                    this.endereco = retorno;
-                    this.customer.street = this.endereco.logradouro;
-                    this.customer.neighborhood = this.endereco.bairro;
-                    this.customer.city = this.endereco.localidade;
-                    this.customer.state = this.endereco.uf;
+
+                    this.customer.street = retorno.street;
+                    this.customer.neighborhood = retorno.neighborhood;
+                    this.customer.city = retorno.city;
+                    this.customer.state = retorno.state;
                 }),
                 (error: any) => {
                     this.showToast('error', error.message);
