@@ -1,5 +1,4 @@
 import { Table } from 'primeng/table';
-import { ConsultaCepService } from './../../shared/services/consulta-cep.service';
 import { Component, OnInit } from '@angular/core';
 import { Customer } from '../../shared/models/customer';
 import { CustomersService } from 'src/app/shared/services/customers.service';
@@ -20,10 +19,8 @@ export class CustomersComponent implements OnInit {
     displayModalCadastro: boolean = false;
 
     constructor(private customersService: CustomersService,
-        private consultaCepService: ConsultaCepService,
         private messageService: MessageService) {
         this.customer = {};
-
     }
 
     ngOnInit(): void {
