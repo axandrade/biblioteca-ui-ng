@@ -1,6 +1,6 @@
 export const environment = {
-    production: true,
+    production: false,
     API: 'http://localhost:8080',
-    TOKEN: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4c2FuZHJvLm1wZUBnbWFpbC5jb20iLCJleHAiOjE2Nzg3MzM1NjF9.VCxeqcnXWjjZddO4PAFd0aE0IRokEHl2t3L3NFIPpBY',
+    TOKEN: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4c2FuZHJvLm1wZUBnbWFpbC5jb20iLCJleHAiOjE2ODAwMTczMDN9.FFtrm-50bkeJdzBZ6LUJVOi3TCfSIrYkC03FLAdEJ7E',
 
 }
