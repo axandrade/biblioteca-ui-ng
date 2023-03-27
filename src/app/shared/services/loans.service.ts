@@ -14,10 +14,10 @@ export class LoansService {
     constructor(private httpCliente: HttpClient) { }
 
 
-    findAll(isFindLateLoans: boolean): Observable<any[]> {
+    findAll(tipoBuscaSelected: string): Observable<any[]> {
         const url = `${environment.API}/api/loans`;
 
-        const params = new HttpParams().set('isFindLateLoans', isFindLateLoans.toString());
+        const params = new HttpParams().set('tipoBuscaSelected', tipoBuscaSelected);
 
 
         return this.httpCliente.get<any[]>(url, { params })

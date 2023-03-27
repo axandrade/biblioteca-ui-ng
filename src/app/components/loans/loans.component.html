@@ -9,8 +9,9 @@
 
     <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
-                <p-checkbox [(ngModel)]="isFindLateLoans" [binary]="true" inputId="binary" (ngModelChange)="findAllLoans()"></p-checkbox>
                 <label class="ml-2">Buscar por Empréstimos Atrasados</label>
+                <p-dropdown optionValue="value" [options]="tiposDeBusca" (onChange)="findAllLoans()" [(ngModel)]="tipoBuscaSelected"
+                    optionLabel="description"></p-dropdown>
         </ng-template>
     </p-toolbar>
 

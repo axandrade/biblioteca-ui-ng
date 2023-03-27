@@ -27,7 +27,8 @@ export class LoansComponent implements OnInit {
     displayModalDevolucoes: boolean = false;
     customerMsn = undefined;
     qtdBooksDisponiveis: number;
-    isFindLateLoans: boolean = false;
+    tiposDeBusca: any[] = [];
+    tipoBuscaSelected: string = 'TODOS';
 
     constructor(private loanService: LoansService,
         private customerService: CustomersService,
@@ -36,6 +37,12 @@ export class LoansComponent implements OnInit {
 
         this.loan = {};
         this.qtdBooksDisponiveis = 0;
+
+        this.tiposDeBusca = [
+            { value: 'TODOS', description: 'Todos' },
+            { value: 'ATIVOS', description: 'Ativos' },
+            { value: 'ATRASADOS', description: 'Atrasados' }
+        ];
     }
 
     ngOnInit(): void {
@@ -44,8 +51,8 @@ export class LoansComponent implements OnInit {
     }
 
     findAllLoans() {
-
-        this.loanService.findAll(this.isFindLateLoans).subscribe(
+        debugger
+        this.loanService.findAll(this.tipoBuscaSelected).subscribe(
             (dados) => {
                 this.loans = dados;
                 this.showLoading = false;
