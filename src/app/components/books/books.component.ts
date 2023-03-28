@@ -119,8 +119,6 @@ export class BooksComponent implements OnInit {
         } catch (error) {
             this.showToast('warn', error);
         }
-
-
     }
 
     validationForm() {
