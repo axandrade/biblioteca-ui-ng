@@ -1,20 +1,22 @@
 <div class="card">
     <p-toast position="bottom-center" [baseZIndex]="99999999999"></p-toast>
-    <p-toolbar styleClass="mb-4">
-        <ng-template pTemplate="left">
+
+    <div class="p-fluid p-formgrid grid">
+        <div class="col-2">
             <button pButton pRipple label="Novo Empréstimo" icon="pi pi-plus" class="p-button-primary mr-2"
                 (click)="showDialogCadastro()"></button>
-        </ng-template>
-    </p-toolbar>
+        </div>
+    </div>
+    <div class="p-fluid p-formgrid grid">
+        <div class="col-6">
+            <h5>Filtrar por :</h5>
+            <p-dropdown optionValue="value" [options]="tiposDeBusca" (onChange)="findAllLoans()"
+                [(ngModel)]="tipoBuscaSelected" optionLabel="description"></p-dropdown>
+        </div>
+    </div>
 
-    <p-toolbar styleClass="mb-4">
-        <ng-template pTemplate="left">
-                <label class="ml-2">Buscar por Empréstimos Atrasados</label>
-                <p-dropdown optionValue="value" [options]="tiposDeBusca" (onChange)="findAllLoans()" [(ngModel)]="tipoBuscaSelected"
-                    optionLabel="description"></p-dropdown>
-        </ng-template>
-    </p-toolbar>
-
+</div>
+<div class="card">
     <p-table #dt id="table-loan" [value]="loans" [rows]="10" [paginator]="true" [globalFilterFields]="['name']"
         [rowHover]="true" dataKey="loanId"
         currentPageReportTemplate="Exibindo de {first} a {last} de um total de {totalRecords} empréstimos"
@@ -33,7 +35,8 @@
             <tr>
                 <th pSortableColumn="name">Nome<p-sortIcon field="name"></p-sortIcon></th>
                 <th pSortableColumn="contato1">Contato<p-sortIcon field="contato1"></p-sortIcon></th>
-                <th class="text-center" pSortableColumn="dateLoan">Data do Empréstimo<p-sortIcon field="dateLoan"></p-sortIcon></th>
+                <th class="text-center" pSortableColumn="dateLoan">Data do Empréstimo<p-sortIcon
+                        field="dateLoan"></p-sortIcon></th>
                 <th class="text-center" pSortableColumn="returnLimitDate">Data limite para Devolução<p-sortIcon
                         field="returnLimitDate"></p-sortIcon></th>
                 <th class="text-center" pSortableColumn="status">Situação<p-sortIcon field="status"></p-sortIcon></th>
@@ -43,7 +46,8 @@
         <ng-template pTemplate="body" let-loan>
             <tr>
                 <td>{{loan.customer.name}}</td>
-                <td><a href="https://wa.me/55{{loan.customer.contact1}}?text=Tenho%20interesse%20em%20comprar%20seu%20carro" target="_blank">{{loan.customer.contact1}}</a></td>
+                <td><a href="https://wa.me/55{{loan.customer.contact1}}?text=Tenho%20interesse%20em%20comprar%20seu%20carro"
+                        target="_blank">{{loan.customer.contact1}}</a></td>
                 <td class="text-center">{{loan.dateLoan}}</td>
                 <td class="text-center">{{loan.returnLimitDate}}</td>
                 <td class="text-center">
