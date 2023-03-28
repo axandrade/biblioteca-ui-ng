@@ -51,7 +51,6 @@ export class LoansComponent implements OnInit {
     }
 
     findAllLoans() {
-        debugger
         this.loanService.findAll(this.tipoBuscaSelected).subscribe(
             (dados) => {
                 this.loans = dados;

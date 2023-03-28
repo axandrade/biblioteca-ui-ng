@@ -49,6 +49,7 @@ export class AuthorsComponent implements OnInit {
             this.authorsService
                 .save(this.author)
                 .subscribe((result: Author) => {
+                    debugger
                     if (this.author.authorId)
                         //update
                         this.authors[this.findIndexById(this.author.authorId)] = this.author;

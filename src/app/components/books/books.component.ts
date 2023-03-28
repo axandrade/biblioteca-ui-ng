@@ -106,6 +106,7 @@ export class BooksComponent implements OnInit {
             this.booksService
                 .save(this.book)
                 .subscribe((result: Book) => {
+                    debugger
                     if (this.book.bookId)
                         this.books[this.findIndexById(this.book.bookId)] = this.book;
                     else
@@ -114,7 +115,7 @@ export class BooksComponent implements OnInit {
 
             this.books = [...this.books];
             this.displayModalCadastro = false;
-            this.book = {};
+
 
         } catch (error) {
             this.showToast('warn', error);
@@ -122,7 +123,6 @@ export class BooksComponent implements OnInit {
     }
 
     validationForm() {
-        debugger
         if (!this.book.title)
             throw new Error('O campo titulo é obrigatório!');
         if (!this.book.isbn)

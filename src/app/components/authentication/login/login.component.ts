@@ -40,7 +40,6 @@ export class LoginComponent {
     }
 
     validationForm() {
-        debugger
         if (!this.userLogin.email)
             throw new Error('O campo email é obrigatório!');
         if (!this.userLogin.password)
