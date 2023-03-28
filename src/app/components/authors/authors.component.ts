@@ -97,7 +97,6 @@ export class AuthorsComponent implements OnInit {
         return index;
     }
 
-
     onEdit(author: Author) {
         this.showDialogCadastro();
         this.author = { ...author };

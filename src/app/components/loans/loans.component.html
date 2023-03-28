@@ -39,6 +39,10 @@
                         field="dateLoan"></p-sortIcon></th>
                 <th class="text-center" pSortableColumn="returnLimitDate">Data limite para Devolução<p-sortIcon
                         field="returnLimitDate"></p-sortIcon></th>
+                <th class="text-center" pSortableColumn="returnLimitDate">Qtd dias Atrasados<p-sortIcon
+                        field="numberDaysLate"></p-sortIcon></th>
+                <th class="text-center" pSortableColumn="fineAmount">Valor Multa<p-sortIcon
+                        field="fineAmount"></p-sortIcon></th>
                 <th class="text-center" pSortableColumn="status">Situação<p-sortIcon field="status"></p-sortIcon></th>
                 <th class="text-center">Devolução</th>
             </tr>
@@ -50,12 +54,17 @@
                         target="_blank">{{loan.customer.contact1}}</a></td>
                 <td class="text-center">{{loan.dateLoan}}</td>
                 <td class="text-center">{{loan.returnLimitDate}}</td>
+                <td class="text-center">{{loan.numberDaysLate}}</td>
+                <td class="text-center">{{loan.fineAmount}}</td>
                 <td class="text-center">
-                    <span *ngIf="loan.status === true">
+                    <span *ngIf="loan.status === 'ATIVO'">
                         <p-badge value="Ativo" severity="success"></p-badge>
                     </span>
-                    <span *ngIf="loan.status === false">
-                        <p-badge value="Encerrado" severity="danger"></p-badge>
+                    <span *ngIf="loan.status === 'INATIVO'">
+                        <p-badge value="Encerrado" severity="primary"></p-badge>
+                    </span>
+                    <span *ngIf="loan.status === 'ATRASADO'">
+                        <p-badge value="Atrasado" severity="danger"></p-badge>
                     </span>
                 </td>
                 <td class="text-center">

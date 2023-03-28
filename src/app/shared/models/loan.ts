@@ -8,7 +8,8 @@ export interface Loan{
         returnLimitDate?:string;
         customer?: Customer
         observation?:string;
-        status?:boolean;
+        status?:string;
         itensLoan?: ItensLoan[];
-
+        numberDaysLate?: number;
+        fineAmount?: number;
 }

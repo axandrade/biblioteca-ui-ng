@@ -53,6 +53,7 @@ export class LoansComponent implements OnInit {
     findAllLoans() {
         this.loanService.findAll(this.tipoBuscaSelected).subscribe(
             (dados) => {
+                debugger
                 this.loans = dados;
                 this.showLoading = false;
             },
@@ -125,7 +126,7 @@ export class LoansComponent implements OnInit {
             let itemLoan: ItensLoan;
             let itensLoan: ItensLoan[] = [];
 
-            loan.status = true;
+            loan.status = 'ATIVO';
             for (var b of this.booksSelected) {
                 itemLoan = {};
                 itemLoan.book = b;
