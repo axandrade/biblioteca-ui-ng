@@ -103,15 +103,14 @@ export class BooksComponent implements OnInit {
 
         try {
             this.validationForm();
-
             this.booksService
                 .save(this.book)
-                .subscribe((result) => { });
-
-            if (this.book.bookId)
-                this.books[this.findIndexById(this.book.bookId)] = this.book;
-            else
-                this.books.push(this.book);
+                .subscribe((result: Book) => {
+                    if (this.book.bookId)
+                        this.books[this.findIndexById(this.book.bookId)] = this.book;
+                    else
+                        this.books.push(result);
+                });
 
             this.books = [...this.books];
             this.displayModalCadastro = false;
@@ -120,6 +119,8 @@ export class BooksComponent implements OnInit {
         } catch (error) {
             this.showToast('warn', error);
         }
+
+
     }
 
     validationForm() {
