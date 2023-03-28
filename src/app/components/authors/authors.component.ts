@@ -46,7 +46,6 @@ export class AuthorsComponent implements OnInit {
     onSubmit() {
         try {
             this.validationForm();
-
             this.authorsService
                 .save(this.author)
                 .subscribe((result: Author) => {
