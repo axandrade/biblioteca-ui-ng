@@ -40,8 +40,8 @@ export class LoansComponent implements OnInit {
 
         this.tiposDeBusca = [
             { value: 'TODOS', description: 'Todos' },
-            { value: 'ATIVOS', description: 'Ativos' },
-            { value: 'ATRASADOS', description: 'Atrasados' }
+            { value: 'ATIVO', description: 'Ativos' },
+            { value: 'ATRASADO', description: 'Atrasados' }
         ];
     }
 

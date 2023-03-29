@@ -43,7 +43,7 @@ export class LoansService {
 
     save(obj: Loan) {
         if (obj.loanId) {
-            return this.update(obj);
+            return this.loanReturn(obj);
         } else {
             return this.create(obj);
         }
@@ -55,7 +55,7 @@ export class LoansService {
         return this.httpCliente.post<any>(url, obj).pipe(first());
     }
 
-    private update(obj: Loan) {
+    private loanReturn(obj: Loan) {
         const url = `${environment.API}/api/loans`;
 
         return this.httpCliente.put<any>(`${url}/${obj.loanId}`, obj).pipe(first());
