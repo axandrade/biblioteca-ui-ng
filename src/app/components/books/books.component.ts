@@ -134,7 +134,7 @@ export class BooksComponent implements OnInit {
 
     private showToast(severity: string, detail: any) {
         this.messageService.clear();
-        this.messageService.add({ severity: severity, detail: detail, life: 3000 });
+        this.messageService.add({ severity: severity, detail: detail, life: 6000 });
 
     }
 
