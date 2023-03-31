@@ -1,6 +1,7 @@
 <div class="card">
-    <p-toast position="bottom-center" [baseZIndex]="99999999999" ></p-toast>
-    <p-toolbar styleClass="mb-4">
+    <p-toast position="bottom-center" [baseZIndex]="99999999999"></p-toast>
+    <p-progressBar class="t" mode="indeterminate" [style]="{'height': '5px', 'background-color': '#red'}" *ngIf="showLoading"></p-progressBar>
+    <p-toolbar styleClass="mt-3 mb-3">
         <ng-template pTemplate="left">
             <button pButton pRipple label="Adicionar" icon="pi pi-plus" class="p-button-primary mr-2"
                 (click)="showDialogCadastro()"></button>
@@ -14,7 +15,8 @@
                 <h5 class="m-0">Listagem de Usuários</h5>
                 <span class="block mt-2 mt-0 p-input-icon-left">
                     <i class="pi pi-search"></i>
-                    <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Pesquisar..."  class="w-full sm:w-auto"/>
+                    <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Pesquisar..."
+                        class="w-full sm:w-auto" />
                 </span>
             </div>
         </ng-template>
@@ -28,7 +30,8 @@
                 </th>
                 <th pSortableColumn="birthDate">Data de Nascimento<p-sortIcon field="birthDate"></p-sortIcon>
                 </th>
-                <th style="width: 8rem" class="text-center" pSortableColumn="status">Situação<p-sortIcon field="status"></p-sortIcon>
+                <th style="width: 8rem" class="text-center" pSortableColumn="status">Situação<p-sortIcon
+                        field="status"></p-sortIcon>
                 </th>
 
                 <th></th>
@@ -43,7 +46,7 @@
                 <td class="text-center">
                     <span *ngIf="customer.status">
                         <p-badge value="Ativo" severity="success"></p-badge>
-                   </span>
+                    </span>
                     <span *ngIf="!customer.status">
                         <p-badge value="Inativo" severity="danger"></p-badge>
                     </span>
@@ -62,8 +65,8 @@
     </p-table>
 </div>
 
-<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '60vw'}" header="Cadastrar Cliente" [modal]="true" [closeOnEscape]="false" [closable]="false"
-    styleClass="p-fluid">
+<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '60vw'}" header="Cadastrar Cliente" [modal]="true"
+    [closeOnEscape]="false" [closable]="false" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-12">
@@ -104,12 +107,14 @@
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-3">
                 <h5 class="asterisk">CEP</h5>
-                <p-inputMask mask="99999-999" [unmask]=true (focusout)="findAddressByCep($event)" id="zip" [(ngModel)]="customer.zip"  ></p-inputMask>
+                <p-inputMask mask="99999-999" [unmask]=true (focusout)="findAddressByCep($event)" id="zip"
+                    [(ngModel)]="customer.zip"></p-inputMask>
 
             </div>
             <div class="field col-12 md:col-9">
                 <h5 class="asterisk">Logradouro</h5>
-                <input [disabled]="true" type="text" pInputText id="street" [(ngModel)]="customer.street" required autofocus />
+                <input [disabled]="true" type="text" pInputText id="street" [(ngModel)]="customer.street" required
+                    autofocus />
             </div>
             <div class="field col-12 md:col-2">
                 <h5>Número</h5>
@@ -121,15 +126,18 @@
             </div>
             <div class="field col-12 md:col-6">
                 <h5 class="asterisk">Bairro</h5>
-                <input [disabled]="true" type="text" pInputText id="neighborhood" [(ngModel)]="customer.neighborhood" required autofocus />
+                <input [disabled]="true" type="text" pInputText id="neighborhood" [(ngModel)]="customer.neighborhood"
+                    required autofocus />
             </div>
             <div class="field col-12 md:col-6">
                 <h5 class="asterisk">Cidade</h5>
-                <input [disabled]="true" type="text" pInputText id="city" [(ngModel)]="customer.city" required autofocus />
+                <input [disabled]="true" type="text" pInputText id="city" [(ngModel)]="customer.city" required
+                    autofocus />
             </div>
             <div class="field col-12 md:col-2">
                 <h5 class="asterisk">Estado</h5>
-                <input [disabled]="true" type="text" pInputText id="state" [(ngModel)]="customer.state" required autofocus />
+                <input [disabled]="true" type="text" pInputText id="state" [(ngModel)]="customer.state" required
+                    autofocus />
             </div>
         </div>
 

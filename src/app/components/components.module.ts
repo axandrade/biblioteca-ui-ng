@@ -17,7 +17,6 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CheckboxModule } from 'primeng/checkbox';
-
 import { ComponentRoutingModule } from './components-routing.module';
 
 @NgModule({
@@ -41,7 +40,8 @@ import { ComponentRoutingModule } from './components-routing.module';
         AutoCompleteModule,
         InputTextareaModule,
         ProgressBarModule,
-        CheckboxModule
+        CheckboxModule,
+
 
     ],
     providers: [MessageService, ConfirmationService]

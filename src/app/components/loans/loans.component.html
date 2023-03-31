@@ -1,8 +1,9 @@
-<div class="card">
-    <p-toast position="bottom-center" [baseZIndex]="99999999999"></p-toast>
 
+<p-toast position="bottom-center" [baseZIndex]="99999999999"></p-toast>
+<p-progressBar class="t" mode="indeterminate" [style]="{'height': '5px', 'background-color': '#red', 'margin-botton': '5px'}" *ngIf="showLoading"></p-progressBar>
+<div class="card">
     <div class="p-fluid p-formgrid grid">
-        <div class="col-2">
+        <div class="col-3">
             <button pButton pRipple label="Novo Empréstimo" icon="pi pi-plus" class="p-button-primary mr-2"
                 (click)="showDialogCadastro()"></button>
         </div>

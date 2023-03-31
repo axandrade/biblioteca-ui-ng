@@ -1,6 +1,7 @@
 <div class="card">
-    <p-toast position="bottom-center" [baseZIndex]="99999999999" ></p-toast>
-    <p-toolbar styleClass="mb-4">
+    <p-toast position="bottom-center" [baseZIndex]="99999999999"></p-toast>
+    <p-progressBar class="t" mode="indeterminate" [style]="{'height': '5px', 'background-color': '#red'}" *ngIf="showLoading"></p-progressBar>
+    <p-toolbar styleClass="mt-3 mb-3">
         <ng-template pTemplate="left">
             <button pButton pRipple label="Adicionar" icon="pi pi-plus" class="p-button-primary mr-2"
                 (click)="showDialogCadastro()"></button>

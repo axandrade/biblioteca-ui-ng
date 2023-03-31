@@ -67,7 +67,7 @@ export class BooksComponent implements OnInit {
                 this.showLoading = false;
             },
             (error) => {
-                this.showLoading = false;
+                this.showLoading = true;
                 this.showToast('error', error);
             }
         );
@@ -77,10 +77,8 @@ export class BooksComponent implements OnInit {
         this.authorsService.findAll().subscribe(
             (dados) => {
                 this.authors = dados;
-                this.showLoading = false;
             },
             (error) => {
-                this.showLoading = false;
                 this.showToast('error', error.message);
             }
         );

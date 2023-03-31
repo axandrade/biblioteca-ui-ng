@@ -14,7 +14,7 @@ export class AuthorsComponent implements OnInit {
 
     author: Author;
     authors: Author[] = [];
-    showLoading: boolean = false;
+    showLoading: boolean = true;
     displayModalCadastro: boolean = false;
 
     constructor(
@@ -34,10 +34,10 @@ export class AuthorsComponent implements OnInit {
         this.authorsService.findAll().subscribe(
             (dados) => {
                 this.authors = dados;
-                this.showLoading = true;
+                this.showLoading = false;
             },
             (error) => {
-                this.showLoading = false;
+                this.showLoading = true;
                 this.showToast('error', error);
             }
         );

@@ -34,7 +34,7 @@ export class CategoriesComponent implements OnInit {
         this.categoriesService.findAll().subscribe(
             (dados) => {
                 this.categories = dados;
-                this.showLoading = true;
+                this.showLoading = false;
             },
             (error) => {
                 this.showLoading = false;
