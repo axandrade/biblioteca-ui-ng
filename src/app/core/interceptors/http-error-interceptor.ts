@@ -21,13 +21,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 debugger
                 switch (error.status) {
 
-                    case 403:
-                        codErro = `Problemas de conexão com o Servidor, Código Error: ${error.status}`;
+                    case 401:
+                        codErro = `Usuário não autorizado, Código Error: ${error.status}`;
                         break;
                     case 0:
                         codErro = `Problemas de conexão com o Servidor, Código Error: ${error.status}`;
                         break;
                     default:
+                        codErro = `teste , Código Error: ${error.status}`;
                         break;
                 }
 
