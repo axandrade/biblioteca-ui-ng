@@ -15,13 +15,15 @@ export class LoansService {
 
 
     findAll(tipoBuscaSelected: string): Observable<any[]> {
+
         const url = `${environment.API}/api/loans`;
 
         const params = new HttpParams().set('tipoBuscaSelected', tipoBuscaSelected);
 
 
-        return this.httpCliente.get<any[]>(url).pipe(
+        return this.httpCliente.get<any[]>(url, { params }).pipe(
             catchError((error: HttpResponseBase) => {
+                debugger
                 return throwError(error);
             })
         );

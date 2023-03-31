@@ -49,7 +49,7 @@ export class AuthorsComponent implements OnInit {
             this.authorsService
                 .save(this.author)
                 .subscribe((result: Author) => {
-                    debugger
+
                     if (this.author.authorId)
                         //update
                         this.authors[this.findIndexById(this.author.authorId)] = this.author;
@@ -59,7 +59,8 @@ export class AuthorsComponent implements OnInit {
                 },
                     error => {
                         this.showLoading = false;
-                        this.showToast('warn', error.message);
+
+                        this.showToast('warn', error);
                         this.authors = [];
                     });
 
@@ -78,7 +79,7 @@ export class AuthorsComponent implements OnInit {
 
 
     private showToast(severity: string, detail: any) {
-        debugger
+
         this.messageService.clear();
         this.messageService.add({ severity: severity, detail: detail, life: 6000 });
 

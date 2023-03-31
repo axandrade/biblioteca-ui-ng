@@ -104,7 +104,7 @@ export class BooksComponent implements OnInit {
             this.booksService
                 .save(this.book)
                 .subscribe((result: Book) => {
-                    debugger
+
                     if (this.book.bookId)
                         this.books[this.findIndexById(this.book.bookId)] = this.book;
                     else

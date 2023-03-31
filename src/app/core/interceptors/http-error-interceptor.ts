@@ -18,12 +18,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError((error: HttpResponseBase) => {
                 let codErro = '';
-
+                debugger
                 switch (error.status) {
 
                     case 403:
-                        window.localStorage.removeItem('token');
-                        window.sessionStorage.removeItem('menu');
+                        codErro = `Problemas de conexão com o Servidor, Código Error: ${error.status}`;
                         break;
                     case 0:
                         codErro = `Problemas de conexão com o Servidor, Código Error: ${error.status}`;
