@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponseBase } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, first, retry } from 'rxjs/operators';
@@ -16,13 +16,11 @@ export class CustomersService {
     findAll(): Observable<any[]> {
         const url = `${environment.API}/api/customers`;
 
-        return this.httpCliente.get<any[]>(url)
-            .pipe(
-                retry(1),
-                catchError(error => {
-                    return throwError(error);
-                })
-            )
+        return this.httpCliente.get<any[]>(url).pipe(
+            catchError((error: HttpResponseBase) => {
+                return throwError(error);
+            })
+        );
     }
 
     findById(costumerId: number) {

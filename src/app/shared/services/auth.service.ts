@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { HttpClient, HttpResponseBase } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { throwError } from 'rxjs';
 
 
 @Injectable({
@@ -14,19 +16,26 @@ export class AuthService {
     constructor(private router: Router, private http: HttpClient) { }
 
     async login(user: any) {
+        try {
+            const result = await this.http.post<any>(this.url, user, {
+                observe: 'response',
+            }).pipe(
+                catchError((error: HttpResponseBase) => {
+                    return throwError(error);
+                })
+            ).toPromise();
 
-        const result = await this.http.post<any>(this.url, user, {
-            observe: 'response',
-        }).toPromise();
+            const token = result!.headers.get('Authorization');
 
-        const token = result!.headers.get('Authorization');
+            if (token) {
+                window.localStorage.setItem('token', token);
+                return result;
+            }
 
-        if (token) {
-            window.localStorage.setItem('token', token);
-            return result;
+            return false;
+        } catch (error) {
+            throw error;
         }
-
-        return false;
     }
 
     getAuthorizationToken() {

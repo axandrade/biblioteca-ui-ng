@@ -38,7 +38,7 @@ export class AuthorsComponent implements OnInit {
             },
             (error) => {
                 this.showLoading = false;
-                this.showToast('danger', error.message);
+                this.showToast('error', error);
             }
         );
     }
@@ -78,9 +78,9 @@ export class AuthorsComponent implements OnInit {
 
 
     private showToast(severity: string, detail: any) {
-
+        debugger
         this.messageService.clear();
-        this.messageService.add({ severity: severity, detail: detail, life: 3000 });
+        this.messageService.add({ severity: severity, detail: detail, life: 6000 });
 
     }
 

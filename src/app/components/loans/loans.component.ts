@@ -59,7 +59,7 @@ export class LoansComponent implements OnInit {
             },
             (error) => {
                 this.showLoading = false;
-                this.showToast('warn', error.message);
+                this.showToast('error', error);
             }
         );
     }

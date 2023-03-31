@@ -1,7 +1,7 @@
 import { Book } from '../models/book';
 
 import { Confirmation } from 'primeng/api';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponseBase } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -16,13 +16,11 @@ export class BooksService {
     findAll(): Observable<any[]> {
         const url = `${environment.API}/api/books`;
 
-        return this.httpCliente.get<any[]>(url)
-            .pipe(
-                retry(1),
-                catchError(error => {
-                    return throwError(error.error);
-                })
-            )
+        return this.httpCliente.get<any[]>(url).pipe(
+            catchError((error: HttpResponseBase) => {
+                return throwError(error);
+            })
+        );
     }
 
     findBooksByStatus(): Observable<any[]> {

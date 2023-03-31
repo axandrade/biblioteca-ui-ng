@@ -38,7 +38,7 @@ export class CategoriesComponent implements OnInit {
             },
             (error) => {
                 this.showLoading = false;
-                this.showToast('danger', error.message);
+                this.showToast('error', error);
             }
         );
     }

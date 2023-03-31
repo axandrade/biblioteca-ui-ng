@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppLayoutModule } from './layout/app.layout.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HtppInterceptor } from './core/interceptors/htpp-interceptor';
-import { ErrorInterceptor } from './core/interceptors/error-interceptor';
+import { HttpErrorInterceptor } from './core/interceptors/http-error-interceptor';
 
 @NgModule({
     declarations: [
@@ -18,7 +18,7 @@ import { ErrorInterceptor } from './core/interceptors/error-interceptor';
     providers: [
         ErrorService,
         { provide: HTTP_INTERCEPTORS, useClass: HtppInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
       ],
     bootstrap: [AppComponent]
 })

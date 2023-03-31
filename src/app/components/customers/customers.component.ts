@@ -36,7 +36,7 @@ export class CustomersComponent implements OnInit {
             (error) => {
                 console.log(error)
                 this.showLoading = false;
-                this.showToast('error', error.message);
+                this.showToast('error', error);
             }
         );
     }

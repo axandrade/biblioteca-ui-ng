@@ -55,7 +55,7 @@ export class LoginComponent {
 
     private showToast(severity: string, detail: any) {
         this.messageService.clear();
-        this.messageService.add({ severity: severity, detail: detail, life: 3000 });
+        this.messageService.add({ severity: severity, detail: detail, life: 6000 });
     }
 
     async login() {
@@ -69,7 +69,7 @@ export class LoginComponent {
 
 
         } catch (error) {
-            this.showToast('warn', error);
+            this.showToast('error', error);
 
         }
     }

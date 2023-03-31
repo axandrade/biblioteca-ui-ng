@@ -68,7 +68,7 @@ export class BooksComponent implements OnInit {
             },
             (error) => {
                 this.showLoading = false;
-                this.showToast('error', error.message);
+                this.showToast('error', error);
             }
         );
     }

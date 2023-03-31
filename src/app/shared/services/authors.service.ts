@@ -1,8 +1,8 @@
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponseBase } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError, first, retry } from 'rxjs/operators';
+import { catchError, first } from 'rxjs/operators';
 
 import { Author } from '../models/author';
 
@@ -16,13 +16,11 @@ export class AuthorsService {
     findAll(): Observable<any[]> {
         const url = `${environment.API}/api/authors`;
 
-        return this.httpCliente.get<any[]>(url)
-            .pipe(
-                retry(1),
-                catchError(error => {
-                    throw new Error('Houve algum problema de comunicação com o servidor');
-                })
-            );
+        return this.httpCliente.get<any[]>(url).pipe(
+            catchError((error: HttpResponseBase) => {
+                return throwError(error);
+            })
+        );
     }
 
     findById(author: Author) {

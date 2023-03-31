@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponseBase } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, first, retry } from 'rxjs/operators';
@@ -20,13 +20,11 @@ export class LoansService {
         const params = new HttpParams().set('tipoBuscaSelected', tipoBuscaSelected);
 
 
-        return this.httpCliente.get<any[]>(url, { params })
-            .pipe(
-                retry(1),
-                catchError(error => {
-                    return throwError(error.error);
-                })
-            )
+        return this.httpCliente.get<any[]>(url).pipe(
+            catchError((error: HttpResponseBase) => {
+                return throwError(error);
+            })
+        );
     }
 
     findLoansByCustomer(id: number): Observable<any> {
