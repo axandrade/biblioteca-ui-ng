@@ -42,6 +42,12 @@ export class LoginComponent {
     validationForm() {
         if (!this.userLogin.email)
             throw new Error('O campo email é obrigatório!');
+
+        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!regex.test(this.userLogin.email)) {
+            throw new Error('email inválido');
+        }
+
         if (!this.userLogin.password)
             throw new Error('O campo senha é obrigatório!');
     }

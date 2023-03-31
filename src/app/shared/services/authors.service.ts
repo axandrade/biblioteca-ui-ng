@@ -20,9 +20,9 @@ export class AuthorsService {
             .pipe(
                 retry(1),
                 catchError(error => {
-                    return throwError(error.error);
+                    throw new Error('Houve algum problema de comunicação com o servidor');
                 })
-            )
+            );
     }
 
     findById(author: Author) {
