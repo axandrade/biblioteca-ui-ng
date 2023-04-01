@@ -23,6 +23,6 @@ export class AppTopBarComponent {
         // Remove o token do armazenamento local.
         window.localStorage.removeItem('token');
         // Navega para a página de login.
-        this.router.navigate(['']);
+        this.router.navigate(['/']);
     }
 }

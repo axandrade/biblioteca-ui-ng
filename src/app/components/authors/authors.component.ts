@@ -56,7 +56,7 @@ export class AuthorsComponent implements OnInit {
                     else
                         //create
                         console.log(this.authors.length)
-                        this.authors.push(result);
+                        this.authors= [...this.authors, result];
                         console.log(this.authors.length)
                 },
                     error => {

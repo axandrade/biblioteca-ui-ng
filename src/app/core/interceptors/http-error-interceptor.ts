@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import {
     HttpEvent,
@@ -11,6 +12,7 @@ import { catchError, retry } from 'rxjs/operators';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
+
     intercept(
         request: HttpRequest<any>,
         next: HttpHandler
@@ -21,7 +23,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 debugger
                 switch (error.status) {
 
-                    case 401:
+                    case 401 || 403:
                         codErro = `Usuário não autorizado, Código Error: ${error.status}`;
                         break;
                     case 0:

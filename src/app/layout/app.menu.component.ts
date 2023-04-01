@@ -35,7 +35,6 @@ export class AppMenuComponent implements OnInit {
                     { label: 'Emprestimos', icon: 'pi pi-cart-plus', routerLink: ['/home/process/loans'] },
                 ]
             }
-
         ];
     }
 }

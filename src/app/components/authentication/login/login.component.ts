@@ -1,6 +1,4 @@
-import { throwError } from 'rxjs';
 import { Component } from '@angular/core';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { MessageService } from 'primeng/api';
@@ -65,12 +63,12 @@ export class LoginComponent {
             const result = await this.authService.login(this.userLogin);
 
             if (result)
-                this.router.navigate(['/home']);
+                this.router.navigate(['\home']);
 
 
         } catch (error) {
             this.showToast('error', error);
-
+            this.router.navigate(['']);
         }
     }
 
