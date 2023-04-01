@@ -96,14 +96,14 @@ export class LoansComponent implements OnInit {
             this.validationForm();
             this.loanService
                 .save(this.loan)
-                .subscribe((retorno: Loan) => {
+                .subscribe((result: Loan) => {
                     if (this.loan.loanId) {
                         //update
-                        this.loans[this.findIndexById(this.loan.loanId)] = retorno;
+                        this.loans= [...this.loans, result];
                     }
                     else {
                         //create
-                        this.loans.push(retorno);
+                        this.loans.push(...this.loans, result);
                     }
 
                 });

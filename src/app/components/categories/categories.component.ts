@@ -55,7 +55,7 @@ export class CategoriesComponent implements OnInit {
                         this.categories[this.findIndexById(this.category.categoryId)] = this.category;
                     else
                         //create
-                        this.categories.push(result);
+                        this.categories= [...this.categories, result];
                 },
                     error => {
                         this.showLoading = false;

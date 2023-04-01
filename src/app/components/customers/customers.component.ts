@@ -53,7 +53,7 @@ export class CustomersComponent implements OnInit {
 
                         this.customers[this.findIndexById(this.customer.customerId)] = this.customer;
                     else
-                        this.customers.push(result);
+                    this.customers= [...this.customers, result];
                 });
 
             this.customers = [...this.customers];

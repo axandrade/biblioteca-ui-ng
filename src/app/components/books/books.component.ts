@@ -108,7 +108,7 @@ export class BooksComponent implements OnInit {
                     if (this.book.bookId)
                         this.books[this.findIndexById(this.book.bookId)] = this.book;
                     else
-                        this.books.push(result);
+                        this.books= [...this.books, result];
                 });
 
             this.books = [...this.books];
