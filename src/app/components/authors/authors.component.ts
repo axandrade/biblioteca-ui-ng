@@ -55,11 +55,12 @@ export class AuthorsComponent implements OnInit {
                         this.authors[this.findIndexById(this.author.authorId)] = this.author;
                     else
                         //create
+                        console.log(this.authors.length)
                         this.authors.push(result);
+                        console.log(this.authors.length)
                 },
                     error => {
                         this.showLoading = false;
-
                         this.showToast('warn', error);
                         this.authors = [];
                     });
@@ -70,6 +71,19 @@ export class AuthorsComponent implements OnInit {
         } catch (error) {
             this.showToast('warn', error);
         }
+    }
+
+    findIndexById(authorId: number): number {
+
+        let index = -1;
+        for (let i = 0; i < this.authors.length; i++) {
+            if (this.authors[i].authorId === authorId) {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
     }
 
     validationForm() {
@@ -85,18 +99,7 @@ export class AuthorsComponent implements OnInit {
 
     }
 
-    findIndexById(authorId: number): number {
 
-        let index = -1;
-        for (let i = 0; i < this.authors.length; i++) {
-            if (this.authors[i].authorId === authorId) {
-                index = i;
-                break;
-            }
-        }
-
-        return index;
-    }
 
     onEdit(author: Author) {
         this.showDialogCadastro();
