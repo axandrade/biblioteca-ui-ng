@@ -41,28 +41,45 @@ export class CustomersComponent implements OnInit {
         );
     }
 
+
     onSubmit() {
-
         try {
-            this.validationForm();
-            console.log(this.customer);
-            this.customersService
-                .save(this.customer)
-                .subscribe((result : Customer) => {
-                    if (this.customer.customerId)
-
-                        this.customers[this.findIndexById(this.customer.customerId)] = this.customer;
-                    else
-                    this.customers= [...this.customers, result];
-                });
-
-            this.customers = [...this.customers];
-            this.displayModalCadastro = false;
-
+          this.validationForm();
+          this.customersService.save(this.customer).subscribe(
+            (result: Customer) => {
+              if (this.customer.customerId) {
+                this.updateCustomer(result);
+              } else {
+                this.createCustomer(result);
+              }
+            },
+            error => {
+              this.showLoading = false;
+              this.showToast('warn', error);
+              this.customers = [];
+            }
+          );
+          this.displayModalCadastro = false;
         } catch (error) {
-            this.showToast('warn', error);
+          this.showToast('warn', error);
         }
-    }
+      }
+
+      updateCustomer(updatedCustomer: Customer) {
+        const index = this.findIndexById(updatedCustomer.customerId!);
+        const updatedCustomers = [...this.customers];
+        updatedCustomers[index] = updatedCustomer;
+        this.customers = updatedCustomers;
+      }
+
+      createCustomer(newCustomer: Customer) {
+        this.customers = [...this.customers, newCustomer];
+      }
+
+      findIndexById(customerId: number): number {
+        return this.customers.findIndex(customer => customer.customerId === customerId);
+      }
+
 
     validationForm() {
         if (!this.customer.name)
@@ -89,17 +106,6 @@ export class CustomersComponent implements OnInit {
     private showToast(severity: string, detail: any) {
         this.messageService.clear();
         this.messageService.add({ severity: severity, detail: detail, life: 3000 });
-    }
-
-    findIndexById(customerId: number): number {
-        let index = -1;
-        for (let i = 0; i < this.customers.length; i++) {
-            if (this.customers[i].customerId === customerId) {
-                index = i;
-                break;
-            }
-        }
-        return index;
     }
 
     onEdit(customer: Customer) {

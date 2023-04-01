@@ -98,27 +98,42 @@ export class BooksComponent implements OnInit {
     }
 
     onSubmit() {
-
         try {
-            this.validationForm();
-            this.booksService
-                .save(this.book)
-                .subscribe((result: Book) => {
-
-                    if (this.book.bookId)
-                        this.books[this.findIndexById(this.book.bookId)] = this.book;
-                    else
-                        this.books= [...this.books, result];
-                });
-
-            this.books = [...this.books];
-            this.displayModalCadastro = false;
-
-
+          this.validationForm();
+          this.booksService.save(this.book).subscribe(
+            (result: Book) => {
+              if (this.book.bookId) {
+                this.updateBook(result);
+              } else {
+                this.createBook(result);
+              }
+            },
+            error => {
+              this.showLoading = false;
+              this.showToast('warn', error);
+              this.categories = [];
+            }
+          );
+          this.displayModalCadastro = false;
         } catch (error) {
-            this.showToast('warn', error);
+          this.showToast('warn', error);
         }
-    }
+      }
+
+      updateBook(updatedBook: Book) {
+        const index = this.findIndexById(updatedBook.bookId!);
+        const updatedBooks = [...this.books];
+        updatedBooks[index] = updatedBook;
+        this.books = updatedBooks;
+      }
+
+      createBook(newBook: Book) {
+        this.books = [...this.books, newBook];
+      }
+
+      findIndexById(bookId: number): number {
+        return this.books.findIndex(book => book.bookId === bookId);
+      }
 
     validationForm() {
         if (!this.book.title)
@@ -136,18 +151,6 @@ export class BooksComponent implements OnInit {
         this.messageService.clear();
         this.messageService.add({ severity: severity, detail: detail, life: 6000 });
 
-    }
-
-    findIndexById(bookId: number): number {
-        let index = -1;
-        for (let i = 0; i < this.books.length; i++) {
-            if (this.books[i].bookId === bookId) {
-                index = i;
-                break;
-            }
-        }
-
-        return index;
     }
 
     onEdit(book: Book) {

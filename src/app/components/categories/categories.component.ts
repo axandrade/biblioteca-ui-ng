@@ -49,9 +49,9 @@ export class CategoriesComponent implements OnInit {
           this.categoriesService.save(this.category).subscribe(
             (result: Category) => {
               if (this.category.categoryId) {
-                this.updateAuthor(result);
+                this.updateCategory(result);
               } else {
-                this.createAuthor(result);
+                this.createCategory(result);
               }
             },
             error => {
@@ -66,15 +66,15 @@ export class CategoriesComponent implements OnInit {
         }
       }
 
-      updateAuthor(updatedAuthor: Category) {
+      updateCategory(updatedAuthor: Category) {
         const index = this.findIndexById(updatedAuthor.categoryId!);
         const updatedAuthors = [...this.categories];
         updatedAuthors[index] = updatedAuthor;
         this.categories = updatedAuthors;
       }
 
-      createAuthor(newAuthor: Category) {
-        this.categories = [...this.categories, newAuthor];
+      createCategory(newCategory: Category) {
+        this.categories = [...this.categories, newCategory];
       }
 
       findIndexById(categoryId: number): number {
