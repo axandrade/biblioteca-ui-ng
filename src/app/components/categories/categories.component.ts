@@ -45,31 +45,41 @@ export class CategoriesComponent implements OnInit {
 
     onSubmit() {
         try {
-            this.validationForm();
-
-            this.categoriesService
-                .save(this.category)
-                .subscribe((result: Category) => {
-                    if (this.category.categoryId)
-                        //update
-                        this.categories[this.findIndexById(this.category.categoryId)] = this.category;
-                    else
-                        //create
-                        this.categories= [...this.categories, result];
-                },
-                    error => {
-                        this.showLoading = false;
-                        this.showToast('warn', error.message);
-                        this.categories = [];
-                    });
-
-            this.categories = [...this.categories];
-            this.displayModalCadastro = false;
-
+          this.validationForm();
+          this.categoriesService.save(this.category).subscribe(
+            (result: Category) => {
+              if (this.category.categoryId) {
+                this.updateAuthor(result);
+              } else {
+                this.createAuthor(result);
+              }
+            },
+            error => {
+              this.showLoading = false;
+              this.showToast('warn', error);
+              this.categories = [];
+            }
+          );
+          this.displayModalCadastro = false;
         } catch (error) {
-            this.showToast('warn', error);
+          this.showToast('warn', error);
         }
-    }
+      }
+
+      updateAuthor(updatedAuthor: Category) {
+        const index = this.findIndexById(updatedAuthor.categoryId!);
+        const updatedAuthors = [...this.categories];
+        updatedAuthors[index] = updatedAuthor;
+        this.categories = updatedAuthors;
+      }
+
+      createAuthor(newAuthor: Category) {
+        this.categories = [...this.categories, newAuthor];
+      }
+
+      findIndexById(categoryId: number): number {
+        return this.categories.findIndex(category => category.categoryId === categoryId);
+      }
 
     validationForm() {
         if (!this.category.description)
@@ -83,20 +93,6 @@ export class CategoriesComponent implements OnInit {
         this.messageService.add({ severity: severity, detail: detail, life: 3000 });
 
     }
-
-    findIndexById(id: number): number {
-
-        let index = -1;
-        for (let i = 0; i < this.categories.length; i++) {
-            if (this.categories[i].categoryId === id) {
-                index = i;
-                break;
-            }
-        }
-
-        return index;
-    }
-
 
     onEdit(category: Category) {
         this.showDialogCadastro();

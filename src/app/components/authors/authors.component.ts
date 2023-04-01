@@ -45,46 +45,41 @@ export class AuthorsComponent implements OnInit {
 
     onSubmit() {
         try {
-            this.validationForm();
-            this.authorsService
-                .save(this.author)
-                .subscribe((result: Author) => {
-
-                    if (this.author.authorId)
-                        //update
-                        this.authors[this.findIndexById(this.author.authorId)] = this.author;
-                    else
-                        //create
-                        console.log(this.authors.length)
-                        this.authors= [...this.authors, result];
-                        console.log(this.authors.length)
-                },
-                    error => {
-                        this.showLoading = false;
-                        this.showToast('warn', error);
-                        this.authors = [];
-                    });
-
-            this.authors = [...this.authors];
-            this.displayModalCadastro = false;
-
-        } catch (error) {
-            this.showToast('warn', error);
-        }
-    }
-
-    findIndexById(authorId: number): number {
-
-        let index = -1;
-        for (let i = 0; i < this.authors.length; i++) {
-            if (this.authors[i].authorId === authorId) {
-                index = i;
-                break;
+          this.validationForm();
+          this.authorsService.save(this.author).subscribe(
+            (result: Author) => {
+              if (this.author.authorId) {
+                this.updateAuthor(result);
+              } else {
+                this.createAuthor(result);
+              }
+            },
+            error => {
+              this.showLoading = false;
+              this.showToast('warn', error);
+              this.authors = [];
             }
+          );
+          this.displayModalCadastro = false;
+        } catch (error) {
+          this.showToast('warn', error);
         }
+      }
 
-        return index;
-    }
+      updateAuthor(updatedAuthor: Author) {
+        const index = this.findIndexById(updatedAuthor.authorId!);
+        const updatedAuthors = [...this.authors];
+        updatedAuthors[index] = updatedAuthor;
+        this.authors = updatedAuthors;
+      }
+
+      createAuthor(newAuthor: Author) {
+        this.authors = [...this.authors, newAuthor];
+      }
+
+      findIndexById(authorId: number): number {
+        return this.authors.findIndex(author => author.authorId === authorId);
+      }
 
     validationForm() {
         if (!this.author.name)
