@@ -8,7 +8,7 @@
         </ng-template>
     </p-toolbar>
 
-    <p-table #dt id="table-author" [value]="authors" [rows]="10" [paginator]="true" [globalFilterFields]="['name']"
+    <p-table #dt id="table-author" [value]="authors" [rows]="10" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" [paginator]="true" [globalFilterFields]="['name']"
        [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Exibindo de {first} a {last} de um total de {totalRecords}" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -22,7 +22,7 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="id">Código<p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="authorId">Código<p-sortIcon field="authorId"></p-sortIcon></th>
                 <th pSortableColumn="name">Nome<p-sortIcon field="name"></p-sortIcon></th>
                 <th></th>
             </tr>
