@@ -90,7 +90,7 @@ export class LoansComponent implements OnInit {
             );
     }
 
-    onSubmit() {
+    onSubmit1() {
         try {
             this.loan.itensLoan = this.prepareLoan(this.loan);
             this.validationForm();
@@ -115,6 +115,46 @@ export class LoansComponent implements OnInit {
             this.showToast('warn', error);
         }
     }
+
+    onSubmit() {
+        try {
+        this.loan.itensLoan = this.prepareLoan(this.loan);
+          this.validationForm();
+          this.loanService.save(this.loan).subscribe(
+            (result: Loan) => {
+              if (this.loan.loanId) {
+                this.updateAuthor(result);
+              } else {
+                this.createAuthor(result);
+              }
+            },
+            error => {
+              this.showLoading = false;
+              this.showToast('warn', error);
+              this.loans = [];
+            }
+          );
+          this.displayModalCadastro = false;
+        } catch (error) {
+          this.showToast('warn', error);
+        }
+      }
+
+      updateAuthor(updatedLoan: Loan) {
+        const index = this.findIndexById(updatedLoan.loanId!);
+        const updatedLoans = [...this.loans];
+        updatedLoans[index] = updatedLoan;
+        this.loans = updatedLoans;
+      }
+
+      createAuthor(newLoan: Loan) {
+        this.loans = [...this.loans, newLoan];
+      }
+
+      findIndexById(loanId: number): number {
+        return this.loans.findIndex(loan => loan.loanId === loanId);
+      }
+
 
     prepareLoan(loan: Loan) {
         if (this.loan.loanId) {
@@ -152,18 +192,6 @@ export class LoansComponent implements OnInit {
     private showToast(severity: string, detail: any) {
         this.messageService.clear();
         this.messageService.add({ severity: severity, detail: detail, life: 5000 });
-    }
-
-    findIndexById(id: number): number {
-        let index = -1;
-        for (let i = 0; i < this.loans.length; i++) {
-            if (this.loans[i].loanId === id) {
-                index = i;
-                break;
-            }
-        }
-
-        return index;
     }
 
     showDialogCadastro() {
