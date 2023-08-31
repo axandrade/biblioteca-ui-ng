@@ -89,33 +89,7 @@ export class LoansComponent implements OnInit {
                 }
             );
     }
-
-    onSubmit1() {
-        try {
-            this.loan.itensLoan = this.prepareLoan(this.loan);
-            this.validationForm();
-            this.loanService
-                .save(this.loan)
-                .subscribe((result: Loan) => {
-                    if (this.loan.loanId) {
-                        //update
-                        this.loans= [...this.loans, result];
-                    }
-                    else {
-                        //create
-                        this.loans.push(...this.loans, result);
-                    }
-
-                });
-
-            this.loans = [...this.loans];
-            this.displayModalCadastro = false;
-            this.displayModalDevolucoes = false;
-        } catch (error) {
-            this.showToast('warn', error);
-        }
-    }
-
+    
     onSubmit() {
         try {
         this.loan.itensLoan = this.prepareLoan(this.loan);
@@ -135,6 +109,7 @@ export class LoansComponent implements OnInit {
             }
           );
           this.displayModalCadastro = false;
+          this.displayModalDevolucoes = false;
         } catch (error) {
           this.showToast('warn', error);
         }
