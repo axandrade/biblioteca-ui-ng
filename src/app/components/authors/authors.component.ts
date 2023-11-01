@@ -39,7 +39,7 @@ export class AuthorsComponent {
     }
 
     loadDataLazy(event: LazyLoadEvent): void {
-
+        //event.first representa o índice do primeiro item que será exibido na página atual.
         this.pageableData.page = event.first / event.rows;
         this.pageableData.size = event.rows;
 
@@ -50,7 +50,6 @@ export class AuthorsComponent {
     populateAuthorsPaginated(pageableData: Pageable, pageSortData: PageSort) {
         this.authorsService.getDataPaginated(pageableData, pageSortData).subscribe(
             (dados: any) => {
-
                 this.authors = dados.content;
                 this.content = dados;
                 this.showLoading = false;
@@ -93,7 +92,8 @@ export class AuthorsComponent {
     }
 
     createAuthor(newAuthor: Author) {
-        this.authors = [...this.authors, newAuthor];
+
+        this.populateAuthorsPaginated(this.pageableData, this.pageSortData);
     }
 
     findIndexById(authorId: number): number {
@@ -107,7 +107,6 @@ export class AuthorsComponent {
 
 
     private showToast(severity: string, detail: any) {
-
         this.messageService.clear();
         this.messageService.add({ severity: severity, detail: detail, life: 6000 });
 

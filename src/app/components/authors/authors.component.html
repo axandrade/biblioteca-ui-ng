@@ -1,29 +1,23 @@
-
 <div class="card">
     <p-toast position="bottom-center" [baseZIndex]="99999999999"></p-toast>
-    <p-progressBar class="t" mode="indeterminate" [style]="{'height': '5px', 'background-color': '#red'}" *ngIf="showLoading"></p-progressBar>
+    <p-progressBar class="t" mode="indeterminate" [style]="{'height': '5px', 'background-color': '#red'}"
+        *ngIf="showLoading"></p-progressBar>
     <p-toolbar styleClass="mt-3 mb-3">
         <ng-template pTemplate="left">
-            <button pButton pRipple label="Adicionar" icon="pi pi-plus" class="p-button-primary mr-2" (click)="showDialogCadastro()"></button>
+            <button pButton pRipple label="Adicionar" icon="pi pi-plus" class="p-button-primary mr-2"
+                (click)="showDialogCadastro()"></button>
         </ng-template>
     </p-toolbar>
 
-    <p-table #dt id="table-author" [value]="authors" [rows]="10" [rowsPerPageOptions]="[10,20,30]" (onLazyLoad)="loadDataLazy($event)" [lazy]="true" [totalRecords]="content?.totalElements" [showCurrentPageReport]="true" [paginator]="true" [globalFilterFields]="['name']"
-       [rowHover]="true" dataKey="id"
-        currentPageReportTemplate="Exibindo de {first} a {last} de um total de {totalRecords}" [showCurrentPageReport]="true">
-        <ng-template pTemplate="caption">
-            <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                <h5 class="m-0">Listagem de Autores</h5>
-                <span class="block mt-2 mt-0 p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Pesquisar..."  class="w-full sm:w-auto"/>
-                </span>
-            </div>
-        </ng-template>
+    <p-table #dt id="table-author" [value]="authors" [lazy]="true" (onLazyLoad)="loadDataLazy($event)"
+        responsiveLayout="scroll" dataKey="id" sortMode="multiple" [paginator]="true" [rows]="10"
+        [totalRecords]="content?.totalElements" [globalFilterFields]="['authorId', 'name']" [rowHover]="true"
+        currentPageReportTemplate="Exibindo de {first} a {last} de um total de {totalRecords}"
+        [showCurrentPageReport]="true">
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="authorId">Código<p-sortIcon field="authorId"></p-sortIcon></th>
-                <th pSortableColumn="name">Nome<p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="authorId" style="width:25rem">Código<p-sortIcon field="authorId"></p-sortIcon></th>
+                <th pSortableColumn="name" style="width:100rem">Nome<p-sortIcon field="name"></p-sortIcon></th>
                 <th></th>
             </tr>
         </ng-template>
@@ -32,30 +26,26 @@
                 <td>{{author.authorId}}</td>
                 <td>{{author.name}}</td>
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary mr-2" (click)="onEdit(author)"></button>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary mr-2"
+                        (click)="onEdit(author)"></button>
                 </td>
             </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                Total de {{authors ? authors.length : 0 }} authors.
-            </div>
         </ng-template>
     </p-table>
 </div>
 
-<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '50vw'}" header="Cadastrar Autor" [modal]="true" styleClass="p-fluid" [closeOnEscape]="false" [closable]="false">
+<p-dialog [(visible)]="displayModalCadastro" [style]="{width: '50vw'}" header="Cadastrar Autor" [modal]="true"
+    styleClass="p-fluid" [closeOnEscape]="false" [closable]="false">
     <ng-template pTemplate="content">
         <div class="p-field">
             <h5 class="asterisk">Nome</h5>
-            <input pInputText id="name" [(ngModel)]="author.name"/>
-         </div>
+            <input pInputText id="name" [(ngModel)]="author.name" />
+        </div>
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-secondary mr-2" (click)="hideModalAddDialog()"></button>
+        <button pButton label="Cancelar" icon="pi pi-times" class="p-button-secondary mr-2"
+            (click)="hideModalAddDialog()"></button>
         <button pButton label="Salvar" icon="pi pi-check" class="p-button-primary " (click)="onSubmit()"></button>
     </ng-template>
 </p-dialog>
-
-

@@ -18,21 +18,13 @@ export class ApiService {
         )
     };
 
+    urlBase = environment.API;
+
     constructor(private httpCliente: HttpClient) { }
-
-    findAll(): Observable<any[]> {
-        const url = `${environment.API}/api/authors`;
-
-        return this.httpCliente.get<any[]>(url).pipe(
-            catchError((error: HttpResponseBase) => {
-                return throwError(error);
-            })
-        );
-    }
 
     get(url: string) {
 
-        return this.httpCliente.get(`${environment.API}` + url, this.httpOptions).pipe(
+        return this.httpCliente.get(this.urlBase + url, this.httpOptions).pipe(
             catchError((error: HttpResponseBase) => {
                 return throwError(error);
             })
