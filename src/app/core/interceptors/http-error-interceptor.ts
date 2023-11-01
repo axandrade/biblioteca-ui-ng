@@ -20,11 +20,15 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError((error: HttpResponseBase) => {
                 let codErro = '';
-                debugger
+
                 switch (error.status) {
 
                     case 401 || 403:
                         codErro = `Usuário não autorizado, Código Error: ${error.status}`;
+                        break;
+                    case 409:
+
+                        codErro = `Não é possível gravar este item. Já existe um autor com o mesmo nome: ${error.status}`;
                         break;
                     case 0:
                         codErro = `Problemas de conexão com o Servidor, Código Error: ${error.status}`;

@@ -73,7 +73,7 @@ export class BooksComponent implements OnInit {
         );
     }
 
-    findAllAuthors() {
+    /* findAllAuthors() {
         this.authorsService.findAll().subscribe(
             (dados) => {
                 this.authors = dados;
@@ -82,7 +82,7 @@ export class BooksComponent implements OnInit {
                 this.showToast('error', error.message);
             }
         );
-    }
+    } */
 
     findAllCategories() {
         this.categoriesService.findAll().subscribe(
@@ -161,7 +161,7 @@ export class BooksComponent implements OnInit {
     onDelete(book: Book) { }
 
     showDialogCadastro() {
-        this.findAllAuthors();
+        //this.findAllAuthors();
         this.findAllCategories();
         this.displayModalCadastro = true;
         this.book = {};

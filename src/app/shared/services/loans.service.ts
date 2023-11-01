@@ -23,7 +23,7 @@ export class LoansService {
 
         return this.httpCliente.get<any[]>(url, { params }).pipe(
             catchError((error: HttpResponseBase) => {
-                debugger
+
                 return throwError(error);
             })
         );

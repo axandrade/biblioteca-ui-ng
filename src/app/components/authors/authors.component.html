@@ -8,7 +8,7 @@
         </ng-template>
     </p-toolbar>
 
-    <p-table #dt id="table-author" [value]="authors" [rows]="10" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" [paginator]="true" [globalFilterFields]="['name']"
+    <p-table #dt id="table-author" [value]="authors" [rows]="10" [rowsPerPageOptions]="[10,20,30]" (onLazyLoad)="loadDataLazy($event)" [lazy]="true" [totalRecords]="content?.totalElements" [showCurrentPageReport]="true" [paginator]="true" [globalFilterFields]="['name']"
        [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Exibindo de {first} a {last} de um total de {totalRecords}" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">

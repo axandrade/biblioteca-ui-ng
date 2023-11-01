@@ -5,23 +5,26 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, first } from 'rxjs/operators';
 
 import { Author } from '../models/author';
+import { ApiService } from './api.service';
+import { Pageable } from '../models/pageable';
+import { PageSort } from '../models/pagesort';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthorsService {
 
-    constructor(private httpCliente: HttpClient) { }
+    url = `/api/authors/filter`;
 
-    findAll(): Observable<any[]> {
-        const url = `${environment.API}/api/authors`;
+    constructor(private httpCliente: HttpClient,
+        private apiService: ApiService) { }
 
-        return this.httpCliente.get<any[]>(url).pipe(
-            catchError((error: HttpResponseBase) => {
-                return throwError(error);
-            })
-        );
+    getDataPaginated(pageableData: Pageable, pagesortData: PageSort) {
+
+       return this.apiService.get(`${this.url}?page=${pageableData.page}&size=${pageableData.size}`)
+
     }
+
 
     findById(author: Author) {
         const url = `${environment.API}/api/authors`;
