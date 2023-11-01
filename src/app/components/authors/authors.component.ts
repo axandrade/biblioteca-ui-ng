@@ -12,7 +12,7 @@ import { Pageable } from 'src/app/shared/models/pageable';
     templateUrl: './authors.component.html',
     styleUrls: ['./authors.component.scss'],
 })
-export class AuthorsComponent implements OnInit {
+export class AuthorsComponent {
 
     author: Author;
     authors: Author[] = [];
@@ -38,12 +38,17 @@ export class AuthorsComponent implements OnInit {
 
     }
 
-    ngOnInit(): void {
-        this.findAllAuthors();
+    loadDataLazy(event: LazyLoadEvent): void {
+
+        this.pageableData.page = event.first / event.rows;
+        this.pageableData.size = event.rows;
+
+       this.populateAuthorsPaginated(this.pageableData, this.pageSortData);
+
     }
 
-    findAllAuthors() {
-        this.authorsService.getDataPaginated(this.pageableData, this.pageSortData).subscribe(
+    populateAuthorsPaginated(pageableData: Pageable, pageSortData: PageSort) {
+        this.authorsService.getDataPaginated(pageableData, pageSortData).subscribe(
             (dados: any) => {
 
                 this.authors = dados.content;
@@ -55,20 +60,6 @@ export class AuthorsComponent implements OnInit {
                 this.showToast('error', error);
             }
         );
-    }
-
-
-    loadDataLazy(event: LazyLoadEvent): void {
-        debugger
-        if (true) {
-            const pageableData: Pageable = {
-                page: event.first ? / event.rows?,
-            size: event.rows
-            };
-        }
-
-
-        console.log(event);
     }
 
     onSubmit() {
