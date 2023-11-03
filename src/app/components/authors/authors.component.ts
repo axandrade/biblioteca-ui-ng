@@ -1,5 +1,5 @@
-import { LazyLoadEvent, MessageService } from 'primeng/api';
-import { Component, OnInit } from '@angular/core';
+import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import { Component } from '@angular/core';
 import { Table } from 'primeng/table';
 
 import { Author } from '../../shared/models/author';
@@ -31,7 +31,8 @@ export class AuthorsComponent {
 
     constructor(
         private authorsService: AuthorsService,
-        private messageService: MessageService
+        private messageService: MessageService,
+        private confirmationService: ConfirmationService
 
     ) {
         this.author = {};
@@ -43,7 +44,7 @@ export class AuthorsComponent {
         this.pageableData.page = event.first / event.rows;
         this.pageableData.size = event.rows;
 
-       this.populateAuthorsPaginated(this.pageableData, this.pageSortData);
+        this.populateAuthorsPaginated(this.pageableData, this.pageSortData);
 
     }
 
@@ -62,26 +63,26 @@ export class AuthorsComponent {
     }
 
     onSubmit() {
-        try {
-            this.validationForm();
-            this.authorsService.save(this.author).subscribe(
-                (result: Author) => {
-                    if (this.author.authorId) {
-                        this.updateAuthor(result);
-                    } else {
-                        this.createAuthor(result);
-                    }
-                },
-                error => {
-                    this.showLoading = false;
-                    this.showToast('warn', error);
-                    this.authors = [];
-                }
-            );
-            this.displayModalCadastro = false;
-        } catch (error) {
-            this.showToast('warn', error);
+
+        if (!this.validationForm()) {
+            return; // Se a validação falhar, não prossiga
         }
+
+
+        this.authorsService.save(this.author).subscribe({
+            next: (result: Author) => {
+                if (this.author.authorId) {
+                    this.updateAuthor(result);
+                } else {
+                    this.populateAuthorsPaginated(this.pageableData, this.pageSortData);
+                }
+                this.displayModalCadastro = false;
+            },
+            error: (error) => {
+                this.showToast('error', 'Erro ao salvar o autor: ' + error);
+                this.showLoading = false;
+            },
+        });
     }
 
     updateAuthor(updatedAuthor: Author) {
@@ -92,8 +93,9 @@ export class AuthorsComponent {
     }
 
     createAuthor(newAuthor: Author) {
-
-        this.populateAuthorsPaginated(this.pageableData, this.pageSortData);
+        this.authors = [...this.authors, newAuthor];
+        console.log(this.authors);
+        //this.populateAuthorsPaginated(this.pageableData, this.pageSortData);
     }
 
     findIndexById(authorId: number): number {
@@ -101,8 +103,11 @@ export class AuthorsComponent {
     }
 
     validationForm() {
-        if (!this.author.name)
-            throw new Error('O campo nome é obrigatório!');
+        if (!this.author.name) {
+            this.showToast('error', 'O campo nome é obrigatório!');
+            return false;
+        }
+        return true;
     }
 
 
@@ -129,5 +134,18 @@ export class AuthorsComponent {
 
     onGlobalFilter(table: Table, event: Event) {
         table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+    }
+
+    onDelete(author: Author) {
+
+        this.confirmationService.confirm({
+            message: 'Tem certeza que deseja excluir o autor: ' + author.name + '?',
+            header: 'Confirmação',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                this.authorsService.delete(author);
+            },
+            reject: () => console.log('teste2')
+        });
     }
 }

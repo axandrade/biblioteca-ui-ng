@@ -1,5 +1,5 @@
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpResponseBase } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponseBase } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, first } from 'rxjs/operators';
@@ -14,22 +14,14 @@ import { PageSort } from '../models/pagesort';
 })
 export class AuthorsService {
 
-    url = `/api/authors/filter`;
+    url = `/api/authors`;
 
     constructor(private httpCliente: HttpClient,
         private apiService: ApiService) { }
 
     getDataPaginated(pageableData: Pageable, pagesortData: PageSort) {
 
-       return this.apiService.get(`${this.url}?page=${pageableData.page}&size=${pageableData.size}`)
-
-    }
-
-
-    findById(author: Author) {
-        const url = `${environment.API}/api/authors`;
-
-        return this.httpCliente.get<Author>(`${url}/${author.authorId}`);
+       return this.apiService.get(`${this.url + '/filter'}?page=${pageableData.page}&size=${pageableData.size}`)
 
     }
 
@@ -43,19 +35,23 @@ export class AuthorsService {
     }
 
     private create(obj: Author) {
-
-        const url = `${environment.API}/api/authors`;
-        return this.httpCliente.post<any>(url, obj).pipe(first());
+        return this.apiService.post(this.url, obj);
     }
 
-    private update(obj: Author) {
-        const url = `${environment.API}/api/authors`;
-        return this.httpCliente.put<any>(`${url}/${obj.authorId}`, obj).pipe(first());
+    private update(obj: Author) {//PUT
+        return this.apiService.put(this.url + `?authorId=${obj.authorId}`, obj);
     }
 
-    private delete(obj: Author) {
+
+    delete(obj: Author) {
+
+        return this.apiService.delete(this.url + `/${obj.authorId}`);
+    }
+
+    findById(author: Author) {
         const url = `${environment.API}/api/authors`;
 
-        return this.httpCliente.delete<any>(`${url}/${obj.authorId}`).pipe(first());
+        return this.httpCliente.get<Author>(`${url}/${author.authorId}`);
+
     }
 }

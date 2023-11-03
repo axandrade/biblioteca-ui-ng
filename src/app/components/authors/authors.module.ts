@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ComponentModule } from '../components.module';
 import { AuthorsRoutingModule } from './authors-routing.module';
 import { AuthorsComponent } from './authors.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { AuthorsComponent } from './authors.component';
 		CommonModule,
 		FormsModule,
 		AuthorsRoutingModule,
-        ComponentModule
+        ComponentModule,
+        ConfirmDialogModule
 	],
 	declarations: [AuthorsComponent]
 })

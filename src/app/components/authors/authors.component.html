@@ -3,7 +3,7 @@
     <p-progressBar class="t" mode="indeterminate" [style]="{'height': '5px', 'background-color': '#red'}"
         *ngIf="showLoading"></p-progressBar>
     <p-toolbar styleClass="mt-3 mb-3">
-        <h2>Listagem - Autores</h2><br>
+        <h3>Listagem - Autores</h3>
         <ng-template pTemplate="left">
             <button pButton pRipple label="Adicionar" icon="pi pi-plus" class="p-button-primary mr-2"
                 (click)="showDialogCadastro()"></button>
@@ -19,7 +19,7 @@
             <tr>
                 <th pSortableColumn="authorId" style="width:25rem">Código<p-sortIcon field="authorId"></p-sortIcon></th>
                 <th pSortableColumn="name" style="width:100rem">Nome<p-sortIcon field="name"></p-sortIcon></th>
-                <th></th>
+                <th style="width:25rem"></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-author>
@@ -29,6 +29,8 @@
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary mr-2"
                         (click)="onEdit(author)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-primary mr-2"
+                        (click)="onDelete(author)"></button>
                 </td>
             </tr>
         </ng-template>
@@ -50,3 +52,5 @@
         <button pButton label="Salvar" icon="pi pi-check" class="p-button-primary " (click)="onSubmit()"></button>
     </ng-template>
 </p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

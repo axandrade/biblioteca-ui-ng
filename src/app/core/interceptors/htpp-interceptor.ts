@@ -9,21 +9,6 @@ export class HtppInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
 
-        const userToken = this.authService.getAuthorizationToken();
-
-        req = req.clone({
-            setHeaders: {
-                'Application-Authorization': `Basic ${environment.TOKEN}`
-            }
-        })
-
-        if(userToken){
-            req = req.clone({
-                setHeaders: {
-                    'Authorization': userToken
-                }
-            })
-        }
 
         return next.handle(req);
     }
