@@ -15,6 +15,7 @@ import { Pageable } from 'src/app/shared/models/pageable';
 export class AuthorsComponent {
 
     author: Author;
+    authorFilter: Author;
     authors: Author[] = [];
     content: any;
     showLoading: boolean = true;
@@ -36,19 +37,36 @@ export class AuthorsComponent {
 
     ) {
         this.author = {};
+        this.authorFilter = {};
 
     }
 
     loadDataLazy(event: LazyLoadEvent): void {
+
+        debugger
+        if (event.multiSortMeta) {
+            event.multiSortMeta.forEach(sortElement => {
+                this.pageSortData.field = sortElement.field;
+                this.pageSortData.direction = sortElement.order == 1 ? 'ASC' : 'DESC';
+            });
+        }
+
         //event.first representa o índice do primeiro item que será exibido na página atual.
         this.pageableData.page = event.first / event.rows;
         this.pageableData.size = event.rows;
 
-        this.populateAuthorsPaginated(this.pageableData, this.pageSortData);
+        if (event.filters != undefined && event.filters["authorId"] != undefined) {
+            this.authorFilter.authorId = event.filters["authorId"].value;
+        }
+        if (event.filters != undefined && event.filters["name"] != undefined) {
+            this.authorFilter.name = event.filters["name"].value;
+        }
+
+        this.populateAuthorsPaginated(this.pageableData, this.pageSortData, this.authorFilter);
 
     }
 
-    populateAuthorsPaginated(pageableData: Pageable, pageSortData: PageSort) {
+    populateAuthorsPaginated(pageableData: Pageable, pageSortData: PageSort, author?: Author) {
         this.authorsService.getDataPaginated(pageableData, pageSortData).subscribe(
             (dados: any) => {
                 this.authors = dados.content;

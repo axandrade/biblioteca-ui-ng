@@ -21,7 +21,10 @@ export class AuthorsService {
 
     getDataPaginated(pageableData: Pageable, pagesortData: PageSort) {
 
-       return this.apiService.get(`${this.url + '/filter'}?page=${pageableData.page}&size=${pageableData.size}`)
+        return this.apiService.get(`${this.url + '/filter'}?sortDirection=${pagesortData.direction}
+        &sortField=${pagesortData.field}
+        &page=${pageableData.page}
+        &size=${pageableData.size}`)
 
     }
 
@@ -41,7 +44,6 @@ export class AuthorsService {
     private update(obj: Author) {//PUT
         return this.apiService.put(this.url + `?authorId=${obj.authorId}`, obj);
     }
-
 
     delete(obj: Author) {
 

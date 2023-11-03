@@ -15,7 +15,7 @@ export class ApiService {
     constructor(private httpCliente: HttpClient) { }
 
     get(url: string): Observable<any> {
-
+        debugger
         this.setToken(window.localStorage.getItem('token'));
 
         return this.httpCliente.get(`${environment.API}` + url, this.httpOptions).pipe(
@@ -36,7 +36,7 @@ export class ApiService {
     }
 
     put(url: string, body: any) {
-        debugger
+
         this.setToken(window.localStorage.getItem('token'));
 
         return this.httpCliente.put(`${environment.API}` + url, body, this.httpOptions).pipe(
@@ -48,7 +48,7 @@ export class ApiService {
     }
 
     delete(url: string) {
-        debugger
+
         this.setToken(window.localStorage.getItem('token'));
 
         let teste = environment.API + url;
