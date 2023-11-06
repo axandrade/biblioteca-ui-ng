@@ -36,14 +36,12 @@ export class AuthorsComponent {
         private confirmationService: ConfirmationService
 
     ) {
-        this.author = {};
-        this.authorFilter = {};
-
+        this.author = new Author(null, null);
+        this.authorFilter = new Author(null, null);
     }
 
     loadDataLazy(event: LazyLoadEvent): void {
 
-        debugger
         if (event.multiSortMeta) {
             event.multiSortMeta.forEach(sortElement => {
                 this.pageSortData.field = sortElement.field;
@@ -61,13 +59,13 @@ export class AuthorsComponent {
         if (event.filters != undefined && event.filters["name"] != undefined) {
             this.authorFilter.name = event.filters["name"].value;
         }
-
+        debugger
         this.populateAuthorsPaginated(this.pageableData, this.pageSortData, this.authorFilter);
 
     }
 
-    populateAuthorsPaginated(pageableData: Pageable, pageSortData: PageSort, author?: Author) {
-        this.authorsService.getDataPaginated(pageableData, pageSortData).subscribe(
+    populateAuthorsPaginated(pageableData: Pageable, pageSortData: PageSort, authorFilter?: Author) {
+        this.authorsService.getDataPaginated(pageableData, pageSortData, authorFilter).subscribe(
             (dados: any) => {
                 this.authors = dados.content;
                 this.content = dados;
@@ -142,12 +140,12 @@ export class AuthorsComponent {
 
     showDialogCadastro() {
         this.displayModalCadastro = true;
-        this.author = {};
+        this.author = new Author(null, null);
     }
 
     hideModalAddDialog() {
         this.displayModalCadastro = false;
-        this.author = {};
+        this.author = new Author(null, null);
     }
 
     onGlobalFilter(table: Table, event: Event) {

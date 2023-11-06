@@ -1,6 +1,9 @@
-export class Author{
+export class Author {
+    public authorId: number | null;
+    public name: string | null;
 
-
-    constructor(  public authorId?:number, public name?:string ){ }
-
+    constructor(authorId: number | null, name: string | null) {
+        this.authorId = authorId;
+        this.name = name;
+    }
 }

@@ -19,9 +19,11 @@ export class AuthorsService {
     constructor(private httpCliente: HttpClient,
         private apiService: ApiService) { }
 
-    getDataPaginated(pageableData: Pageable, pagesortData: PageSort) {
+    getDataPaginated(pageableData: Pageable, pagesortData: PageSort, author?: Author) {
 
-        return this.apiService.get(`${this.url + '/filter'}?sortDirection=${pagesortData.direction}
+        return this.apiService.get(`${this.url + '/filter'}?authorId=${author?.authorId}
+        &name=${author?.name}
+        &sortDirection=${pagesortData.direction}
         &sortField=${pagesortData.field}
         &page=${pageableData.page}
         &size=${pageableData.size}`)
